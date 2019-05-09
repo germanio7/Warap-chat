@@ -29,5 +29,10 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes(function ($router) {
             $router->forAccessTokens();
         });
+
+        Passport::tokensCan([
+            'edit-todo' => 'Edit ToDo`s',
+            'delete-todo' => 'Delete ToDo`s',
+        ]);
     }
 }
