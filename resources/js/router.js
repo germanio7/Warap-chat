@@ -3,9 +3,9 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 
 // Login Views
-import Login from './views/auth_views/Login.vue'
-import Register from './views/auth_views/Register.vue'
-import User from './views/auth_views/User.vue' 
+import Login from './v-auth/Login.vue'
+import Register from './v-auth/Register.vue'
+import User from './v-auth/User.vue' 
 
 Vue.use(Router)
 

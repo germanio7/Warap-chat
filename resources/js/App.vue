@@ -40,13 +40,13 @@
     name: 'App',
 
     computed: {
-      ...mapState([
+      ...mapState( 'v-auth', [
         'token'
       ])
     },
 
     methods: {
-      ...mapActions([
+      ...mapActions( 'v-auth', [
         'logout'
       ])
     }

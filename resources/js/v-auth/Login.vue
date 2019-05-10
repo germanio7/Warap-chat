@@ -31,7 +31,31 @@
               
               <br>
               <v-form ref="login_form" @submit.prevent="loginValidate()">
-                <LoginForm></LoginForm>
+                <v-layout wrap justify-center>
+                    <v-flex xs11>
+                        <v-text-field
+                            v-model="form.username"
+                            :rules="[rules.required]"
+                            label="Email"
+                            color="secondary"
+                            outline
+                            single-line
+                        ></v-text-field>
+                    </v-flex>
+                    <v-flex xs11>
+                        <v-text-field
+                            v-model="form.password"
+                            :rules="[rules.required]"
+                            :append-icon="password_type ? 'fas fa-eye' : 'fas fa-eye-slash'"
+                            @click:append="password_type = !password_type"
+                            :type="password_type ? 'text' : 'password'"
+                            label="Password"
+                            color="secondary"
+                            outline
+                            single-line
+                        ></v-text-field>
+                    </v-flex>
+                </v-layout>
                 <v-layout justify-center wrap>
                   <v-btn to="/register" outline color="secondary">Sign Up</v-btn>
                   <v-btn type="" class="elevation-0" color="secondary">Log In</v-btn>
@@ -55,7 +79,6 @@
 
 <script>
 
-  import LoginForm from '../../components/auth_components/LoginForm.vue'
 
   import { mapState, mapActions } from 'vuex'
 
@@ -63,12 +86,17 @@
 
     name: 'Login',
 
-    components: {
-        LoginForm
+    data() {
+        return {
+            password_type: false,
+            rules: {
+                required: value => !!value || 'Este campo es obligatorio',
+            },
+        }
     },
 
     computed: {
-        ...mapState([
+        ...mapState( 'auth', [
             'form',
             'inProcess',
             'errors'
@@ -78,7 +106,7 @@
 
     methods: {
 
-        ...mapActions([
+        ...mapActions( 'auth', [
             'login'
         ]),
 
