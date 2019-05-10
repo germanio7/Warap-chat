@@ -11,7 +11,8 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn @click="logout()" falt icon v-show="token !== null">
+        <v-btn to="/todo" flat>ToDo</v-btn>
+        <v-btn @click="logout()" flat icon v-show="token !== null">
           <v-icon>fas fa-sign-out-alt</v-icon>
         </v-btn>
       </v-toolbar-items>
@@ -40,13 +41,13 @@
     name: 'App',
 
     computed: {
-      ...mapState( 'v-auth', [
+      ...mapState( 'auth', [
         'token'
       ])
     },
 
     methods: {
-      ...mapActions( 'v-auth', [
+      ...mapActions( 'auth', [
         'logout'
       ])
     }

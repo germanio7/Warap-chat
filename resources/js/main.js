@@ -8,7 +8,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (store.state.token == null) {
+    if (store.state.auth.token == null) {
       next({
         path: '/login'
       })
@@ -16,7 +16,7 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
-    if (store.state.token != null) {
+    if (store.state.auth.token != null) {
       next({
         path: '/user'
       })

@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import ToDo from './views/ToDo.vue'
 
 // Login Views
-import Login from './v-auth/Login.vue'
-import Register from './v-auth/Register.vue'
-import User from './v-auth/User.vue' 
+import Login from './auth/Login.vue'
+import Register from './auth/Register.vue'
+import User from './auth/User.vue' 
 
 Vue.use(Router)
 
@@ -16,6 +17,14 @@ export default new Router({
     {
       path: '/',
       name: 'home',
+      meta: {
+        requiresAuth: true,
+      }
+    },
+    {
+      path: '/todo',
+      name: 'todo',
+      component: ToDo,
       meta: {
         requiresAuth: true,
       }
