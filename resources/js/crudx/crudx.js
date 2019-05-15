@@ -98,7 +98,7 @@ const actions = {
     state.inProcess = true;
     commit('resetErrors');
     axios.put(params.url, state.form).then((response) => {
-      commit('formReset');
+      commit('resetForm');
       state.inProcess = false;
       dispatch('redirect', params);
     }).catch((error)=>{

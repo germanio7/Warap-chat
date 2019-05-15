@@ -2370,19 +2370,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'RoleForm',
@@ -2427,11 +2414,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _RoleForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoleForm.vue */ "./resources/js/components/role/RoleForm.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 //
 //
 //
@@ -2463,11 +2453,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'RoleIndex',
   data: function data() {
     return {
+      dialog: false,
       headers: [{
         text: 'Rol',
         sortable: false
@@ -2480,13 +2492,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }]
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('crudx', ['data'])),
+  components: {
+    RoleForm: _RoleForm_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  updated: function updated() {
+    if (this.form.permission) {
+      if (_typeof(this.form.permission == 'string')) {
+        this.form.scope = this.form.permission.split([' ']);
+      }
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])('crudx', ['data', 'form'])),
   mounted: function mounted() {
     this.index({
       url: 'api/role/index'
     });
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('crudx', ['index']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('crudx', ['index', 'edit', 'update']), {
+    updateRole: function updateRole() {
+      if (this.$refs.roleForm.validate()) {
+        var permission = '';
+
+        for (var i = 0; i < this.form.scope.length; i++) {
+          permission = permission + this.form.scope[i] + ' ';
+        }
+
+        this.form.permission = permission;
+        this.update({
+          url: 'api/role/edit/' + this.form.id,
+          reload: 'api/role/index'
+        });
+        this.dialog = false;
+      }
+    }
+  })
 });
 
 /***/ }),
@@ -2766,6 +2805,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -2787,7 +2827,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var permission = '';
 
         for (var i = 0; i < this.form.scope.length; i++) {
-          permission = permission + this.form.scope[i]['id'] + ' ';
+          permission = permission + this.form.scope[i] + ' ';
         }
 
         this.form.permission = permission;
@@ -5261,65 +5301,27 @@ var render = function() {
             "v-flex",
             { attrs: { xs10: "" } },
             [
-              [
-                _c("v-data-table", {
-                  attrs: {
-                    headers: _vm.headers,
-                    items: _vm.showData,
-                    "hide-actions": "",
-                    "select-all": "",
-                    "item-key": "id"
+              _c("v-select", {
+                attrs: {
+                  items: _vm.showData,
+                  "item-text": "id",
+                  "item-value": "id",
+                  label: "Permission",
+                  color: "secondary",
+                  multiple: "",
+                  outline: "",
+                  "single-line": ""
+                },
+                model: {
+                  value: _vm.form.scope,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form, "scope", $$v)
                   },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "items",
-                      fn: function(props) {
-                        return [
-                          _c(
-                            "tr",
-                            {
-                              attrs: { active: props.selected },
-                              on: {
-                                click: function($event) {
-                                  props.selected = !props.selected
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "td",
-                                [
-                                  _c("v-checkbox", {
-                                    attrs: {
-                                      "input-value": props.selected,
-                                      primary: "",
-                                      "hide-details": ""
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(props.item.id))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(props.item.description))])
-                            ]
-                          )
-                        ]
-                      }
-                    }
-                  ]),
-                  model: {
-                    value: _vm.form.scope,
-                    callback: function($$v) {
-                      _vm.$set(_vm.form, "scope", $$v)
-                    },
-                    expression: "form.scope"
-                  }
-                })
-              ]
+                  expression: "form.scope"
+                }
+              })
             ],
-            2
+            1
           )
         ],
         1
@@ -5390,6 +5392,12 @@ var render = function() {
                                         flat: "",
                                         icon: "",
                                         color: "success"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.edit({ data: rol.item })
+                                          _vm.dialog = true
+                                        }
                                       }
                                     },
                                     [
@@ -5431,6 +5439,85 @@ var render = function() {
                   ]
                 ],
                 2
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-dialog",
+            {
+              attrs: { width: "500", persistent: "" },
+              model: {
+                value: _vm.dialog,
+                callback: function($$v) {
+                  _vm.dialog = $$v
+                },
+                expression: "dialog"
+              }
+            },
+            [
+              _c(
+                "v-card",
+                [
+                  _c("v-card-text", [_c("h2", [_vm._v("New Role")])]),
+                  _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    [
+                      _c(
+                        "v-form",
+                        {
+                          ref: "roleForm",
+                          on: {
+                            submit: function($event) {
+                              $event.preventDefault()
+                              return _vm.updateRole()
+                            }
+                          }
+                        },
+                        [
+                          _c("RoleForm"),
+                          _vm._v(" "),
+                          _c("br"),
+                          _vm._v(" "),
+                          _c(
+                            "v-layout",
+                            { attrs: { "justify-end": "" } },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { outline: "", color: "error" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.dialog = false
+                                    }
+                                  }
+                                },
+                                [_vm._v("Cancel")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: { type: "submit", color: "secondary" }
+                                },
+                                [_vm._v("update")]
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
               )
             ],
             1
@@ -5875,7 +5962,7 @@ var render = function() {
       _c(
         "v-dialog",
         {
-          attrs: { width: "500" },
+          attrs: { width: "500", persistent: "" },
           model: {
             value: _vm.dialog,
             callback: function($$v) {
@@ -5913,8 +6000,21 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-layout",
-                        { attrs: { "justify-center": "" } },
+                        { attrs: { "justify-end": "" } },
                         [
+                          _c(
+                            "v-btn",
+                            {
+                              attrs: { outline: "", color: "error" },
+                              on: {
+                                click: function($event) {
+                                  _vm.dialog = false
+                                }
+                              }
+                            },
+                            [_vm._v("Cancel")]
+                          ),
+                          _vm._v(" "),
                           _c(
                             "v-btn",
                             { attrs: { type: "submit", color: "secondary" } },
@@ -48251,7 +48351,6 @@ var actions = {
     }
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/login', state.form).then(function (response) {
-      console.log('migration and seeds and models and auth controller and other controllers and routes');
       var token = response.data.access_token;
       localStorage.setItem('accsess_token', token);
       commit('fillToken', token);
@@ -48687,7 +48786,7 @@ var actions = {
     state.inProcess = true;
     commit('resetErrors');
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.put(params.url, state.form).then(function (response) {
-      commit('formReset');
+      commit('resetForm');
       state.inProcess = false;
       dispatch('redirect', params);
     })["catch"](function (error) {
@@ -48835,7 +48934,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-console.log('adios');
 _router__WEBPACK_IMPORTED_MODULE_3__["default"].beforeEach(function (to, from, next) {
   if (to.matched.some(function (record) {
     return record.meta.requiresAuth;

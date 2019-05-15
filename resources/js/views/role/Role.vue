@@ -4,7 +4,7 @@
       <v-icon>fas fa-plus</v-icon>
     </v-btn>
 
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog v-model="dialog" width="500" persistent>
       <v-card>
         <v-card-text>
           <h2>New Role</h2>
@@ -14,7 +14,8 @@
           <v-form ref="roleForm" @submit.prevent="saveRole">
             <RoleForm></RoleForm>
             <br>
-            <v-layout justify-center>
+            <v-layout justify-end>
+              <v-btn @click="dialog = false" outline color="error">Cancel</v-btn>
               <v-btn type="submit" color="secondary">Save</v-btn>
             </v-layout>
           </v-form>
@@ -63,7 +64,7 @@ export default {
       if(this.$refs.roleForm.validate()) {
         let permission = '';
         for (let i = 0; i < this.form.scope.length; i++) {
-          permission = permission+this.form.scope[i]['id']+' ';
+          permission = permission+this.form.scope[i]+' ';
         }
         this.form.permission = permission;
         this.save({ url: 'api/role/save', reload: 'api/role/index' });

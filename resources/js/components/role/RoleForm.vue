@@ -13,30 +13,17 @@
         ></v-text-field>
       </v-flex>
       <v-flex xs10>
-        <template>
-          <v-data-table
+        <v-select
             v-model="form.scope"
-            :headers="headers"
             :items="showData"
-            hide-actions
-            select-all
-            item-key="id"
-          >
-            <template v-slot:items="props">
-              <tr :active="props.selected" @click="props.selected = !props.selected">
-                <td>
-                  <v-checkbox
-                    :input-value="props.selected"
-                    primary
-                    hide-details
-                  ></v-checkbox>
-                </td>
-                <td>{{ props.item.id }}</td>
-                <td>{{ props.item.description }}</td>
-              </tr>
-            </template>
-          </v-data-table>
-        </template>
+            item-text="id"
+            item-value="id"
+            label="Permission"
+            color="secondary"
+            multiple
+            outline
+            single-line
+          ></v-select>
       </v-flex>
     </v-layout>
   </div>
@@ -53,7 +40,6 @@ export default {
   data() {
     return {
       selected: [],
-      
       headers: [
         { text: 'Permission', sortable: false },
         { text: 'Description', sortable: false },

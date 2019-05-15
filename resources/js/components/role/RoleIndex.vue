@@ -13,7 +13,7 @@
                 <td>{{ rol.item.role }}</td>
                 <td>{{ rol.item.permission }}</td>
                 <td>
-                  <v-btn flat icon color="success">
+                  <v-btn flat icon color="success" @click="edit({ data: rol.item }); dialog = true;">
                     <v-icon size="medium">fas fa-pen</v-icon>
                   </v-btn>
                   <v-btn flat icon color="error">
@@ -25,12 +25,33 @@
           </template>
         </v-flex>
       </v-layout>
+
+      <v-dialog v-model="dialog" width="500" persistent>
+        <v-card>
+          <v-card-text>
+            <h2>New Role</h2>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-form ref="roleForm" @submit.prevent="updateRole()">
+              <RoleForm></RoleForm>
+              <br>
+              <v-layout justify-end>
+                <v-btn @click="dialog = false" outline color="error">Cancel</v-btn>
+                <v-btn type="submit" color="secondary">update</v-btn>
+              </v-layout>
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+
     </v-container>
   </div>
 </template>
 
 <script>
 
+import RoleForm from './RoleForm.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -39,6 +60,7 @@ export default {
 
   data() {
     return {
+      dialog: false,
       headers: [
         { text: 'Rol', sortable: false },
         { text: 'Permission', sortable: false },
@@ -47,10 +69,23 @@ export default {
     }
   },
 
+  components: {
+    RoleForm
+  },
+
+  updated() {
+    if(this.form.permission) {
+      if(typeof(this.form.permission == 'string')) {
+        this.form.scope = this.form.permission.split([' ']);
+      }
+    }
+  },
+
   computed: {
     ...mapState( 'crudx', [
-      'data'
-    ])
+      'data',
+      'form'
+    ]),
   },
 
   mounted() {
@@ -59,9 +94,23 @@ export default {
 
   methods: {
     ...mapActions( 'crudx', [
-      'index'
+      'index',
+      'edit',
+      'update'
     ]),
-  }
+
+    updateRole: function() {
+      if(this.$refs.roleForm.validate()) {
+        let permission = '';
+          for (let i = 0; i < this.form.scope.length; i++) {
+            permission = permission+this.form.scope[i]+' ';
+          }
+          this.form.permission = permission;
+          this.update({ url: 'api/role/edit/'+this.form.id, reload: 'api/role/index' });
+          this.dialog = false;
+      }
+    }
+  },
 
 }
 

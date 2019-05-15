@@ -13,6 +13,7 @@ Route::middleware('auth:api')->group(function () {
     Route::middleware('scopes:get-role')->get('role/index', 'RoleController@index');
     Route::middleware('scopes:save-role')->get('role/show', 'RoleController@show');
     Route::middleware('scopes:save-role')->post('role/save', 'RoleController@store');
+    Route::middleware('scopes:edit-role')->put('role/edit/{id}', 'RoleController@update');
 
     // Task Routes
     Route::middleware('scopes:get-task')->get('task/index', 'TaskController@index');

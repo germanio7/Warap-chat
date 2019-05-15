@@ -43,5 +43,12 @@ class AuthServiceProvider extends ServiceProvider
             'edit-role' => 'Edit Role`s',
             'delete-role' => 'Delete Role`s',
         ]);
+
+        Passport::setDefaultScope([
+            'get-task',
+            'save-task',
+            'edit-task',
+            'delete-task',
+        ]);
     }
 }

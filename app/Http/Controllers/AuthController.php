@@ -13,9 +13,14 @@ class AuthController extends Controller
     {
 
         $user = User::where('email', $request->username)->get();
-        
+
         if(count($user) > 0) {
-            $request->scope = $user[0]->role->permission;
+            if($user[0]->role != null){
+                $request->scope = $user[0]->role->permission;
+            } else {
+                $request->scope = null;
+            }
+            
         } else {
             $request->scope = '';
         }
@@ -52,6 +57,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role_id' => 2,
         ]);
     }
 

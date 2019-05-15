@@ -10,7 +10,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        return Role::get();
+        return Role::where('role', '!=', 'none')->where('role', '!=', 'admin')->get();
     }
 
     public function store(Request $request)
@@ -28,9 +28,17 @@ class RoleController extends Controller
         return Passport::scopes();
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        
+        $rol = Role::find($id);
+
+        $attributes = $request->validate([
+            'role' => 'required',
+            'permission' => 'required',
+        ]);
+
+        $rol->update($attributes);
+
     }
 
     public function destroy($id)
