@@ -1,42 +1,33 @@
 <template>
-    <div>
-        <div v-if="errors" class="error--text">
-            <div v-for="error in error_messages" :key="error.id">
-                {{ error }}
-            </div>
-        </div>
+  <div>
+    <div v-if="errors" style="color: #FF5252;">
+      <div v-for="error in error_messages" :key="error.id">
+        {{ error }}
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
 
-    import { mapState } from 'vuex'
+import { mapState } from 'vuex'
 
-    export default {
+export default {
 
-        name: 'error',
+  name: 'error',
 
-        data() {
-            return {
-                det: {
-                    'name': 'maxi'
-                }
-            }
-            
-        },
+  props: ['tag'],
 
-        props: ['tag'],
+  computed: {
+    ...mapState('crudx', [
+      'errors'
+    ]),
 
-        computed: {
-            ...mapState([
-                'errors'
-            ]),
-
-            error_messages: function () {
-                return this.errors['errors'][this.tag]
-            }
-        },
-
+    error_messages: function () {
+      return this.errors['errors'][this.tag]
     }
+  },
+
+}
 
 </script>

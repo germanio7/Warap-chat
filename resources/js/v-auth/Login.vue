@@ -3,6 +3,8 @@
     <br><br>
     <v-layout justify-center>
 
+      <h1 class="white--text">cambio de prueba</h1>
+
       <!-- Login/register card -->
       <v-card width="750">
         <v-card-text style="padding: 0;">

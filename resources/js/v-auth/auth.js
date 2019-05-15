@@ -1,8 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 import axios from 'axios'
 import router from '../router'
-Vue.use(Vuex)
 
 const auth = {
 
@@ -12,6 +9,7 @@ const auth = {
 
     inProcess: false,
     token: localStorage.getItem('accsess_token') || null,
+    user: {},
     form: {},
     errors: null
 
@@ -54,6 +52,7 @@ const auth = {
         state.form.username = state.form.email;
       }
       axios.post('/api/login', state.form).then((response) => {
+        console.log(response.data);
         let token = response.data.access_token;
         localStorage.setItem('accsess_token', token);
         commit('fillToken', token);
