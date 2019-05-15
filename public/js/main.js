@@ -47256,6 +47256,8 @@ var actions = {
     }
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/login', state.form).then(function (response) {
+      console.log(response.data);
+      console.log('hola mundo');
       var token = response.data.access_token;
       localStorage.setItem('accsess_token', token);
       commit('fillToken', token);

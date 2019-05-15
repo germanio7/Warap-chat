@@ -47,6 +47,8 @@ const actions = {
       state.form.username = state.form.email;
     }
     axios.post('/api/login', state.form).then((response) => {
+      console.log(response.data);
+      console.log('hola mundo');
       let token = response.data.access_token;
       localStorage.setItem('accsess_token', token);
       commit('fillToken', token);
