@@ -47,7 +47,7 @@ const actions = {
       state.form.username = state.form.email;
     }
     axios.post('/api/login', state.form).then((response) => {
-      console.log('migration and seeds and models');
+      console.log('migration and seeds and models and auth controller and other controllers and routes');
       let token = response.data.access_token;
       localStorage.setItem('accsess_token', token);
       commit('fillToken', token);

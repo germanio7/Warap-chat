@@ -9,10 +9,16 @@ Route::middleware('auth:api')->group(function () {
     });
     Route::post('/logout', 'AuthController@logout');
 
-    Route::get('todo/index', 'TodoController@index');
+    //Role Routes
+    Route::middleware('scopes:get-role')->get('role/index', 'RoleController@index');
+    Route::middleware('scopes:save-role')->get('role/show', 'RoleController@show');
+    Route::middleware('scopes:save-role')->post('role/save', 'RoleController@store');
 
-    Route::middleware('scopes:edit-todo')->post('todo/edit', 'TodoController@edit');
-    Route::middleware('scopes:delete-todo')->post('todo/delete', 'TodoController@delete');
+    // Task Routes
+    Route::middleware('scopes:get-task')->get('task/index', 'TaskController@index');
+    Route::middleware('scopes:save-task')->post('task/save', 'TaskController@store');
+    Route::middleware('scopes:edit-task')->put('task/edit/{id}', 'TaskController@update');
+    Route::middleware('scopes:delete-task')->post('task/delete/{id}', 'TaskController@destroy');
 
 });
 
