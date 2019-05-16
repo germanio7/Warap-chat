@@ -2307,6 +2307,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'User',
@@ -5159,51 +5180,118 @@ var render = function() {
                         [
                           _c(
                             "v-layout",
-                            { attrs: { wrap: "", "align-center": "" } },
+                            { attrs: { wrap: "" } },
                             [
                               _c(
                                 "v-flex",
-                                { attrs: { xs12: "", sm6: "", "pa-3": "" } },
+                                { attrs: { xs12: "", sm6: "", "pa-2": "" } },
                                 [
+                                  _c(
+                                    "v-layout",
+                                    { attrs: { "justify-end": "" } },
+                                    [
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            flat: "",
+                                            icon: "",
+                                            color: "success"
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            { attrs: { size: "medium" } },
+                                            [_vm._v("fas fa-pen")]
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            flat: "",
+                                            icon: "",
+                                            color: "error"
+                                          }
+                                        },
+                                        [
+                                          _c(
+                                            "v-icon",
+                                            { attrs: { size: "medium" } },
+                                            [_vm._v("fas fa-trash")]
+                                          )
+                                        ],
+                                        1
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c("br"),
+                                  _c("br"),
+                                  _c("br"),
+                                  _vm._v(" "),
                                   _c(
                                     "v-layout",
                                     {
                                       attrs: { "justify-center": "", wrap: "" }
                                     },
                                     [
+                                      _c(
+                                        "v-flex",
+                                        { attrs: { xs12: "" } },
+                                        [
+                                          _c(
+                                            "v-layout",
+                                            { attrs: { "justify-center": "" } },
+                                            [
+                                              _c(
+                                                "v-avatar",
+                                                { attrs: { size: "85" } },
+                                                [
+                                                  _c("img", {
+                                                    attrs: {
+                                                      src:
+                                                        "https://i.pravatar.cc/300",
+                                                      alt: "avatar"
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
                                       _c("v-flex", { attrs: { xs12: "" } }, [
+                                        _c("br"),
+                                        _vm._v(" "),
                                         _c(
-                                          "h2",
+                                          "h1",
                                           {
                                             staticClass:
-                                              "primary--text text-xs-center"
+                                              "text-xs-center primary--text"
                                           },
-                                          [_vm._v("Welcome Again")]
+                                          [_vm._v(_vm._s(_vm.user.name))]
                                         )
                                       ]),
                                       _vm._v(" "),
                                       _c("v-flex", { attrs: { xs12: "" } }, [
                                         _c(
-                                          "h1",
+                                          "h3",
                                           {
                                             staticClass:
-                                              "primary--text text-xs-center"
+                                              "text-xs-center primary--text"
                                           },
-                                          [_vm._v(_vm._s(_vm.user.name))]
-                                        ),
-                                        _c("br")
-                                      ]),
-                                      _vm._v(" "),
-                                      _c(
-                                        "v-btn",
-                                        {
-                                          attrs: {
-                                            outline: "",
-                                            color: "secondary"
-                                          }
-                                        },
-                                        [_vm._v("Editar mi Cuenta")]
-                                      )
+                                          [_vm._v(_vm._s(_vm.user.email))]
+                                        )
+                                      ])
                                     ],
                                     1
                                   )
