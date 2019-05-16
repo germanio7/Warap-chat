@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 use Laravel\Passport\Passport;
 
@@ -10,7 +11,7 @@ class RoleController extends Controller
 {
     public function index()
     {
-        return Role::where('role', '!=', 'none')->where('role', '!=', 'admin')->get();
+        return Role::where('role', '!=', 'superAdmin')->get();
     }
 
     public function store(Request $request)
@@ -43,6 +44,15 @@ class RoleController extends Controller
 
     public function destroy($id)
     {
+        $users = User::where('role_id', $id)->get();
+        foreach ($users as $user) {
+            $user->update([
+                'role_id' => null,
+            ]);
+        }
+
+        $rol = Role::find($id);
+        $rol->delete();
         
     }
 }

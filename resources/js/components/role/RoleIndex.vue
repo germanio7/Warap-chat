@@ -16,7 +16,7 @@
                   <v-btn flat icon color="success" @click="edit({ data: rol.item }); dialog = true;">
                     <v-icon size="medium">fas fa-pen</v-icon>
                   </v-btn>
-                  <v-btn flat icon color="error">
+                  <v-btn flat icon color="error" @click="destroy({ url: 'api/role/delete/'+rol.item.id, reload: 'api/role/index' })">
                     <v-icon size="medium">fas fa-trash</v-icon>
                   </v-btn>
                 </td>
@@ -96,7 +96,8 @@ export default {
     ...mapActions( 'crudx', [
       'index',
       'edit',
-      'update'
+      'update',
+      'destroy'
     ]),
 
     updateRole: function() {

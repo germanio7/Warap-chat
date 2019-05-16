@@ -2269,8 +2269,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
 //
 //
 //
@@ -2306,21 +2310,11 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'User',
-  data: function data() {
-    return {
-      user: {}
-    };
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('auth', ['user'])),
+  mounted: function mounted() {
+    this.getUser();
   },
-  created: function created() {
-    var _this = this;
-
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('accsess_token');
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/user').then(function (response) {
-      _this.user = response.data;
-    })["catch"](function (error) {
-      console.log(error);
-    });
-  }
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('auth', ['getUser']))
 });
 
 /***/ }),
@@ -2508,7 +2502,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       url: 'api/role/index'
     });
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('crudx', ['index', 'edit', 'update']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('crudx', ['index', 'edit', 'update', 'destroy']), {
     updateRole: function updateRole() {
       if (this.$refs.roleForm.validate()) {
         var permission = '';
@@ -5196,8 +5190,20 @@ var render = function() {
                                               "primary--text text-xs-center"
                                           },
                                           [_vm._v(_vm._s(_vm.user.name))]
-                                        )
-                                      ])
+                                        ),
+                                        _c("br")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            outline: "",
+                                            color: "secondary"
+                                          }
+                                        },
+                                        [_vm._v("Editar mi Cuenta")]
+                                      )
                                     ],
                                     1
                                   )
@@ -5417,6 +5423,15 @@ var render = function() {
                                         flat: "",
                                         icon: "",
                                         color: "error"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.destroy({
+                                            url:
+                                              "api/role/delete/" + rol.item.id,
+                                            reload: "api/role/index"
+                                          })
+                                        }
                                       }
                                     },
                                     [
@@ -48316,21 +48331,42 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   inProcess: false,
   token: localStorage.getItem('accsess_token') || null,
+  user: {},
+  rol: {},
+  permission: {},
   form: {},
   errors: null
 };
 var mutations = {
-  fillToken: function fillToken(state, data) {
-    state.token = data;
+  fillToken: function fillToken(state, token) {
+    state.token = token;
   },
-  fillForm: function fillForm(state, data) {
-    state.form = data;
+  fillUser: function fillUser(state, user) {
+    state.user = user;
   },
-  fillErrors: function fillErrors(state, data) {
-    state.errors = data;
+  fillRol: function fillRol(state, rol) {
+    state.rol = rol;
+  },
+  fillPermission: function fillPermission(state, permission) {
+    state.permission = permission;
+  },
+  fillForm: function fillForm(state, form) {
+    state.form = form;
+  },
+  fillErrors: function fillErrors(state, errors) {
+    state.errors = errors;
   },
   resetToken: function resetToken(state) {
     state.token = null;
+  },
+  resetUser: function resetUser(state) {
+    state.user = {};
+  },
+  resetRol: function resetRol(state) {
+    state.rol = {};
+  },
+  resetPermission: function resetPermission(state) {
+    state.permission = {};
   },
   resetForm: function resetForm(state) {
     state.form = {};
@@ -48342,7 +48378,8 @@ var mutations = {
 var actions = {
   login: function login(_ref) {
     var state = _ref.state,
-        commit = _ref.commit;
+        commit = _ref.commit,
+        dispatch = _ref.dispatch;
     state.inProcess = true;
     commit('resetErrors');
 
@@ -48355,6 +48392,7 @@ var actions = {
       localStorage.setItem('accsess_token', token);
       commit('fillToken', token);
       commit('resetForm');
+      dispatch('getUser');
       _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/user');
       state.inProcess = false;
     })["catch"](function (error) {
@@ -48373,20 +48411,42 @@ var actions = {
       commit('fillErrors', error.response.data);
     });
   },
-  logout: function logout(_ref3) {
+  getUser: function getUser(_ref3) {
     var state = _ref3.state,
         commit = _ref3.commit;
+    state.inProcess = true;
+    commit('resetErrors');
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + state.token;
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/user').then(function (response) {
+      commit('fillUser', response.data.user);
+      commit('fillRol', response.data.rol.role);
+      commit('fillPermission', response.data.permission);
+      state.inProcess = false;
+    })["catch"](function (error) {
+      commit('fillErrors', error.response.data);
+      state.inProcess = false;
+    });
+  },
+  logout: function logout(_ref4) {
+    var state = _ref4.state,
+        commit = _ref4.commit;
     state.inProcess = true;
     commit('resetErrors');
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + state.token;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/logout').then(function (response) {
       localStorage.removeItem('accsess_token');
       commit('resetToken');
+      commit('resetUser');
+      commit('resetRol');
+      commit('resetPermission');
       _router__WEBPACK_IMPORTED_MODULE_1__["default"].push('/');
       state.inProcess = false;
     })["catch"](function (error) {
       localStorage.removeItem('accsess_token');
       commit('resetToken');
+      commit('resetUser');
+      commit('resetRol');
+      commit('resetPermission');
       commit('fillErrors', error.response.data);
       state.inProcess = false;
     });

@@ -13,7 +13,8 @@
                             <v-flex xs12 sm6 pa-3>
                                 <v-layout justify-center wrap>
                                     <v-flex xs12><h2 class="primary--text text-xs-center">Welcome Again</h2></v-flex>
-                                    <v-flex xs12><h1 class="primary--text text-xs-center">{{ user.name }}</h1></v-flex>
+                                    <v-flex xs12><h1 class="primary--text text-xs-center">{{ user.name }}</h1><br></v-flex>
+                                    <v-btn outline color="secondary">Editar mi Cuenta</v-btn>
                                 </v-layout>
                             </v-flex>
 
@@ -32,25 +33,26 @@
 
 <script>
 
-    import axios from 'axios'
+    import { mapState, mapActions } from 'vuex';
 
     export default {
         
         name: 'User',
 
-        data() {
-            return {
-                user: {}
-            }
+        computed: {
+            ...mapState( 'auth', [
+                'user'
+            ])
         },
 
-        created() {
-            axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('accsess_token');
-            axios.get('/api/user').then((response) => {
-                this.user = response.data;
-            }).catch((error)=>{
-                console.log(error);
-            });
+        mounted() {
+            this.getUser();
+        },
+
+        methods: {
+            ...mapActions( 'auth', [
+                'getUser'
+            ])
         }
 
     }

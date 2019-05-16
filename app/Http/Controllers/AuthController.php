@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -57,8 +58,20 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id' => 2,
         ]);
+    }
+
+    public function user(Request $request)
+    {
+        $user = $request->user();
+        $rol = Role::where('id', $user->role_id)->get()[0];
+        $permission = explode(" ",$rol->permission);
+
+        return [
+            'user'=>$user,
+            'rol'=>$rol,
+            'permission'=>$permission
+        ];
     }
 
     public function logout()
