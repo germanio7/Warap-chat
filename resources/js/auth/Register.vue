@@ -37,6 +37,7 @@
                                 v-model="form.name"
                                 :rules="[rules.required, rules.max]"
                                 label="Name"
+                                color="secondary"
                                 outline
                                 single-line
                             ></v-text-field>
@@ -47,6 +48,7 @@
                                 v-model="form.email"
                                 :rules="[rules.required, rules.max]"
                                 label="Email"
+                                color="secondary"
                                 outline
                                 single-line
                             ></v-text-field>
@@ -60,6 +62,7 @@
                                 @click:append="password_type = !password_type"
                                 :type="password_type ? 'text' : 'password'"
                                 label="Password"
+                                color="secondary"
                                 outline
                                 single-line
                             ></v-text-field>

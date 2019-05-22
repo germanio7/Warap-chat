@@ -57,21 +57,63 @@ class AuthController extends Controller
         return User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'password' => bcrypt($request->password),
         ]);
+    }
+
+    public function updateUser(Request $request)
+    {
+       $user = User::find(auth()->user()->id);
+
+        if($request->current_password) {
+            if(Hash::check($request->current_password, auth()->user()->password)){
+                if($request->password == $request->confirm_password) {
+                    $request->validate([
+                        'name' => 'required|string|max:255',
+                        'password' => 'required|string|min:6',
+                        'email' => 'required|string|max:255|unique:users,email,'.$user->id,
+                    ]);
+
+                    $user->name = $request->name;
+                    $user->email = $request->email;
+                    $user->password =  bcrypt($request->password);
+                    $user->save();
+                }
+            }
+        } else {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|max:255|unique:users,email,'.$user->id,
+            ]);
+
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->save();
+        }
     }
 
     public function user(Request $request)
     {
         $user = $request->user();
-        $rol = Role::where('id', $user->role_id)->get()[0];
-        $permission = explode(" ",$rol->permission);
 
-        return [
-            'user'=>$user,
-            'rol'=>$rol,
-            'permission'=>$permission
-        ];
+        if($user->role_id) {
+            $rol = Role::where('id', $user->role_id)->get()[0];
+            $permission = explode(" ",$rol->permission);
+
+            return [
+                'user'=>$user,
+                'rol'=>$rol,
+                'permission'=>$permission
+            ];
+        } else {
+            return [
+                'user'=>$user,
+                'rol'=>'',
+                'permission'=>''
+            ];
+        }
+
+        
     }
 
     public function logout()
@@ -81,5 +123,17 @@ class AuthController extends Controller
         });
 
         return response()->json('Logged out Successfully', 200);
+    }
+
+    public function deleteUser()
+    {
+        $id = auth()->user()->id;
+
+        auth()->user()->tokens->each(function ($token, $key) {
+            $token->delete();
+        });
+
+        $user = User::find(auth()->user()->id);
+        $user->delete();
     }
 }

@@ -6,6 +6,7 @@ const state = {
   inProcess: false,
   token: localStorage.getItem('accsess_token') || null,
   user: {},
+  profile: '',
   rol: {},
   permission: {},
   form: {},
@@ -21,6 +22,10 @@ const mutations = {
 
   fillUser(state, user) {
     state.user = user;
+  },
+
+  fillProfile(state, profile) {
+    state.profile = profile;
   },
 
   fillRol(state, rol) {
@@ -39,22 +44,6 @@ const mutations = {
     state.errors = errors;
   },
 
-  resetToken(state) {
-    state.token = null;
-  },
-
-  resetUser(state) {
-    state.user = {};
-  },
-
-  resetRol(state) {
-    state.rol = {};
-  },
-
-  resetPermission(state) {
-    state.permission = {};
-  },
-
   resetForm(state) {
     state.form = {};
   },
@@ -62,6 +51,16 @@ const mutations = {
   resetErrors(state) {
     state.errors = null;
   },
+
+  resetAll(state) {
+    state.token = null;
+    state.user = {};
+    state.profile = '';
+    state.rol = {};
+    state.permission = {};
+    state.form = {};
+    state.errors = null;
+  }
 
 }
 
@@ -87,6 +86,19 @@ const actions = {
     });
   },
 
+  profile: function({ commit }, name) {
+    let arrayname = name.split(" ");
+    let profile = '';
+
+    for (let i = 0; i < arrayname.length; i++) {
+      for (let e = 0; e < 1; e++) {
+        profile = profile+arrayname[i][e];
+      }
+    }
+
+    commit('fillProfile', profile)
+  },
+
   register: function({ state, commit, dispatch }) {
     commit('resetErrors');
     axios.post('/api/register', state.form).then((response) => {
@@ -96,12 +108,29 @@ const actions = {
     });
   },
 
-  getUser: function({ state, commit }) {
+  editUser: function({ state, commit }) {
+    commit('fillForm', state.user);
+  },
+
+  updateUser: function({ state, commit, dispatch }) {
+    state.inProcess = true;
+    commit('resetErrors');
+    axios.post('/api/update_user', state.form).then((response) => {
+      dispatch('getUser');
+      state.inProcess = false;
+    }).catch((error) => {
+      commit('fillErrors', error.response.data);
+      state.inProcess = false;
+    })
+  },
+
+  getUser: function({ state, commit, dispatch }) {
     state.inProcess = true;
     commit('resetErrors');
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token;
     axios.get('/api/user').then((response) => {
       commit('fillUser', response.data.user);
+      dispatch('profile', response.data.user.name);
       commit('fillRol', response.data.rol.role);
       commit('fillPermission', response.data.permission);
       state.inProcess = false;
@@ -117,21 +146,32 @@ const actions = {
     axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token
     axios.post('/api/logout').then((response) => {
       localStorage.removeItem('accsess_token');
-      commit('resetToken');
-      commit('resetUser');
-      commit('resetRol');
-      commit('resetPermission');
+      commit('resetAll');
       router.push('/');
       state.inProcess = false;
     }).catch((error)=>{
       localStorage.removeItem('accsess_token');
-      commit('resetToken');
-      commit('resetUser');
-      commit('resetRol');
-      commit('resetPermission');
+      commit('resetAll');
       commit('fillErrors', error.response.data);
       state.inProcess = false;
     });
+  },
+
+  deleteUser: function({ state, commit }) {
+    state.inProcess = true;
+    commit('resetErrors');
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token
+    axios.post('/api/delete_user').then((response) => {
+      localStorage.removeItem('accsess_token');
+      commit('resetAll');
+      router.push('/');
+      state.inProcess = false;
+    }).catch((error) => {
+      localStorage.removeItem('accsess_token');
+      commit('resetAll');
+      commit('fillErrors', error.response.data);
+      state.inProcess = false;
+    })
   }
 
 }

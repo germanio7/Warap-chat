@@ -7,8 +7,11 @@ import Login from './auth/Login.vue'
 import Register from './auth/Register.vue'
 import User from './auth/User.vue'
 
-//Role Views
+// Role Views
 import Role from './views/role/Role'
+
+// Users Views
+import Users from './views/users/Users'
 
 // Task Views
 import Task from './views/task/Task.vue'
@@ -58,6 +61,16 @@ export default new Router({
       path: '/role',
       name: 'role',
       component: Role,
+      meta: {
+        requiresAuth: true,
+      }
+    },
+
+    // Users Routes
+    {
+      path: '/users',
+      name: 'users',
+      component: Users,
       meta: {
         requiresAuth: true,
       }

@@ -42,6 +42,12 @@ class AuthServiceProvider extends ServiceProvider
             'save-role' => 'Save Role`s',
             'edit-role' => 'Edit Role`s',
             'delete-role' => 'Delete Role`s',
+
+            // Users Tokens
+            'get-users' => 'Get Users',
+            'save-users' => 'Save Users',
+            'edit-users' => 'Edit Users',
+            'delete-users' => 'Delete Users',
         ]);
 
         Passport::setDefaultScope([

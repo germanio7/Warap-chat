@@ -9,14 +9,14 @@
               :headers="headers"
               :items="data"
             >
-              <template v-slot:items="rol">
-                <td>{{ rol.item.role }}</td>
-                <td>{{ rol.item.permission }}</td>
+              <template v-slot:items="user">
+                <td>{{ user.item.name }}</td>
+                <td>{{ user.item.email }}</td>
                 <td>
-                  <v-btn flat icon color="success" @click="edit({ data: rol.item }); dialog = true;">
+                  <v-btn flat icon color="success" @click="edit({ data: user.item }); dialog = true;">
                     <v-icon size="medium">fas fa-pen</v-icon>
                   </v-btn>
-                  <v-btn flat icon color="error" @click="destroy({ url: 'api/role/delete/'+rol.item.id, reload: 'api/role/index' })">
+                  <v-btn flat icon color="error">
                     <v-icon size="medium">fas fa-trash</v-icon>
                   </v-btn>
                 </td>
@@ -29,12 +29,12 @@
       <v-dialog v-model="dialog" width="500" persistent>
         <v-card>
           <v-card-text>
-            <h2>Edit Role</h2>
+            <h2>Edit User</h2>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-text>
-            <v-form ref="roleForm" @submit.prevent="updateRole()">
-              <RoleForm></RoleForm>
+            <v-form ref="userForm" @submit.prevent="updateUser()">
+              <UsersForm></UsersForm>
               <br>
               <v-layout justify-end>
                 <v-btn @click="dialog = false" outline color="error">Cancel</v-btn>
@@ -51,34 +51,26 @@
 
 <script>
 
-import RoleForm from './RoleForm.vue'
+import UsersForm from './UsersForm.vue'
 import { mapState, mapActions } from 'vuex'
 
 export default {
 
-  name: 'RoleIndex',
+  name: 'UserIndex',
 
   data() {
     return {
       dialog: false,
       headers: [
-        { text: 'Rol', sortable: false },
-        { text: 'Permission', sortable: false },
+        { text: 'Name', sortable: false },
+        { text: 'Email', sortable: false },
         { text: '', sortable: false },
       ],
     }
   },
 
   components: {
-    RoleForm
-  },
-
-  updated() {
-    if(this.form.permission) {
-      if(typeof(this.form.permission == 'string')) {
-        this.form.scope = this.form.permission.split([' ']);
-      }
-    }
+    UsersForm
   },
 
   computed: {
@@ -89,29 +81,25 @@ export default {
   },
 
   mounted() {
-    this.index({ url: 'api/role/index' });
+    this.index({ url: 'api/users/index' });
   },
 
   methods: {
     ...mapActions( 'crudx', [
       'index',
       'edit',
-      'update',
-      'destroy'
+      'update'
     ]),
 
-    updateRole: function() {
-      if(this.$refs.roleForm.validate()) {
-        let permission = '';
-          for (let i = 0; i < this.form.scope.length; i++) {
-            permission = permission+this.form.scope[i]+' ';
-          }
-          this.form.permission = permission;
-          this.update({ url: 'api/role/edit/'+this.form.id, reload: 'api/role/index' });
+
+    updateUser: function() {
+      if(this.$refs.userForm.validate()) {
+          this.update({ url: 'api/users/edit/'+this.form.id, reload: 'api/users/index' });
           this.dialog = false;
       }
     }
-  },
+
+  }
 
 }
 

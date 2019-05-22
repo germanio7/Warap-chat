@@ -12,10 +12,9 @@
       <v-spacer></v-spacer>
       <v-toolbar-items>
         <v-btn to="/task" v-show="token !== null" flat>Task</v-btn>
-        <v-btn to="/role" v-show="token !== null" flat>Role</v-btn>
-        <v-btn @click="logout()" flat icon v-show="token !== null">
-          <v-icon>fas fa-sign-out-alt</v-icon>
-        </v-btn>
+        <v-btn to="/role" v-show="token !== null" flat>Roles</v-btn>
+        <v-btn to="/users" v-show="token !== null" flat>Users</v-btn>
+        <v-btn @click="logout()" flat v-show="token !== null">Logout</v-btn>
       </v-toolbar-items>
     </v-toolbar>
     <v-divider dark></v-divider>

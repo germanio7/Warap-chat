@@ -6,6 +6,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/user', 'AuthController@user');
     Route::post('/logout', 'AuthController@logout');
+    Route::post('/update_user', 'AuthController@updateUser');
+    Route::post('/delete_user', 'AuthController@deleteUser');
 
     //Role Routes
     Route::middleware('scopes:get-role')->get('role/index', 'RoleController@index');
@@ -15,7 +17,9 @@ Route::middleware('auth:api')->group(function () {
     Route::middleware('scopes:delete-role')->post('role/delete/{id}', 'RoleController@destroy');
 
     // User Routes
-    Route::middleware('scopes:delete-role')->post('user/delete/{id}', 'UserController@destroy');
+    Route::middleware('scopes:get-users')->get('users/index', 'UserController@index');
+    Route::middleware('scopes:save-users')->post('users/save', 'UserController@store');
+    Route::middleware('scopes:edit-users')->put('users/edit/{id}', 'UserController@update');
 
     // Task Routes
     Route::middleware('scopes:get-task')->get('task/index', 'TaskController@index');
