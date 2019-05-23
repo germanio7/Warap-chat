@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group(function () {
 
+    //Auth Routes
     Route::get('/user', 'AuthController@user');
     Route::post('/logout', 'AuthController@logout');
     Route::post('/update_user', 'AuthController@updateUser');
@@ -21,13 +22,9 @@ Route::middleware('auth:api')->group(function () {
     Route::middleware('scopes:save-users')->post('users/save', 'UserController@store');
     Route::middleware('scopes:edit-users')->put('users/edit/{id}', 'UserController@update');
 
-    // Task Routes
-    Route::middleware('scopes:get-task')->get('task/index', 'TaskController@index');
-    Route::middleware('scopes:save-task')->post('task/save', 'TaskController@store');
-    Route::middleware('scopes:edit-task')->put('task/edit/{id}', 'TaskController@update');
-    Route::middleware('scopes:delete-task')->post('task/delete/{id}', 'TaskController@destroy');
-
 });
 
+
+// Auth Routes
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');

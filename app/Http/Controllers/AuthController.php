@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function login(Request $request) 
     {
-
+        //return 'Hola Mundo';
         $user = User::where('email', $request->username)->get();
 
         if(count($user) > 0) {
