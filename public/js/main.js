@@ -6902,11 +6902,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "v-app",
-    { staticStyle: { "background-color": "#34495E" } },
+    { staticStyle: { "background-color": "#231F20" } },
     [
       _c(
         "v-toolbar",
-        { staticClass: "elevation-0", attrs: { color: "primary", dark: "" } },
+        { staticClass: "elevation-0", attrs: { color: "#231F20", dark: "" } },
         [
           _c(
             "v-toolbar-title",
@@ -50394,7 +50394,7 @@ var actions = {
     commit("resetErrors");
     return new Promise(function (resolve) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/register", state.form).then(function (response) {
-        resolve();
+        resolve(response.data);
       })["catch"](function (error) {
         commit("fillErrors", error.response.data);
         throw new Error(error);
@@ -50414,7 +50414,7 @@ var actions = {
     return new Promise(function (resolve) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/update_user", state.form).then(function (response) {
         state.inProcess = false;
-        resolve();
+        resolve(response.data);
       })["catch"](function (error) {
         commit("fillErrors", error.response.data);
         state.inProcess = false;
@@ -50441,7 +50441,7 @@ var actions = {
         commit("resetForm");
         dispatch("getUser");
         state.inProcess = false;
-        resolve();
+        resolve(response.data);
       })["catch"](function (error) {
         commit("fillErrors", error.response.data);
         state.inProcess = false;
@@ -50463,7 +50463,7 @@ var actions = {
         commit("fillRol", response.data.rol.role);
         commit("fillPermission", response.data.permission);
         state.inProcess = false;
-        resolve();
+        resolve(response.data);
       })["catch"](function (error) {
         commit("fillErrors", error.response.data);
         state.inProcess = false;
@@ -50495,7 +50495,7 @@ var actions = {
         localStorage.removeItem("accsess_token");
         commit("resetAll");
         state.inProcess = false;
-        resolve();
+        resolve(response.data);
       })["catch"](function (error) {
         localStorage.removeItem("accsess_token");
         commit("resetAll");
@@ -50516,7 +50516,7 @@ var actions = {
         localStorage.removeItem("accsess_token");
         commit("resetAll");
         state.inProcess = false;
-        resolve();
+        resolve(response.data);
       })["catch"](function (error) {
         localStorage.removeItem("accsess_token");
         commit("resetAll");

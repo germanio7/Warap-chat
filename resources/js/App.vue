@@ -1,7 +1,7 @@
 <template>
-    <v-app style="background-color: #34495E;">
+    <v-app style="background-color: #231F20;">
         <!-- Toolbar | Navbar -->
-        <v-toolbar color="primary" dark class="elevation-0">
+        <v-toolbar color="#231F20" dark class="elevation-0">
             <v-toolbar-title @click="$router.push('/')" style="cursor: pointer;">
                 <v-avatar size="40" :tile="true">
                     <img src="images/logo.png">

@@ -67,7 +67,7 @@ const actions = {
             axios
                 .post("/api/register", state.form)
                 .then(response => {
-                    resolve();
+                    resolve(response.data);
                 })
                 .catch(error => {
                     commit("fillErrors", error.response.data);
@@ -88,7 +88,7 @@ const actions = {
                 .post("/api/update_user", state.form)
                 .then(response => {
                     state.inProcess = false;
-                    resolve();
+                    resolve(response.data);
                 })
                 .catch(error => {
                     commit("fillErrors", error.response.data);
@@ -114,7 +114,7 @@ const actions = {
                     commit("resetForm");
                     dispatch("getUser");
                     state.inProcess = false;
-                    resolve();
+                    resolve(response.data);
                 })
                 .catch(error => {
                     commit("fillErrors", error.response.data);
@@ -138,7 +138,7 @@ const actions = {
                     commit("fillRol", response.data.rol.role);
                     commit("fillPermission", response.data.permission);
                     state.inProcess = false;
-                    resolve();
+                    resolve(response.data);
                 })
                 .catch(error => {
                     commit("fillErrors", error.response.data);
@@ -173,7 +173,7 @@ const actions = {
                     localStorage.removeItem("accsess_token");
                     commit("resetAll");
                     state.inProcess = false;
-                    resolve();
+                    resolve(response.data);
                 })
                 .catch(error => {
                     localStorage.removeItem("accsess_token");
@@ -197,7 +197,7 @@ const actions = {
                     localStorage.removeItem("accsess_token");
                     commit("resetAll");
                     state.inProcess = false;
-                    resolve();
+                    resolve(response.data);
                 })
                 .catch(error => {
                     localStorage.removeItem("accsess_token");
