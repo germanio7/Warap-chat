@@ -31,12 +31,6 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Passport::tokensCan([
-            // Task Tokens
-            'get-task' => 'Get Task`s',
-            'save-task' => 'Save Task`s',
-            'edit-task' => 'Edit Task`s',
-            'delete-task' => 'Delete Task`s',
-
             // Role Tokens
             'get-role' => 'Get Role`s',
             'save-role' => 'Save Role`s',
@@ -48,13 +42,6 @@ class AuthServiceProvider extends ServiceProvider
             'save-users' => 'Save Users',
             'edit-users' => 'Edit Users',
             'delete-users' => 'Delete Users',
-        ]);
-
-        Passport::setDefaultScope([
-            'get-task',
-            'save-task',
-            'edit-task',
-            'delete-task',
         ]);
     }
 }

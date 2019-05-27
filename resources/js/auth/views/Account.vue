@@ -28,19 +28,21 @@
                                     <v-layout justify-center wrap>
                                         <v-flex xs12>
                                             <v-layout justify-center>
-                                                <div class="profile">
-                                                    <div class="profile-text">{{ profile }}</div>
-                                                </div>
+                                                <v-avatar class="profile" size="86">
+                                                    <span class="display-1">{{ account.profile }}</span>
+                                                </v-avatar>
                                             </v-layout>
                                         </v-flex>
                                         <v-flex xs12>
                                             <br>
-                                            <h1 class="text-xs-center primary--text">{{ user.name }}</h1>
+                                            <h1
+                                                class="text-xs-center primary--text"
+                                            >{{ account.user.name }}</h1>
                                         </v-flex>
                                         <v-flex xs12>
                                             <h3
                                                 class="text-xs-center primary--text"
-                                            >{{ user.email }}</h3>
+                                            >{{ account.user.email }}</h3>
                                         </v-flex>
                                     </v-layout>
                                 </v-flex>
@@ -105,8 +107,7 @@
 
 <script>
 import EditAccount from "../components/auth_components/EditAccount.vue";
-import { mapState, mapActions } from "vuex";
-import { async } from "q";
+import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
     name: "Account",
@@ -123,7 +124,7 @@ export default {
     },
 
     computed: {
-        ...mapState("auth", ["user", "profile"])
+        ...mapGetters("auth", ["account"])
     },
 
     mounted() {
@@ -152,19 +153,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .profile {
-    width: 86px;
-    height: 86px;
-    border: solid 2px #41b883;
-    border-radius: 50%;
+    border: solid 3px #41b883;
     background-color: rgba(65, 184, 131, 0.25);
 }
 
-.profile .profile-text {
+.profile span {
     color: #41b883;
-    text-align: center;
-    font-size: 40px;
-    line-height: 80px;
 }
 </style>

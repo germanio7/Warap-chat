@@ -3,10 +3,16 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import NotFound from "./views/NotFound.vue";
 
-//Auth Components
+//Auth Views
 import Register from "./auth/views/Register.vue";
 import Login from "./auth/views/Login.vue";
 import Account from "./auth/views/Account.vue";
+
+//Roles Views
+import Roles from "./auth/views/Roles.vue";
+
+//Users Views
+import Users from "./auth/views/Users.vue";
 
 Vue.use(Router);
 
@@ -47,6 +53,26 @@ export default new Router({
             path: "/account",
             name: "account",
             component: Account,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        //Roles Routes
+        {
+            path: "/roles",
+            name: "roles",
+            component: Roles,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        //Users Routes
+        {
+            path: "/users",
+            name: "users",
+            component: Users,
             meta: {
                 requiresAuth: true
             }

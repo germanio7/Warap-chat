@@ -5,10 +5,21 @@ const state = {
     token: localStorage.getItem("accsess_token") || null,
     user: {},
     profile: "",
-    rol: {},
+    rol: "",
     permission: {},
     form: {},
     errors: null
+};
+
+const getters = {
+    account: state => {
+        return {
+            user: state.user,
+            profile: state.profile,
+            rol: state.rol,
+            permission: state.permission
+        };
+    }
 };
 
 const mutations = {
@@ -163,7 +174,6 @@ const actions = {
 
     logout: function({ state, commit }) {
         state.inProcess = true;
-        commit("resetErrors");
         axios.defaults.headers.common["Authorization"] =
             "Bearer " + state.token;
         return new Promise(resolve => {
@@ -212,6 +222,7 @@ const actions = {
 
 export default {
     namespaced: true,
+    getters,
     state,
     mutations,
     actions

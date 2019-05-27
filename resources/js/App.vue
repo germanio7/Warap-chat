@@ -11,6 +11,8 @@
             <v-toolbar-items>
                 <v-btn to="/login" flat v-show="token == null">Login</v-btn>
                 <v-btn to="/register" flat v-show="token == null">Sign Up</v-btn>
+                <v-btn to="/roles" flat v-show="token !== null">Roles</v-btn>
+                <v-btn to="/users" flat v-show="token !== null">Users</v-btn>
                 <v-btn @click="exit()" flat v-show="token !== null">Logout</v-btn>
             </v-toolbar-items>
         </v-toolbar>

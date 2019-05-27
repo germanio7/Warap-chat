@@ -21,6 +21,7 @@ Route::middleware('auth:api')->group(function () {
     Route::middleware('scopes:get-users')->get('users/index', 'UserController@index');
     Route::middleware('scopes:save-users')->post('users/save', 'UserController@store');
     Route::middleware('scopes:edit-users')->put('users/edit/{id}', 'UserController@update');
+    Route::middleware('scopes:delete-users')->post('users/delete/{id}', 'UserController@destroy');
 
 });
 

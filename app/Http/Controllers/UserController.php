@@ -21,15 +21,16 @@ class UserController extends Controller
     {
         if($request->password == $request->password_confirm)
         {
-            $request->validate([
+            $attributes = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:6',
+                'role_id' => 'nullable',
             ]);
 
-            $request->password = bcrypt($request->password);
+            $attributes['password'] = bcrypt($attributes['password']);
     
-            User::create($request);
+            User::create($attributes);
         }
     }
 
@@ -56,12 +57,6 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        if($id == auth()->user()->id){
-            auth()->user()->tokens->each(function ($token, $key) {
-                $token->delete();
-            });
-        }
-
         $user = User::find($id);
         $user->delete();
     }
