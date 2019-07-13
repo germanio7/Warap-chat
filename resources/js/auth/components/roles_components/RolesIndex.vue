@@ -5,35 +5,25 @@
             <v-layout justify-center>
                 <v-flex xs12 sm10 lg8>
                     <template>
-                        <v-data-table hide-actions :headers="headers" :items="data">
-                            <template v-slot:items="rol">
-                                <td>{{ rol.item.role }}</td>
-                                <td>{{ rol.item.permission }}</td>
-                                <td>
-                                    <v-btn
-                                        flat
-                                        icon
-                                        color="success"
-                                        @click="edit({ data: rol.item }); editRolesDialog = true;"
-                                    >
-                                        <v-icon size="medium">fas fa-pen</v-icon>
-                                    </v-btn>
-                                    <v-btn
-                                        flat
-                                        icon
-                                        color="error"
-                                        @click="roleID = rol.item.id; deleteRolesDialog = true"
-                                    >
-                                        <v-icon size="medium">fas fa-trash</v-icon>
-                                    </v-btn>
-                                </td>
-                            </template>
-                        </v-data-table>
+                        <v-simple-table>
+                            <thead>
+                                <tr>
+                                    <th class="text-xs-left">Rol</th>
+                                    <th class="text-xs-left">Permisos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="rol in data" :key="rol.id">
+                                    <td>{{ rol.role }}</td>
+                                    <td>{{ rol.permission }}</td>
+                                </tr>
+                            </tbody>
+                        </v-simple-table>
                     </template>
                 </v-flex>
             </v-layout>
             <!-- Edit Roles Dialog -->
-            <v-dialog v-model="editRolesDialog" width="400" persistent>
+            <!-- <v-dialog v-model="editRolesDialog" width="400" persistent>
                 <v-card>
                     <v-card-text>
                         <h2>Edit Role</h2>
@@ -42,7 +32,7 @@
                     <v-card-text>
                         <v-form ref="roleForm" @submit.prevent="updateRole()">
                             <RolesForm></RolesForm>
-                            <br>
+                            <br />
                             <v-layout justify-end>
                                 <v-btn @click="editRolesDialog = false" outline color="error">Cancel</v-btn>
                                 <v-btn type="submit" color="secondary">update</v-btn>
@@ -50,9 +40,9 @@
                         </v-form>
                     </v-card-text>
                 </v-card>
-            </v-dialog>
+            </v-dialog>-->
             <!-- Delete Roles Dialog -->
-            <v-dialog v-model="deleteRolesDialog" width="400" persistent>
+            <!-- <v-dialog v-model="deleteRolesDialog" width="400" persistent>
                 <v-card>
                     <v-card-title>
                         <h2>are you sure?</h2>
@@ -71,7 +61,7 @@
                         </v-layout>
                     </v-card-text>
                 </v-card>
-            </v-dialog>
+            </v-dialog>-->
         </v-container>
     </div>
 </template>
@@ -87,12 +77,7 @@ export default {
         return {
             editRolesDialog: false,
             deleteRolesDialog: false,
-            roleID: null,
-            headers: [
-                { text: "Rol", sortable: false },
-                { text: "Permission", sortable: false },
-                { text: "", sortable: false }
-            ]
+            roleID: null
         };
     },
 
@@ -113,11 +98,17 @@ export default {
     },
 
     mounted() {
-        this.index({ url: "api/role/index" });
+        this.index({ url: "/api/role/index" });
+        this.getRoles();
     },
 
     methods: {
         ...mapActions("crudx", ["index", "edit", "update", "destroy"]),
+
+        getRoles: async function() {
+            let response = await this.index({ url: "/api/role/index" });
+            console.log(response);
+        },
 
         updateRole: async function() {
             if (this.$refs.roleForm.validate()) {

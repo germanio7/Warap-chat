@@ -1,25 +1,24 @@
 <template>
-    <v-app style="background-color: #231F20;">
-        <!-- Toolbar | Navbar -->
-        <v-toolbar color="#231F20" dark class="elevation-0">
-            <v-toolbar-title @click="$router.push('/')" style="cursor: pointer;">
-                <v-avatar size="40" :tile="true">
-                    <img src="images/logo.png">
-                </v-avatar>Laravel Passport Vue
-            </v-toolbar-title>
-            <v-spacer></v-spacer>
-            <v-toolbar-items>
-                <v-btn to="/login" flat v-show="token == null">Login</v-btn>
-                <v-btn to="/register" flat v-show="token == null">Sign Up</v-btn>
-                <v-btn to="/roles" flat v-show="token !== null">Roles</v-btn>
-                <v-btn to="/users" flat v-show="token !== null">Users</v-btn>
-                <v-btn @click="exit()" flat v-show="token !== null">Logout</v-btn>
-            </v-toolbar-items>
-        </v-toolbar>
-        <v-divider dark></v-divider>
-        <br>
+    <v-app>
         <v-content>
-            <router-view/>
+            <v-toolbar class="elevation-0">
+                <v-toolbar-title>Laravel Passport Vue</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-toolbar-items>
+                    <v-btn to="/login" text v-show="token == null">Iniciar Sesión</v-btn>
+                    <v-btn to="/register" text v-show="token == null">Registrarse</v-btn>
+                    <v-btn to="/roles" text v-show="token !== null">Roles</v-btn>
+                    <v-btn to="/users" text v-show="token !== null">Usuarios</v-btn>
+                    <v-btn @click="exit()" text v-show="token !== null">Cerrar Sesión</v-btn>
+                    <v-btn @click="darkModeControl()" text>
+                        <v-icon>fas fa-adjust</v-icon>
+                    </v-btn>
+                </v-toolbar-items>
+            </v-toolbar>
+            <v-divider dark></v-divider>
+            <v-content>
+                <router-view />
+            </v-content>
         </v-content>
     </v-app>
 </template>
@@ -34,13 +33,50 @@ export default {
         ...mapState("auth", ["token"])
     },
 
+    mounted() {
+        this.darkModeInit();
+    },
+
     methods: {
         ...mapActions("auth", ["logout"]),
         exit: async function() {
             await this.logout();
             this.$router.push("/");
+        },
+
+        darkModeInit() {
+            var darkMode = localStorage.getItem("darkMode");
+
+            if (darkMode == null) {
+                localStorage.setItem("darkMode", false);
+                darkMode = false;
+            } else {
+                if (darkMode == "false") {
+                    darkMode = false;
+                } else {
+                    darkMode = true;
+                }
+            }
+            this.$vuetify.theme.dark = darkMode;
+        },
+
+        darkModeControl() {
+            var darkMode = localStorage.getItem("darkMode");
+
+            if (darkMode == "false") {
+                localStorage.setItem("darkMode", true);
+            } else {
+                localStorage.setItem("darkMode", false);
+            }
+
+            this.darkModeInit();
         }
     }
 };
 </script>
 
+<style>
+.app {
+    font-family: "Roboto", sans-serif;
+}
+</style>
