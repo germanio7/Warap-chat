@@ -6,8 +6,9 @@
             fixed
             right
             bottom
+            large
             @click="createRolesDialog = !createRolesDialog"
-            color="secondary"
+            color="primary"
         >
             <v-icon>fas fa-plus</v-icon>
         </v-btn>
@@ -15,16 +16,21 @@
         <v-dialog v-model="createRolesDialog" width="400" persistent>
             <v-card>
                 <v-card-text>
-                    <h2>New Role</h2>
+                    <h2>Nuevo Rol</h2>
                 </v-card-text>
                 <v-divider></v-divider>
                 <v-card-text>
                     <v-form ref="roleForm" @submit.prevent="saveRole">
                         <RolesForm></RolesForm>
-                        <br>
+                        <br />
                         <v-layout justify-end>
-                            <v-btn @click="createRolesDialog = false" outline color="error">Cancel</v-btn>
-                            <v-btn class="elevation-0" type="submit" color="secondary">Save</v-btn>
+                            <v-btn
+                                @click="createRolesDialog = false"
+                                class="mx-2"
+                                outlined
+                                color="primary"
+                            >Cancel</v-btn>
+                            <v-btn class="elevation-0 mx-2" type="submit" color="primary">Save</v-btn>
                         </v-layout>
                     </v-form>
                 </v-card-text>

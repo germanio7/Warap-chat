@@ -1,29 +1,27 @@
 <template>
     <div>
         <v-layout wrap justify-center>
-            <v-flex xs11>
+            <v-flex xs12 px-3>
                 <Error tag="name"></Error>
                 <v-text-field
                     v-model="form.name"
                     :rules="[rules.required, rules.max]"
-                    label="Name"
-                    color="secondary"
-                    outline
-                    single-line
+                    label="Nombre"
+                    color="primary"
+                    outlined
                 ></v-text-field>
             </v-flex>
-            <v-flex xs11>
+            <v-flex xs12 px-3>
                 <Error tag="email"></Error>
                 <v-text-field
                     v-model="form.email"
                     :rules="[rules.required, rules.max]"
                     label="Email"
-                    color="secondary"
-                    outline
-                    single-line
+                    color="primary"
+                    outlined
                 ></v-text-field>
             </v-flex>
-            <v-flex xs11>
+            <v-flex xs12 px-3>
                 <Error tag="password"></Error>
                 <v-text-field
                     v-model="form.password"
@@ -31,10 +29,9 @@
                     :append-icon="password_type ? 'fas fa-eye' : 'fas fa-eye-slash'"
                     @click:append="password_type = !password_type"
                     :type="password_type ? 'text' : 'password'"
-                    label="Password"
-                    color="secondary"
-                    outline
-                    single-line
+                    label="Contraseña"
+                    color="primary"
+                    outlined
                 ></v-text-field>
             </v-flex>
         </v-layout>

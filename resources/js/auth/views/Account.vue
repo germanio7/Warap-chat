@@ -1,6 +1,6 @@
 <template>
     <div>
-        <br>
+        <br />
         <v-layout justify-center>
             <v-flex xs10 lg8>
                 <v-layout justify-center>
@@ -11,20 +11,26 @@
                                 <!-- User View -->
                                 <v-flex xs12 pa-2>
                                     <v-layout justify-end>
-                                        <v-btn
-                                            flat
-                                            icon
-                                            color="success"
-                                            @click="editAccount(); editDialog = true"
-                                        >
-                                            <v-icon size="medium">fas fa-pen</v-icon>
-                                        </v-btn>
-                                        <v-btn flat icon color="error" @click="deleteDialog = true">
-                                            <v-icon size="medium">fas fa-trash</v-icon>
-                                        </v-btn>
+                                        <v-menu offset-y>
+                                            <template v-slot:activator="{ on }">
+                                                <v-btn color="primary" dark icon v-on="on">
+                                                    <v-icon size="medium">fas fa-ellipsis-v</v-icon>
+                                                </v-btn>
+                                            </template>
+                                            <v-list>
+                                                <v-list-item
+                                                    @click="editAccount(); editDialog = true"
+                                                >
+                                                    <v-list-item-title>Editar</v-list-item-title>
+                                                </v-list-item>
+                                                <v-list-item @click="deleteDialog = true">
+                                                    <v-list-item-title>Eliminar</v-list-item-title>
+                                                </v-list-item>
+                                            </v-list>
+                                        </v-menu>
                                     </v-layout>
-                                    <br>
-                                    <br>
+                                    <br />
+                                    <br />
                                     <v-layout justify-center wrap>
                                         <v-flex xs12>
                                             <v-layout justify-center>
@@ -34,7 +40,7 @@
                                             </v-layout>
                                         </v-flex>
                                         <v-flex xs12>
-                                            <br>
+                                            <br />
                                             <h1
                                                 class="text-xs-center primary--text"
                                             >{{ account.user.name }}</h1>
@@ -54,7 +60,7 @@
                         <v-card>
                             <v-form ref="edit_form" @submit.prevent="edit()">
                                 <v-card-text>
-                                    <h2>Edit User</h2>
+                                    <h2>Editar Datos</h2>
                                 </v-card-text>
                                 <v-divider></v-divider>
                                 <v-card-text>
@@ -65,14 +71,15 @@
                                     <v-layout justify-end wrap>
                                         <v-btn
                                             @click="editDialog = false;"
-                                            outline
-                                            color="error"
-                                        >Cancel</v-btn>
+                                            outlined
+                                            color="primary"
+                                            class="mx-2"
+                                        >Cancelar</v-btn>
                                         <v-btn
                                             type="submit"
-                                            color="success"
-                                            class="elevation-0"
-                                        >Update</v-btn>
+                                            color="primary"
+                                            class="elevation-0 mx-2"
+                                        >Editar</v-btn>
                                     </v-layout>
                                 </v-card-text>
                             </v-form>
@@ -82,19 +89,20 @@
                     <v-dialog v-model="deleteDialog" width="400" persistent>
                         <v-card>
                             <v-card-title>
-                                <h2>are you sure?</h2>
+                                <h3>Estas Seguro?</h3>
                             </v-card-title>
                             <v-divider></v-divider>
-                            <v-card-text>Are you sure you want to delete your account? this change is irreversible</v-card-text>
+                            <v-card-text>Estas seguro que deseas eliminar tu cuenta? este cambio es irreversible</v-card-text>
                             <v-divider></v-divider>
                             <v-card-text>
                                 <v-layout justify-end wrap>
                                     <v-btn
                                         @click="deleteDialog = false;"
-                                        outline
-                                        color="success"
-                                    >Cancel</v-btn>
-                                    <v-btn @click="erase()" color="error">Delete</v-btn>
+                                        outlined
+                                        color="primary"
+                                        class="mx-2"
+                                    >Cancelar</v-btn>
+                                    <v-btn @click="erase()" color="primary" class="mx-2">Eliminar</v-btn>
                                 </v-layout>
                             </v-card-text>
                         </v-card>
@@ -156,7 +164,7 @@ export default {
 <style>
 .profile {
     border: solid 3px #41b883;
-    background-color: rgba(65, 184, 131, 0.25);
+    background-color: rgb(65, 184, 131, 0.25);
 }
 
 .profile span {

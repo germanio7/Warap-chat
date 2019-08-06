@@ -1,14 +1,15 @@
 <template>
     <div>
-        <br>
-        <br>
+        <br />
+        <br />
+        <br />
         <v-layout justify-center>
             <v-flex xs10 lg8>
                 <v-layout justify-center>
                     <!-- Login card -->
                     <v-card style="width: 400px; min-height: 350px; height: auto;">
-                        <v-card-title class="secondary">
-                            <h1 class="white--text">Login</h1>
+                        <v-card-title class="primary">
+                            <h3 class="white--text">Iniciar Sesión</h3>
                         </v-card-title>
                         <v-card-text style="padding: 0;">
                             <v-layout wrap align-center>
@@ -18,7 +19,7 @@
                                         <v-progress-circular
                                             :size="70"
                                             :width="7"
-                                            color="secondary"
+                                            color="primary"
                                             indeterminate
                                         ></v-progress-circular>
                                     </v-layout>
@@ -33,12 +34,21 @@
                                     >
                                         <div v-if="errors">{{ errors.error_description }}</div>
                                     </v-alert>
-                                    <br>
+                                    <br />
                                     <v-form ref="loginForm" @submit.prevent="loginValidate()">
                                         <LoginForm></LoginForm>
                                         <v-layout justify-center wrap>
-                                            <v-btn to="/register" outline color="secondary">Sign Up</v-btn>
-                                            <v-btn type class="elevation-0" color="secondary">Log In</v-btn>
+                                            <v-btn
+                                                to="/register"
+                                                class="mx-2"
+                                                outlined
+                                                color="primary"
+                                            >Registrarse</v-btn>
+                                            <v-btn
+                                                type="submit"
+                                                class="mx-2"
+                                                color="primary"
+                                            >Iniciar Sesión</v-btn>
                                         </v-layout>
                                     </v-form>
                                 </v-flex>
