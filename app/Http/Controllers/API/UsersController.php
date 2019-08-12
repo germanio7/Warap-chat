@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -24,9 +25,30 @@ class UsersController extends Controller
         $rol = $user->role_id;
 
         if ($rol == 1) {
-            return User::all();
+            $users = User::all();
+            $data = collect();
+            
+            foreach ($users as $usuario) {
+                $aux = $usuario->role->role;
+                $usuario = collect($usuario);
+                $usuario->put('rol', $aux);
+                $data->push($usuario);
+            }
+
+            return $data;
         } else {
-            return User::where('id', '<>', 1)->get();
+            $users = User::where('id', '<>', 1)->get();
+
+            $data = collect();
+            
+            foreach ($users as $usuario) {
+                $aux = $usuario->role->role;
+                $usuario = collect($usuario);
+                $usuario->put('rol', $aux);
+                $data->push($usuario);
+            }
+
+            return $data;
         }
     }
 

@@ -13,7 +13,7 @@
             <v-icon>fas fa-plus</v-icon>
         </v-btn>
 
-        <v-dialog v-model="createRolesDialog" width="400" persistent>
+        <v-dialog v-model="createRolesDialog" width="500" persistent>
             <v-card>
                 <v-card-text>
                     <h2>Nuevo Rol</h2>

@@ -18,6 +18,6 @@ Route::middleware('auth:api')->group(function () {
 });
 
 
-// Auth Routes
+/*Auth*/
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
