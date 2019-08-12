@@ -1,3 +1,4 @@
+import "@fortawesome/fontawesome-free/css/all.css";
 import Vue from "vue";
 import Vuetify from "vuetify";
 import "vuetify/dist/vuetify.min.css";
@@ -33,7 +34,9 @@ export default new Vuetify({
     options: {
         customProperties: true
     },
-    iconfont: "fa",
+    icons: {
+        iconfont: "fa"
+    },
     lang: {
         locales: { es },
         current: "es"

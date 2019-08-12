@@ -30,7 +30,6 @@
                                         </v-menu>
                                     </v-layout>
                                     <br />
-                                    <br />
                                     <v-layout justify-center wrap>
                                         <v-flex xs12>
                                             <v-layout justify-center>
@@ -39,13 +38,11 @@
                                                 </v-avatar>
                                             </v-layout>
                                         </v-flex>
-                                        <v-flex xs12>
+                                        <v-flex xs12 style="text-align: center;">
                                             <br />
-                                            <h1
-                                                class="text-xs-center primary--text"
-                                            >{{ account.user.name }}</h1>
+                                            <h1 class="primary--text">{{ account.user.name }}</h1>
                                         </v-flex>
-                                        <v-flex xs12>
+                                        <v-flex xs12 style="text-align: center;">
                                             <h3
                                                 class="text-xs-center primary--text"
                                             >{{ account.user.email }}</h3>

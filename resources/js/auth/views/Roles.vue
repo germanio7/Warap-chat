@@ -22,21 +22,20 @@
                 <v-card-text>
                     <v-form ref="roleForm" @submit.prevent="saveRole">
                         <RolesForm></RolesForm>
-                        <br />
                         <v-layout justify-end>
                             <v-btn
-                                @click="createRolesDialog = false"
+                                @click="cancelRole()"
                                 class="mx-2"
                                 outlined
                                 color="primary"
-                            >Cancel</v-btn>
-                            <v-btn class="elevation-0 mx-2" type="submit" color="primary">Save</v-btn>
+                            >Cancelar</v-btn>
+                            <v-btn class="elevation-0 mx-2" type="submit" color="primary">Guardar</v-btn>
                         </v-layout>
                     </v-form>
                 </v-card-text>
             </v-card>
         </v-dialog>
-
+        <br />
         <RolesIndex></RolesIndex>
     </div>
 </template>
@@ -62,21 +61,41 @@ export default {
     },
 
     computed: {
-        ...mapState("crudx", ["form"])
+        ...mapState("crudx", ["form", "showData"])
+    },
+
+    mounted() {
+        this.show({ url: "/api/roles/show" });
     },
 
     methods: {
-        ...mapActions("crudx", ["index", "save"]),
+        ...mapActions("crudx", ["index", "show", "save"]),
+
+        cancelRole() {
+            this.$refs.roleForm.reset();
+            this.$refs.roleForm.resetValidation();
+            this.createRolesDialog = false;
+        },
 
         saveRole: async function() {
             if (this.$refs.roleForm.validate()) {
                 let permission = "";
+                let description = "";
                 for (let i = 0; i < this.form.scope.length; i++) {
-                    permission = permission + this.form.scope[i] + " ";
+                    let find = this.showData.find(
+                        permiso => permiso.id === this.form.scope[i]
+                    );
+
+                    if (find) {
+                        permission = permission + find.id + " ";
+                        description = description + find.description + ", ";
+                    }
                 }
+
                 this.form.permission = permission;
-                await this.save({ url: "api/role/save" });
-                this.index({ url: "api/role/index" });
+                this.form.description = description;
+                await this.save({ url: "/api/roles" });
+                await this.index({ url: "/api/roles" });
                 this.createRolesDialog = false;
             }
         }
