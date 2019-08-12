@@ -6,11 +6,9 @@
                 <v-text-field
                     v-model="form.role"
                     :rules="[rules.required]"
-                    label="Role"
-                    hint="Role"
-                    color="secondary"
-                    outline
-                    single-line
+                    label="Rol"
+                    color="primary"
+                    outlined
                 ></v-text-field>
             </v-flex>
             <v-flex xs10>
@@ -18,13 +16,13 @@
                 <v-select
                     v-model="form.scope"
                     :items="showData"
-                    item-text="id"
+                    item-text="description"
                     item-value="id"
-                    label="Permission"
-                    color="secondary"
+                    :rules="[rules.required]"
+                    label="Permisos"
+                    color="primary"
                     multiple
-                    outline
-                    single-line
+                    outlined
                 ></v-select>
             </v-flex>
         </v-layout>
@@ -56,7 +54,7 @@ export default {
     },
 
     mounted() {
-        this.show({ url: "api/role/show" });
+        this.show({ url: "/api/roles/show" });
     },
 
     methods: {
