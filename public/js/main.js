@@ -4253,7 +4253,7 @@ exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader
 
 
 // module
-exports.push([module.i, "\n.app {\n    font-family: \"Roboto\", sans-serif;\n}\n.sidenav {\n    position: fixed;\n    margin-top: 57px;\n    z-index: 999999;\n}\n@media (min-width: 960px) {\n.sidenav {\n        margin-top: 65px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.app {\r\n    font-family: \"Roboto\", sans-serif;\n}\n.sidenav {\r\n    position: fixed;\r\n    margin-top: 57px;\r\n    z-index: 999999;\n}\n@media (min-width: 960px) {\n.sidenav {\r\n        margin-top: 65px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -4272,7 +4272,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, "\n.tokens-description {\n    display: inline-block;\n    margin-top: 26px;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    overflow: hidden;\n}\n@media (min-width: 600px) {\n.tokens-description {\n        max-width: 200px;\n}\n}\n@media (min-width: 960px) {\n.tokens-description {\n        max-width: 400px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.tokens-description {\r\n    display: inline-block;\r\n    margin-top: 26px;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    overflow: hidden;\n}\n@media (min-width: 600px) {\n.tokens-description {\r\n        max-width: 200px;\n}\n}\n@media (min-width: 960px) {\n.tokens-description {\r\n        max-width: 400px;\n}\n}\r\n", ""]);
 
 // exports
 
@@ -65489,7 +65489,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /opt/lampp/htdocs/Laravel-Passport-Vue/resources/js/main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\Laravel-Passport-Vue\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })

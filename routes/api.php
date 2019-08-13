@@ -15,6 +15,9 @@ Route::middleware('auth:api')->group(function () {
 
     /*Users*/
     Route::apiResource('users', 'API\UsersController', ['except' => ['create', 'edit']]);
+
+    /*Actualizar Foto Usuario*/
+    Route::post('/update/photo', 'API\UsersController@updatePhoto');
 });
 
 

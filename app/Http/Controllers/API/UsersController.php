@@ -6,6 +6,7 @@ use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Intervention\Image\Facades\Image;
 
 class UsersController extends Controller
 {
@@ -27,7 +28,7 @@ class UsersController extends Controller
         if ($rol == 1) {
             $users = User::all();
             $data = collect();
-            
+
             foreach ($users as $usuario) {
                 $aux = $usuario->role->role;
                 $usuario = collect($usuario);
@@ -40,7 +41,7 @@ class UsersController extends Controller
             $users = User::where('id', '<>', 1)->get();
 
             $data = collect();
-            
+
             foreach ($users as $usuario) {
                 $aux = $usuario->role->role;
                 $usuario = collect($usuario);
@@ -89,6 +90,25 @@ class UsersController extends Controller
             $user->password =  bcrypt($request->password);
             $user->save();
         }
+    }
+
+    public function updatePhoto(Request $request, $id)
+    {
+        // FOTO
+        $name = 'noimage.png';
+        $user = User::find($id);
+        if ($request->get('foto')) {
+            $image = $request->get('foto');
+            $name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
+            Image::make($request->get('foto'))->save(public_path('img/usuarios/') . $name);
+        }
+        $foto = '/img/usuarios/' . $name;
+
+        $user->foto = $foto;
+
+        $user->update();
+
+        return ['msg' => 'Foto actualizada'];
     }
 
     public function destroy($id)
