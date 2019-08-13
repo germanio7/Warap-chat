@@ -2231,83 +2231,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "EditPhoto",
-  data: function data() {
-    return {
-      photo: null
-    };
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/components/auth_components/LoginForm.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/auth/components/auth_components/LoginForm.vue?vue&type=script&lang=js& ***!
@@ -3309,8 +3232,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_auth_components_EditAccount_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/auth_components/EditAccount.vue */ "./resources/js/auth/components/auth_components/EditAccount.vue");
-/* harmony import */ var _components_auth_components_EditPhoto_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/auth_components/EditPhoto.vue */ "./resources/js/auth/components/auth_components/EditPhoto.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3463,7 +3385,83 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3472,19 +3470,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       editDialog: false,
       deleteDialog: false,
-      editPhoto: false,
+      editFoto: false,
+      foto: null,
       badge: false
     };
   },
   components: {
-    EditAccount: _components_auth_components_EditAccount_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    EditPhoto: _components_auth_components_EditPhoto_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    EditAccount: _components_auth_components_EditAccount_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])("auth", ["account"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("auth", ["inProcess"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("auth", ["account"])),
   mounted: function mounted() {
     this.getUser();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])("auth", ["getUser", "editAccount", "updateAccount", "deleteAccount"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("auth", ["getUser", "editAccount", "updateAccount", "updatePhoto", "deleteAccount"]), {
     edit: function () {
       var _edit = _asyncToGenerator(
       /*#__PURE__*/
@@ -3522,15 +3520,54 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return edit;
     }(),
-    erase: function () {
-      var _erase = _asyncToGenerator(
+    confirmEditFoto: function () {
+      var _confirmEditFoto = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                if (!(this.foto != null)) {
+                  _context2.next = 6;
+                  break;
+                }
+
+                _context2.next = 3;
+                return this.updatePhoto({
+                  foto: this.foto.generateDataUrl()
+                });
+
+              case 3:
+                _context2.next = 5;
+                return this.getUser();
+
+              case 5:
+                this.editFoto = false;
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function confirmEditFoto() {
+        return _confirmEditFoto.apply(this, arguments);
+      }
+
+      return confirmEditFoto;
+    }(),
+    erase: function () {
+      var _erase = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
                 return this.deleteAccount();
 
               case 2:
@@ -3538,10 +3575,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 3:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
       function erase() {
@@ -4273,6 +4310,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 // module
 exports.push([module.i, "\n.tokens-description {\r\n    display: inline-block;\r\n    margin-top: 26px;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n    overflow: hidden;\n}\n@media (min-width: 600px) {\n.tokens-description {\r\n        max-width: 200px;\n}\n}\n@media (min-width: 960px) {\n.tokens-description {\r\n        max-width: 400px;\n}\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/views/Account.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/auth/views/Account.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.fade-enter-active,\r\n.fade-leave-active {\r\n    transition: opacity 0.5s;\n}\n.fade-enter,\r\n.fade-leave-to {\r\n    opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -5598,6 +5654,36 @@ options.transform = transform
 options.insertInto = undefined;
 
 var update = __webpack_require__(/*! ../../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/views/Account.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/auth/views/Account.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Account.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/views/Account.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -8556,180 +8642,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=template&id=e2612734&":
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=template&id=e2612734& ***!
-  \*********************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "v-layout",
-    { attrs: { "justify-center": "" } },
-    [
-      _c(
-        "v-flex",
-        [
-          _c(
-            "v-layout",
-            { attrs: { "justify-end": "" } },
-            [
-              _c("croppa", {
-                attrs: {
-                  width: 200,
-                  height: 200,
-                  placeholder: "Foto de Perfil",
-                  "canvas-color": "transparent",
-                  "placeholder-color": "#000",
-                  "placeholder-font-size": 24,
-                  "show-remove-button": false,
-                  "show-loading": true,
-                  "loading-size": 25,
-                  "prevent-white-space": true,
-                  "zoom-speed": 10,
-                  "initial-image": "images/logo.png"
-                },
-                model: {
-                  value: _vm.photo,
-                  callback: function($$v) {
-                    _vm.photo = $$v
-                  },
-                  expression: "photo"
-                }
-              })
-            ],
-            1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-flex",
-        { attrs: { "mt-3": "", "ml-3": "" } },
-        [
-          _c(
-            "v-layout",
-            { attrs: { column: "" } },
-            [
-              _c(
-                "v-btn",
-                {
-                  attrs: { text: "", icon: "", color: "primary" },
-                  on: {
-                    click: function($event) {
-                      return _vm.photo.zoomIn()
-                    }
-                  }
-                },
-                [_c("v-icon", [_vm._v("fas fa-search-plus")])],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { text: "", icon: "", color: "primary" },
-                  on: {
-                    click: function($event) {
-                      return _vm.photo.zoomOut()
-                    }
-                  }
-                },
-                [_c("v-icon", [_vm._v("fas fa-search-minus")])],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  attrs: { text: "", icon: "", color: "primary" },
-                  on: {
-                    click: function($event) {
-                      return _vm.photo.rotate()
-                    }
-                  }
-                },
-                [_c("v-icon", [_vm._v("fas fa-redo-alt")])],
-                1
-              ),
-              _vm._v(" "),
-              _vm.photo != null
-                ? _c(
-                    "div",
-                    [
-                      _c(
-                        "v-btn",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: _vm.photo.hasImage(),
-                              expression: "photo.hasImage()"
-                            }
-                          ],
-                          attrs: { text: "", icon: "", color: "primary" },
-                          on: {
-                            click: function($event) {
-                              return _vm.photo.remove()
-                            }
-                          }
-                        },
-                        [_c("v-icon", [_vm._v("fas fa-times")])],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          directives: [
-                            {
-                              name: "show",
-                              rawName: "v-show",
-                              value: !_vm.photo.hasImage(),
-                              expression: "!photo.hasImage()"
-                            }
-                          ],
-                          attrs: { text: "", icon: "", color: "primary" },
-                          on: {
-                            click: function($event) {
-                              return _vm.photo.chooseFile()
-                            }
-                          }
-                        },
-                        [_c("v-icon", [_vm._v("fas fa-plus")])],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                : _vm._e()
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/components/auth_components/LoginForm.vue?vue&type=template&id=50ac9f6b&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/auth/components/auth_components/LoginForm.vue?vue&type=template&id=50ac9f6b& ***!
@@ -10054,7 +9966,17 @@ var render = function() {
                 [
                   _c(
                     "v-card",
-                    { attrs: { width: "400", height: "350" } },
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.editFoto,
+                          expression: "!editFoto"
+                        }
+                      ],
+                      attrs: { width: "400", height: "350" }
+                    },
                     [
                       _c(
                         "v-card-text",
@@ -10221,7 +10143,7 @@ var render = function() {
                                                 },
                                                 [
                                                   _vm._v(" "),
-                                                  _vm.account.user.photo
+                                                  _vm.account.user.foto != null
                                                     ? _c(
                                                         "div",
                                                         {
@@ -10242,17 +10164,29 @@ var render = function() {
                                                           _c(
                                                             "v-avatar",
                                                             {
+                                                              staticStyle: {
+                                                                cursor:
+                                                                  "pointer"
+                                                              },
                                                               attrs: {
                                                                 color:
-                                                                  "primary",
+                                                                  "trasparent",
                                                                 size: "86"
+                                                              },
+                                                              on: {
+                                                                click: function(
+                                                                  $event
+                                                                ) {
+                                                                  _vm.editFoto = true
+                                                                }
                                                               }
                                                             },
                                                             [
                                                               _c("img", {
                                                                 attrs: {
                                                                   src:
-                                                                    "https://vuetifyjs.com/apple-touch-icon-180x180.png"
+                                                                    _vm.account
+                                                                      .user.foto
                                                                 }
                                                               })
                                                             ]
@@ -10293,7 +10227,7 @@ var render = function() {
                                                                 click: function(
                                                                   $event
                                                                 ) {
-                                                                  _vm.editPhoto = true
+                                                                  _vm.editFoto = true
                                                                 }
                                                               }
                                                             },
@@ -10372,6 +10306,264 @@ var render = function() {
                                             ]
                                           )
                                         ]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-layout",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.editFoto,
+                          expression: "editFoto"
+                        }
+                      ],
+                      attrs: { "justify-center": "" }
+                    },
+                    [
+                      _c(
+                        "v-flex",
+                        { attrs: { xs12: "", sm6: "", "px-2": "" } },
+                        [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c(
+                            "v-layout",
+                            { attrs: { "justify-center": "", wrap: "" } },
+                            [
+                              _c("croppa", {
+                                attrs: {
+                                  width: 200,
+                                  height: 200,
+                                  placeholder: "Foto de Perfil",
+                                  "placeholder-color": "#000",
+                                  "placeholder-font-size": 24,
+                                  "canvas-color": "transparent",
+                                  "show-remove-button": false,
+                                  "show-loading": true,
+                                  "loading-size": 25,
+                                  "prevent-white-space": true,
+                                  "zoom-speed": 10
+                                },
+                                model: {
+                                  value: _vm.foto,
+                                  callback: function($$v) {
+                                    _vm.foto = $$v
+                                  },
+                                  expression: "foto"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", "px-2": "" } },
+                                [
+                                  _c(
+                                    "v-layout",
+                                    { attrs: { "justify-center": "" } },
+                                    [
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            text: "",
+                                            icon: "",
+                                            color: "primary"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.foto.zoomIn()
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("v-icon", [
+                                            _vm._v("fas fa-search-plus")
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            text: "",
+                                            icon: "",
+                                            color: "primary"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.foto.zoomOut()
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("v-icon", [
+                                            _vm._v("fas fa-search-minus")
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          attrs: {
+                                            text: "",
+                                            icon: "",
+                                            color: "primary"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.foto.rotate()
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("v-icon", [
+                                            _vm._v("fas fa-redo-alt")
+                                          ])
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _vm.foto != null
+                                        ? _c(
+                                            "div",
+                                            [
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  directives: [
+                                                    {
+                                                      name: "show",
+                                                      rawName: "v-show",
+                                                      value: _vm.foto.hasImage(),
+                                                      expression:
+                                                        "foto.hasImage()"
+                                                    }
+                                                  ],
+                                                  attrs: {
+                                                    text: "",
+                                                    icon: "",
+                                                    color: "primary"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.foto.remove()
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("v-icon", [
+                                                    _vm._v("fas fa-times")
+                                                  ])
+                                                ],
+                                                1
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "v-btn",
+                                                {
+                                                  directives: [
+                                                    {
+                                                      name: "show",
+                                                      rawName: "v-show",
+                                                      value: !_vm.foto.hasImage(),
+                                                      expression:
+                                                        "!foto.hasImage()"
+                                                    }
+                                                  ],
+                                                  attrs: {
+                                                    text: "",
+                                                    icon: "",
+                                                    color: "primary"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.foto.chooseFile()
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("v-icon", [
+                                                    _vm._v("fas fa-plus")
+                                                  ])
+                                                ],
+                                                1
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        : _vm._e()
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "", "px-2": "" } },
+                                [
+                                  _c("br"),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-layout",
+                                    { attrs: { "justify-center": "" } },
+                                    [
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "mx-2",
+                                          attrs: {
+                                            disabled: _vm.inProcess,
+                                            outlined: "",
+                                            color: "primary"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.editFoto = false
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Cancelar")]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "v-btn",
+                                        {
+                                          staticClass: "mx-2 elevation-0",
+                                          attrs: {
+                                            disabled: _vm.inProcess,
+                                            loading: _vm.inProcess,
+                                            color: "primary"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.confirmEditFoto()
+                                            }
+                                          }
+                                        },
+                                        [_vm._v("Guardar")]
                                       )
                                     ],
                                     1
@@ -63840,10 +64032,25 @@ var actions = {
       });
     });
   },
-  login: function login(_ref4) {
-    var state = _ref4.state,
-        commit = _ref4.commit,
-        dispatch = _ref4.dispatch;
+  updatePhoto: function updatePhoto(_ref4, foto) {
+    var commit = _ref4.commit;
+    state.inProcess = true;
+    commit("resetErrors");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/update_foto", foto).then(function (response) {
+        state.inProcess = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
+        throw new Error(error);
+      });
+    });
+  },
+  login: function login(_ref5) {
+    var state = _ref5.state,
+        commit = _ref5.commit,
+        dispatch = _ref5.dispatch;
     state.inProcess = true;
     commit("resetErrors");
 
@@ -63867,10 +64074,10 @@ var actions = {
       });
     });
   },
-  getUser: function getUser(_ref5) {
-    var state = _ref5.state,
-        commit = _ref5.commit,
-        dispatch = _ref5.dispatch;
+  getUser: function getUser(_ref6) {
+    var state = _ref6.state,
+        commit = _ref6.commit,
+        dispatch = _ref6.dispatch;
     state.inProcess = true;
     commit("resetErrors");
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Authorization"] = "Bearer " + state.token;
@@ -63881,7 +64088,6 @@ var actions = {
         commit("fillRol", response.data.rol.role);
         commit("fillPermission", response.data.permission);
         state.inProcess = false;
-        console.log(response.data);
         resolve(response.data);
       })["catch"](function (error) {
         commit("fillErrors", error.response.data);
@@ -63890,8 +64096,8 @@ var actions = {
       });
     });
   },
-  profile: function profile(_ref6, name) {
-    var commit = _ref6.commit;
+  profile: function profile(_ref7, name) {
+    var commit = _ref7.commit;
     var arrayname = name.split(" ");
     var profile = "";
 
@@ -63903,9 +64109,9 @@ var actions = {
 
     commit("fillProfile", profile);
   },
-  logout: function logout(_ref7) {
-    var state = _ref7.state,
-        commit = _ref7.commit;
+  logout: function logout(_ref8) {
+    var state = _ref8.state,
+        commit = _ref8.commit;
     state.inProcess = true;
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Authorization"] = "Bearer " + state.token;
     return new Promise(function (resolve) {
@@ -63923,9 +64129,9 @@ var actions = {
       });
     });
   },
-  deleteAccount: function deleteAccount(_ref8) {
-    var state = _ref8.state,
-        commit = _ref8.commit;
+  deleteAccount: function deleteAccount(_ref9) {
+    var state = _ref9.state,
+        commit = _ref9.commit;
     state.inProcess = true;
     commit("resetErrors");
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Authorization"] = "Bearer " + state.token;
@@ -64088,75 +64294,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditAccount_vue_vue_type_template_id_49948be1___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditAccount_vue_vue_type_template_id_49948be1___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/auth/components/auth_components/EditPhoto.vue":
-/*!********************************************************************!*\
-  !*** ./resources/js/auth/components/auth_components/EditPhoto.vue ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _EditPhoto_vue_vue_type_template_id_e2612734___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditPhoto.vue?vue&type=template&id=e2612734& */ "./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=template&id=e2612734&");
-/* harmony import */ var _EditPhoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EditPhoto.vue?vue&type=script&lang=js& */ "./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _EditPhoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _EditPhoto_vue_vue_type_template_id_e2612734___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _EditPhoto_vue_vue_type_template_id_e2612734___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/auth/components/auth_components/EditPhoto.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPhoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditPhoto.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPhoto_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=template&id=e2612734&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=template&id=e2612734& ***!
-  \***************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPhoto_vue_vue_type_template_id_e2612734___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./EditPhoto.vue?vue&type=template&id=e2612734& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/components/auth_components/EditPhoto.vue?vue&type=template&id=e2612734&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPhoto_vue_vue_type_template_id_e2612734___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_EditPhoto_vue_vue_type_template_id_e2612734___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -64605,7 +64742,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Account_vue_vue_type_template_id_d47b207a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Account.vue?vue&type=template&id=d47b207a& */ "./resources/js/auth/views/Account.vue?vue&type=template&id=d47b207a&");
 /* harmony import */ var _Account_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Account.vue?vue&type=script&lang=js& */ "./resources/js/auth/views/Account.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _Account_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Account.vue?vue&type=style&index=0&lang=css& */ "./resources/js/auth/views/Account.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -64613,7 +64752,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Account_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _Account_vue_vue_type_template_id_d47b207a___WEBPACK_IMPORTED_MODULE_0__["render"],
   _Account_vue_vue_type_template_id_d47b207a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -64642,6 +64781,22 @@ component.options.__file = "resources/js/auth/views/Account.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Account_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Account.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/views/Account.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Account_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/auth/views/Account.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/auth/views/Account.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Account_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./Account.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/auth/views/Account.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Account_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Account_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Account_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Account_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Account_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

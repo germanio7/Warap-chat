@@ -109,6 +109,24 @@ const actions = {
         });
     },
 
+    updatePhoto: function({ commit }, foto) {
+        state.inProcess = true;
+        commit("resetErrors");
+        return new Promise(resolve => {
+            axios
+                .post("/api/update_foto", foto)
+                .then(response => {
+                    state.inProcess = false;
+                    resolve(response.data);
+                })
+                .catch(error => {
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
+                    throw new Error(error);
+                });
+        });
+    },
+
     login: function({ state, commit, dispatch }) {
         state.inProcess = true;
         commit("resetErrors");
@@ -149,7 +167,6 @@ const actions = {
                     commit("fillRol", response.data.rol.role);
                     commit("fillPermission", response.data.permission);
                     state.inProcess = false;
-                    console.log(response.data);
                     resolve(response.data);
                 })
                 .catch(error => {
