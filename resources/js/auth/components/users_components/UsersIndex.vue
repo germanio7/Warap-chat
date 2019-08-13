@@ -2,50 +2,56 @@
     <div>
         <v-container>
             <!-- Users Table -->
+
             <v-layout justify-center>
                 <v-flex xs12 sm10 lg8>
-                    <template>
-                        <v-simple-table>
-                            <thead>
-                                <tr>
-                                    <th class="text-xs-left">Nombre</th>
-                                    <th class="text-xs-left">Email</th>
-                                    <th class="txt-xs-left">Rol</th>
-                                    <th class="text-xs-left"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="user in data" :key="user.id">
-                                    <td>{{ user.name }}</td>
-                                    <td>{{ user.email }}</td>
-                                    <td>{{ user.rol }}</td>
-                                    <td>
-                                        <v-menu>
-                                            <template v-slot:activator="{ on }">
-                                                <v-btn color="primary" text icon v-on="on">
-                                                    <v-icon size="medium">fas fa-ellipsis-v</v-icon>
-                                                </v-btn>
-                                            </template>
-                                            <v-list>
-                                                <v-list-item
-                                                    @click="edit({data: user}); editUsersDialog = true"
-                                                >
-                                                    <v-list-item-title>Editar</v-list-item-title>
-                                                </v-list-item>
-                                                <v-list-item
-                                                    @click="userID = user.id; deleteUsersDialog = true"
-                                                >
-                                                    <v-list-item-title>Eliminar</v-list-item-title>
-                                                </v-list-item>
-                                            </v-list>
-                                        </v-menu>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </v-simple-table>
-                    </template>
+                    <v-card>
+                        <v-card-text>
+                            <template>
+                                <v-simple-table>
+                                    <thead>
+                                        <tr>
+                                            <th class="text-xs-left">Nombre</th>
+                                            <th class="text-xs-left">Email</th>
+                                            <th class="txt-xs-left">Rol</th>
+                                            <th class="text-xs-left"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="user in data" :key="user.id">
+                                            <td>{{ user.name }}</td>
+                                            <td>{{ user.email }}</td>
+                                            <td>{{ user.rol }}</td>
+                                            <td>
+                                                <v-menu>
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-btn color="primary" text icon v-on="on">
+                                                            <v-icon size="medium">fas fa-ellipsis-v</v-icon>
+                                                        </v-btn>
+                                                    </template>
+                                                    <v-list>
+                                                        <v-list-item
+                                                            @click="edit({data: user}); editUsersDialog = true"
+                                                        >
+                                                            <v-list-item-title>Editar</v-list-item-title>
+                                                        </v-list-item>
+                                                        <v-list-item
+                                                            @click="userID = user.id; deleteUsersDialog = true"
+                                                        >
+                                                            <v-list-item-title>Eliminar</v-list-item-title>
+                                                        </v-list-item>
+                                                    </v-list>
+                                                </v-menu>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </v-simple-table>
+                            </template>
+                        </v-card-text>
+                    </v-card>
                 </v-flex>
             </v-layout>
+
             <!-- Edit Users Dialog -->
             <v-dialog v-model="editUsersDialog" width="500" persistent scrollable>
                 <v-form ref="userForm" @submit.prevent="updateUser()">

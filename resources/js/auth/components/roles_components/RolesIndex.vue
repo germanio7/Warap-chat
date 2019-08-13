@@ -4,50 +4,55 @@
             <!-- Roles Table -->
             <v-layout justify-center>
                 <v-flex xs12 sm10 lg8>
-                    <template>
-                        <v-simple-table>
-                            <thead>
-                                <tr>
-                                    <th class="text-xs-left">Rol</th>
-                                    <th class="text-xs-left">Permisos</th>
-                                    <th class="text-xs-left"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-for="rol in data" :key="rol.id">
-                                    <td>{{ rol.role }}</td>
-                                    <td class="tokens-description">{{ rol.description }}</td>
-                                    <td>
-                                        <v-menu>
-                                            <template v-slot:activator="{ on }">
-                                                <v-btn color="primary" text icon v-on="on">
-                                                    <v-icon size="medium">fas fa-ellipsis-v</v-icon>
-                                                </v-btn>
-                                            </template>
-                                            <v-list>
-                                                <v-list-item
-                                                    @click="edit({data: rol}); editRolesDialog = true"
-                                                >
-                                                    <v-list-item-title>Editar</v-list-item-title>
-                                                </v-list-item>
-                                                <v-list-item
-                                                    @click="roleID = rol.id; deleteRolesDialog = true;"
-                                                >
-                                                    <v-list-item-title>Eliminar</v-list-item-title>
-                                                </v-list-item>
-                                                <v-divider></v-divider>
-                                                <v-list-item @click="openPermisos(rol)">
-                                                    <v-list-item-title>Ver Permisos</v-list-item-title>
-                                                </v-list-item>
-                                            </v-list>
-                                        </v-menu>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </v-simple-table>
-                    </template>
+                    <v-card>
+                        <v-card-tex>
+                            <template>
+                                <v-simple-table>
+                                    <thead>
+                                        <tr>
+                                            <th class="text-xs-left">Rol</th>
+                                            <th class="text-xs-left">Permisos</th>
+                                            <th class="text-xs-left"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="rol in data" :key="rol.id">
+                                            <td>{{ rol.role }}</td>
+                                            <td class="tokens-description">{{ rol.description }}</td>
+                                            <td>
+                                                <v-menu>
+                                                    <template v-slot:activator="{ on }">
+                                                        <v-btn color="primary" text icon v-on="on">
+                                                            <v-icon size="medium">fas fa-ellipsis-v</v-icon>
+                                                        </v-btn>
+                                                    </template>
+                                                    <v-list>
+                                                        <v-list-item
+                                                            @click="edit({data: rol}); editRolesDialog = true"
+                                                        >
+                                                            <v-list-item-title>Editar</v-list-item-title>
+                                                        </v-list-item>
+                                                        <v-list-item
+                                                            @click="roleID = rol.id; deleteRolesDialog = true;"
+                                                        >
+                                                            <v-list-item-title>Eliminar</v-list-item-title>
+                                                        </v-list-item>
+                                                        <v-divider></v-divider>
+                                                        <v-list-item @click="openPermisos(rol)">
+                                                            <v-list-item-title>Ver Permisos</v-list-item-title>
+                                                        </v-list-item>
+                                                    </v-list>
+                                                </v-menu>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </v-simple-table>
+                            </template>
+                        </v-card-tex>
+                    </v-card>
                 </v-flex>
             </v-layout>
+
             <!-- Edit Roles Dialog -->
             <v-dialog v-model="editRolesDialog" width="500" persistent>
                 <v-card>

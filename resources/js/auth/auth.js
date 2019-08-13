@@ -149,6 +149,7 @@ const actions = {
                     commit("fillRol", response.data.rol.role);
                     commit("fillPermission", response.data.permission);
                     state.inProcess = false;
+                    console.log(response.data);
                     resolve(response.data);
                 })
                 .catch(error => {

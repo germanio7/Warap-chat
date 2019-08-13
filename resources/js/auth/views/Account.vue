@@ -1,6 +1,6 @@
 <template>
     <div>
-        <br />
+        <br />dark
         <v-layout justify-center>
             <v-flex xs10 lg8>
                 <v-layout justify-center>
@@ -30,13 +30,41 @@
                                         </v-menu>
                                     </v-layout>
                                     <br />
-                                    <br />
                                     <v-layout justify-center wrap>
                                         <v-flex xs12>
                                             <v-layout justify-center>
-                                                <v-avatar class="profile" size="86">
-                                                    <span class="display-1">{{ account.profile }}</span>
-                                                </v-avatar>
+                                                <v-badge v-model="badge" bottom color="transparent">
+                                                    <template v-slot:badge>
+                                                        <v-icon color="primary">fas fa-pen</v-icon>
+                                                    </template>
+                                                    <div
+                                                        v-if="account.user.photo"
+                                                        @mouseover="badge = true"
+                                                        @mouseleave="badge = false"
+                                                    >
+                                                        <v-avatar color="primary" size="86">
+                                                            <img
+                                                                src="https://vuetifyjs.com/apple-touch-icon-180x180.png"
+                                                            />
+                                                        </v-avatar>
+                                                    </div>
+                                                    <div
+                                                        v-else
+                                                        @mouseover="badge = true"
+                                                        @mouseleave="badge = false"
+                                                    >
+                                                        <v-avatar
+                                                            color="primary"
+                                                            size="86"
+                                                            style="cursor: pointer;"
+                                                            @click="editPhoto = true"
+                                                        >
+                                                            <span
+                                                                class="display-1 white--text"
+                                                            >{{ account.profile }}</span>
+                                                        </v-avatar>
+                                                    </div>
+                                                </v-badge>
                                             </v-layout>
                                         </v-flex>
                                         <v-flex xs12 style="text-align: center; margin-top: 40px">
@@ -112,6 +140,7 @@
 
 <script>
 import EditAccount from "../components/auth_components/EditAccount.vue";
+import EditPhoto from "../components/auth_components/EditPhoto.vue";
 import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
@@ -120,12 +149,15 @@ export default {
     data() {
         return {
             editDialog: false,
-            deleteDialog: false
+            deleteDialog: false,
+            editPhoto: false,
+            badge: false
         };
     },
 
     components: {
-        EditAccount
+        EditAccount,
+        EditPhoto
     },
 
     computed: {
@@ -157,14 +189,3 @@ export default {
     }
 };
 </script>
-
-<style>
-.profile {
-    border: solid 3px #41b883;
-    background-color: rgb(65, 184, 131, 0.25);
-}
-
-.profile span {
-    color: #41b883;
-}
-</style>

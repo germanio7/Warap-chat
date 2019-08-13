@@ -37,7 +37,6 @@
                 </v-card>
             </v-form>
         </v-dialog>
-
         <UsersIndex></UsersIndex>
     </div>
 </template>

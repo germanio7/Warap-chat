@@ -35,7 +35,6 @@
                 </v-card-text>
             </v-card>
         </v-dialog>
-        <br />
         <RolesIndex></RolesIndex>
     </div>
 </template>
