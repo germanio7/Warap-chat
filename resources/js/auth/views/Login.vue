@@ -27,14 +27,10 @@
 
                                 <!-- Login Form -->
                                 <v-flex xs12 pa-3 v-show="!inProcess">
-                                    <v-alert
-                                        style="width: 92%;"
-                                        :value="errors ? true : false"
-                                        color="error"
-                                    >
+                                    <v-alert :value="errors ? true : false" color="error">
                                         <div v-if="errors">{{ errors.error_description }}</div>
                                     </v-alert>
-                                    <br />
+                                    <br v-show="errors ? false : true" />
                                     <v-form ref="loginForm" @submit.prevent="loginValidate()">
                                         <LoginForm></LoginForm>
                                         <v-layout justify-center wrap>

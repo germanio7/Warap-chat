@@ -6,20 +6,8 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateUsersTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-
-        Schema::create('roles', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->text('role');
-            $table->text('permission');
-            $table->timestamps();
-        });
 
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');

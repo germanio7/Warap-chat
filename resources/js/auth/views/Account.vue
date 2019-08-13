@@ -39,13 +39,10 @@
                                                 </v-avatar>
                                             </v-layout>
                                         </v-flex>
-                                        <v-flex xs12>
-                                            <br />
-                                            <h1
-                                                class="text-xs-center primary--text"
-                                            >{{ account.user.name }}</h1>
+                                        <v-flex xs12 style="text-align: center; margin-top: 40px">
+                                            <h1 class="primary--text">{{ account.user.name }}</h1>
                                         </v-flex>
-                                        <v-flex xs12>
+                                        <v-flex xs12 style="text-align: center;">
                                             <h3
                                                 class="text-xs-center primary--text"
                                             >{{ account.user.email }}</h3>
@@ -56,7 +53,7 @@
                         </v-card-text>
                     </v-card>
                     <!-- Edit Account Dialog -->
-                    <v-dialog v-model="editDialog" width="400" persistent>
+                    <v-dialog v-model="editDialog" width="500" persistent>
                         <v-card>
                             <v-form ref="edit_form" @submit.prevent="edit()">
                                 <v-card-text>
@@ -86,7 +83,7 @@
                         </v-card>
                     </v-dialog>
                     <!-- Delete Account Dialog -->
-                    <v-dialog v-model="deleteDialog" width="400" persistent>
+                    <v-dialog v-model="deleteDialog" width="500" persistent>
                         <v-card>
                             <v-card-title>
                                 <h3>Estas Seguro?</h3>

@@ -31,17 +31,18 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Passport::tokensCan([
-            // Role Tokens
-            'get-role' => 'Get Role`s',
-            'save-role' => 'Save Role`s',
-            'edit-role' => 'Edit Role`s',
-            'delete-role' => 'Delete Role`s',
+            // Tokens de Usuario
+            'users-index' => 'Listar usuarios',
+            'users-store' => 'Guardar usuarios',
+            'users-update' => 'Editar usuarios',
+            'users-destroy' => 'Eliminar usuarios',
 
-            // Users Tokens
-            'get-users' => 'Get Users',
-            'save-users' => 'Save Users',
-            'edit-users' => 'Edit Users',
-            'delete-users' => 'Delete Users',
+            // Tokens de Roles
+            'roles-index' => 'Listar roles',
+            'roles-show' => 'Ver roles',
+            'roles-store' => 'Guardar roles',
+            'roles-update' => 'Editar roles',
+            'roles-destroy' => 'Eliminar roles',
         ]);
     }
 }
