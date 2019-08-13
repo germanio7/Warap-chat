@@ -5,7 +5,7 @@
             <v-flex xs10 lg8>
                 <v-layout justify-center>
                     <!-- Login/register card -->
-                    <v-card width="400" height="350">
+                    <v-card width="400" height="350" v-show="!editFoto">
                         <v-card-text style="padding: 0;">
                             <v-layout wrap>
                                 <!-- User View -->
@@ -38,14 +38,17 @@
                                                         <v-icon color="primary">fas fa-pen</v-icon>
                                                     </template>
                                                     <div
-                                                        v-if="account.user.photo"
+                                                        v-if="account.user.foto != null"
                                                         @mouseover="badge = true"
                                                         @mouseleave="badge = false"
                                                     >
-                                                        <v-avatar color="primary" size="86">
-                                                            <img
-                                                                src="https://vuetifyjs.com/apple-touch-icon-180x180.png"
-                                                            />
+                                                        <v-avatar
+                                                            color="trasparent"
+                                                            size="86"
+                                                            style="cursor: pointer;"
+                                                            @click="editFoto = true"
+                                                        >
+                                                            <img :src="account.user.foto" />
                                                         </v-avatar>
                                                     </div>
                                                     <div
@@ -57,7 +60,7 @@
                                                             color="primary"
                                                             size="86"
                                                             style="cursor: pointer;"
-                                                            @click="editPhoto = true"
+                                                            @click="editFoto = true"
                                                         >
                                                             <span
                                                                 class="display-1 white--text"
@@ -80,6 +83,80 @@
                             </v-layout>
                         </v-card-text>
                     </v-card>
+                    <!-- Edit Photo -->
+                    <v-layout justify-center v-show="editFoto">
+                        <v-flex xs12 sm6 px-2>
+                            <br />
+                            <v-layout justify-center wrap>
+                                <croppa
+                                    v-model="foto"
+                                    :width="200"
+                                    :height="200"
+                                    placeholder="Foto de Perfil"
+                                    placeholder-color="#000"
+                                    :placeholder-font-size="24"
+                                    canvas-color="transparent"
+                                    :show-remove-button="false"
+                                    :show-loading="true"
+                                    :loading-size="25"
+                                    :prevent-white-space="true"
+                                    :zoom-speed="10"
+                                ></croppa>
+                                <v-flex xs12 px-2>
+                                    <v-layout justify-center>
+                                        <v-btn text icon color="primary" @click="foto.zoomIn()">
+                                            <v-icon>fas fa-search-plus</v-icon>
+                                        </v-btn>
+                                        <v-btn text icon color="primary" @click="foto.zoomOut()">
+                                            <v-icon>fas fa-search-minus</v-icon>
+                                        </v-btn>
+                                        <v-btn text icon color="primary" @click="foto.rotate()">
+                                            <v-icon>fas fa-redo-alt</v-icon>
+                                        </v-btn>
+                                        <div v-if="foto != null">
+                                            <v-btn
+                                                v-show="foto.hasImage()"
+                                                text
+                                                icon
+                                                color="primary"
+                                                @click="foto.remove()"
+                                            >
+                                                <v-icon>fas fa-times</v-icon>
+                                            </v-btn>
+                                            <v-btn
+                                                v-show="!foto.hasImage()"
+                                                text
+                                                icon
+                                                color="primary"
+                                                @click="foto.chooseFile()"
+                                            >
+                                                <v-icon>fas fa-plus</v-icon>
+                                            </v-btn>
+                                        </div>
+                                    </v-layout>
+                                </v-flex>
+                                <v-flex xs12 px-2>
+                                    <br />
+                                    <v-layout justify-center>
+                                        <v-btn
+                                            @click="editFoto = false"
+                                            :disabled="inProcess"
+                                            outlined
+                                            color="primary"
+                                            class="mx-2"
+                                        >Cancelar</v-btn>
+                                        <v-btn
+                                            @click="confirmEditFoto()"
+                                            :disabled="inProcess"
+                                            :loading="inProcess"
+                                            color="primary"
+                                            class="mx-2 elevation-0"
+                                        >Guardar</v-btn>
+                                    </v-layout>
+                                </v-flex>
+                            </v-layout>
+                        </v-flex>
+                    </v-layout>
                     <!-- Edit Account Dialog -->
                     <v-dialog v-model="editDialog" width="500" persistent>
                         <v-card>
@@ -140,7 +217,6 @@
 
 <script>
 import EditAccount from "../components/auth_components/EditAccount.vue";
-import EditPhoto from "../components/auth_components/EditPhoto.vue";
 import { mapState, mapGetters, mapActions } from "vuex";
 
 export default {
@@ -150,17 +226,18 @@ export default {
         return {
             editDialog: false,
             deleteDialog: false,
-            editPhoto: false,
+            editFoto: false,
+            foto: null,
             badge: false
         };
     },
 
     components: {
-        EditAccount,
-        EditPhoto
+        EditAccount
     },
 
     computed: {
+        ...mapState("auth", ["inProcess"]),
         ...mapGetters("auth", ["account"])
     },
 
@@ -173,6 +250,7 @@ export default {
             "getUser",
             "editAccount",
             "updateAccount",
+            "updatePhoto",
             "deleteAccount"
         ]),
         edit: async function() {
@@ -182,6 +260,15 @@ export default {
                 this.editDialog = false;
             }
         },
+
+        confirmEditFoto: async function() {
+            if (this.foto != null) {
+                await this.updatePhoto({ foto: this.foto.generateDataUrl() });
+                await this.getUser();
+                this.editFoto = false;
+            }
+        },
+
         erase: async function() {
             await this.deleteAccount();
             this.$router.push("/");
@@ -189,3 +276,14 @@ export default {
     }
 };
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+</style>

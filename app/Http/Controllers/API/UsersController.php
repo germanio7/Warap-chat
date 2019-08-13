@@ -92,23 +92,23 @@ class UsersController extends Controller
         }
     }
 
-    public function updatePhoto(Request $request, $id)
+    public function updateFoto(Request $request)
     {
         // FOTO
-        $name = 'noimage.png';
-        $user = User::find($id);
         if ($request->get('foto')) {
+            $user = User::find(auth()->user()->id);
+            $eliminar = $user->foto;
+            if ($eliminar) {
+                @unlink(public_path($eliminar));
+            }
             $image = $request->get('foto');
             $name = time() . '.' . explode('/', explode(':', substr($image, 0, strpos($image, ';')))[1])[1];
             Image::make($request->get('foto'))->save(public_path('img/usuarios/') . $name);
+            $foto = '/img/usuarios/' . $name;
+            $user->foto = $foto;
+            $user->update();
+            return ['msg' => 'Foto actualizada'];
         }
-        $foto = '/img/usuarios/' . $name;
-
-        $user->foto = $foto;
-
-        $user->update();
-
-        return ['msg' => 'Foto actualizada'];
     }
 
     public function destroy($id)
