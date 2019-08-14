@@ -6,29 +6,52 @@ import es from "vuetify/es5/locale/es";
 
 Vue.use(Vuetify);
 
+var mode = false;
+var dark = {};
+var light = {};
+
+let darkMode = localStorage.getItem("darkMode");
+
+if (darkMode == null) {
+    let darkColors = {
+        primary: "#41B883",
+        secondary: "#ffffff",
+        accent: "#41B883",
+        error: "#F44336",
+        info: "#00BCD4",
+        success: "#4CAF50",
+        warning: "#FFC107"
+    };
+
+    let lightColors = {
+        primary: "#41B883",
+        secondary: "#34495E",
+        accent: "#41B883",
+        error: "#F44336",
+        info: "#00BCD4",
+        success: "#4CAF50",
+        warning: "#FFC107"
+    };
+
+    window.localStorage.setItem("darkMode", JSON.stringify(false));
+    window.localStorage.setItem("darkColors", JSON.stringify(darkColors));
+    window.localStorage.setItem("lightColors", JSON.stringify(lightColors));
+
+    mode = false;
+    dark = darkColors;
+    light = lightColors;
+} else {
+    mode = JSON.parse(window.localStorage.getItem("darkMode"));
+    dark = JSON.parse(window.localStorage.getItem("darkColors"));
+    light = JSON.parse(window.localStorage.getItem("lightColors"));
+}
+
 export default new Vuetify({
     theme: {
-        dark: false,
+        dark: mode,
         themes: {
-            dark: {
-                primary: "#41B883",
-                secondary: "#ffffff",
-                accent: "#41B883",
-                error: "#F44336",
-                info: "#00BCD4",
-                success: "#4CAF50",
-                warning: "#FFC107"
-            },
-
-            light: {
-                primary: "#41B883",
-                secondary: "#34495E",
-                accent: "#41B883",
-                error: "#F44336",
-                info: "#00BCD4",
-                success: "#4CAF50",
-                warning: "#FFC107"
-            }
+            dark: dark,
+            light: light
         }
     },
     options: {

@@ -12,9 +12,38 @@
                 <v-toolbar-items>
                     <v-btn to="/login" text v-show="token == null">Iniciar Sesión</v-btn>
                     <v-btn to="/register" text v-show="token == null">Registrarse</v-btn>
-                    <v-btn @click="darkModeControl()" text>
-                        <v-icon>fas fa-adjust</v-icon>
-                    </v-btn>
+                    <v-menu v-model="profileMenu" offset-y min-width="250px">
+                        <template v-slot:activator="{ on }">
+                            <v-avatar
+                                color="primary"
+                                size="40"
+                                style="cursor: pointer; margin-top: 12px;"
+                                v-on="on"
+                            >
+                                <img v-show="account.user.foto != null" :src="account.user.foto" />
+                                <span
+                                    v-show="account.user.foto == null"
+                                    class="white--text"
+                                >{{ account.profile }}</span>
+                            </v-avatar>
+                        </template>
+                        <v-card>
+                            <v-list>
+                                <v-list-item to="/account">
+                                    <v-list-item-title>Mi Cuenta</v-list-item-title>
+                                    <v-list-item-icon>
+                                        <v-icon>fas fa-user</v-icon>
+                                    </v-list-item-icon>
+                                </v-list-item>
+                                <v-list-item to="/preferences">
+                                    <v-list-item-title>Preferencias</v-list-item-title>
+                                    <v-list-item-icon>
+                                        <v-icon>fas fa-cog</v-icon>
+                                    </v-list-item-icon>
+                                </v-list-item>
+                            </v-list>
+                        </v-card>
+                    </v-menu>
                 </v-toolbar-items>
             </v-toolbar>
             <v-divider></v-divider>
@@ -51,21 +80,20 @@
                 </v-list>
             </v-navigation-drawer>
 
-            <v-content>
-                <router-view />
-            </v-content>
+            <router-view />
         </v-content>
     </v-app>
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
     name: "App",
 
     data() {
         return {
+            profileMenu: false,
             routes: [
                 { name: "Usuarios", icon: "fas fa-user", url: "/users" },
                 { name: "Roles", icon: "fas fa-tag", url: "/roles" }
@@ -77,6 +105,20 @@ export default {
 
     computed: {
         ...mapState("auth", ["token"]),
+        ...mapGetters("auth", ["account"]),
+
+        dark: {
+            set() {},
+            get() {
+                var darkMode = localStorage.getItem("darkMode");
+
+                if (darkMode == "false") {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        },
 
         screenWidth() {
             return window.innerWidth;
@@ -95,11 +137,11 @@ export default {
     },
 
     mounted() {
-        this.darkModeInit();
+        this.getUser();
     },
 
     methods: {
-        ...mapActions("auth", ["logout"]),
+        ...mapActions("auth", ["logout", "getUser"]),
 
         sidenavControl() {
             if (this.screenWidth <= 600) {
@@ -113,34 +155,6 @@ export default {
         exit: async function() {
             await this.logout();
             this.$router.push("/");
-        },
-
-        darkModeInit() {
-            var darkMode = localStorage.getItem("darkMode");
-
-            if (darkMode == null) {
-                localStorage.setItem("darkMode", false);
-                darkMode = false;
-            } else {
-                if (darkMode == "false") {
-                    darkMode = false;
-                } else {
-                    darkMode = true;
-                }
-            }
-            this.$vuetify.theme.dark = darkMode;
-        },
-
-        darkModeControl() {
-            var darkMode = localStorage.getItem("darkMode");
-
-            if (darkMode == "false") {
-                localStorage.setItem("darkMode", true);
-            } else {
-                localStorage.setItem("darkMode", false);
-            }
-
-            this.darkModeInit();
         }
     }
 };

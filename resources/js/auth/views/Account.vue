@@ -43,7 +43,7 @@
                                                         @mouseleave="badge = false"
                                                     >
                                                         <v-avatar
-                                                            color="trasparent"
+                                                            color="primary"
                                                             size="86"
                                                             style="cursor: pointer;"
                                                             @click="editFoto = true"

@@ -14,6 +14,9 @@ import Roles from "./auth/views/Roles.vue";
 //Users Views
 import Users from "./auth/views/Users.vue";
 
+//Preferences Views
+import Preferences from "./views/Preferences.vue";
+
 Vue.use(Router);
 
 export default new Router({
@@ -73,6 +76,16 @@ export default new Router({
             path: "/users",
             name: "users",
             component: Users,
+            meta: {
+                requiresAuth: true
+            }
+        },
+
+        //Preferences Routes
+        {
+            path: "/preferences",
+            name: "preferences",
+            component: Preferences,
             meta: {
                 requiresAuth: true
             }

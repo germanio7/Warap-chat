@@ -5,7 +5,7 @@
             <v-layout justify-center>
                 <v-flex xs12 sm10 lg8>
                     <v-card>
-                        <v-card-tex>
+                        <v-card-text>
                             <template>
                                 <v-simple-table>
                                     <thead>
@@ -48,7 +48,7 @@
                                     </tbody>
                                 </v-simple-table>
                             </template>
-                        </v-card-tex>
+                        </v-card-text>
                     </v-card>
                 </v-flex>
             </v-layout>
