@@ -8,7 +8,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/user', 'AuthController@user');
     Route::post('/logout', 'AuthController@logout');
     Route::post('/update_user', 'AuthController@updateUser');
-
     Route::post('/delete_user', 'AuthController@deleteUser');
 
     /*Roles*/
@@ -17,6 +16,10 @@ Route::middleware('auth:api')->group(function () {
     /*Users*/
     Route::apiResource('users', 'API\UsersController', ['except' => ['create', 'edit']]);
     Route::post('/update_foto', 'API\UsersController@updateFoto');
+
+    /*Preferencias*/
+    Route::get('/preferences', 'API\PreferencesController@getPreferences');
+    Route::post('/preferences/update', 'API\PreferencesController@updatePreferences');
 });
 
 

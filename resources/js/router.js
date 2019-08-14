@@ -15,7 +15,7 @@ import Roles from "./auth/views/Roles.vue";
 import Users from "./auth/views/Users.vue";
 
 //Preferences Views
-import Preferences from "./views/Preferences.vue";
+import Preferences from "./preferences/views/Preferences.vue";
 
 Vue.use(Router);
 

@@ -1,20 +1,21 @@
 <template>
     <v-app>
         <v-content>
-            <v-toolbar flat>
+            <v-app-bar flat app>
                 <v-app-bar-nav-icon
                     v-show="token !== null"
                     @click="sidenavControl()"
                     style="margin-left: 0px;"
                 ></v-app-bar-nav-icon>
-                <v-toolbar-title>Laravel Passport Vue</v-toolbar-title>
+                <v-toolbar-title>{{ appName }}</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
                     <v-btn to="/login" text v-show="token == null">Iniciar Sesión</v-btn>
                     <v-btn to="/register" text v-show="token == null">Registrarse</v-btn>
-                    <v-menu v-model="profileMenu" offset-y min-width="250px">
+                    <v-menu v-show="token != null" v-model="profileMenu" offset-y min-width="250px">
                         <template v-slot:activator="{ on }">
                             <v-avatar
+                                v-show="token != null"
                                 color="primary"
                                 size="40"
                                 style="cursor: pointer; margin-top: 12px;"
@@ -41,11 +42,19 @@
                                         <v-icon>fas fa-cog</v-icon>
                                     </v-list-item-icon>
                                 </v-list-item>
+                                <v-list-item @click="exit()">
+                                    <v-list-item-content>
+                                        <v-list-item-title>Cerrar Sesión</v-list-item-title>
+                                    </v-list-item-content>
+                                    <v-list-item-icon>
+                                        <v-icon>fas fa-sign-out-alt</v-icon>
+                                    </v-list-item-icon>
+                                </v-list-item>
                             </v-list>
                         </v-card>
                     </v-menu>
                 </v-toolbar-items>
-            </v-toolbar>
+            </v-app-bar>
             <v-divider></v-divider>
 
             <v-navigation-drawer
@@ -69,14 +78,6 @@
                             <v-list-item-title>{{ route.name }}</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-                    <v-list-item @click="exit()">
-                        <v-list-item-icon>
-                            <v-icon style="font-size: 1.3rem;">fas fa-sign-out-alt</v-icon>
-                        </v-list-item-icon>
-                        <v-list-item-content>
-                            <v-list-item-title>Cerrar Sesión</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
                 </v-list>
             </v-navigation-drawer>
 
@@ -86,7 +87,11 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
+// Vuex
+import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+
+// axios
+import axios from "axios";
 
 export default {
     name: "App",
@@ -105,6 +110,7 @@ export default {
 
     computed: {
         ...mapState("auth", ["token"]),
+        ...mapState("preferences", ["appName"]),
         ...mapGetters("auth", ["account"]),
 
         dark: {
@@ -137,10 +143,15 @@ export default {
     },
 
     mounted() {
-        this.getUser();
+        if (this.token != null) {
+            this.getUser();
+        }
+
+        this.setAppName();
     },
 
     methods: {
+        ...mapMutations("preferences", ["fillAppName"]),
         ...mapActions("auth", ["logout", "getUser"]),
 
         sidenavControl() {
@@ -150,6 +161,30 @@ export default {
             } else {
                 this.mini = !this.mini;
             }
+        },
+
+        setAppName() {
+            let aplicationName = window.localStorage.getItem("appName");
+
+            if (!aplicationName) {
+                axios
+                    .get("/api/preferences")
+                    .then(response => {
+                        this.fillAppName(response.data.appName);
+                        window.localStorage.setItem(
+                            "appName",
+                            response.data.appName
+                        );
+                        document.getElementById("appTitle").innerHTML =
+                            response.data.appName;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+
+            document.getElementById("appTitle").innerHTML =
+                window.localStorage.getItem("appName") || "";
         },
 
         exit: async function() {
