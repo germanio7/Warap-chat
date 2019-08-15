@@ -11,14 +11,21 @@
             </v-flex>
             <v-flex xs12 style="text-align: center;">
                 <br />
-                <h1 class="display-2 font-weight-light secondary--text">Laravel Passport Vue</h1>
+                <h1 class="display-2 font-weight-light secondary--text">{{ appName }}</h1>
             </v-flex>
         </v-layout>
     </div>
 </template>
 
 <script>
+// Vuex
+import { mapState } from "vuex";
+
 export default {
-    name: "Home"
+    name: "Home",
+
+    computed: {
+        ...mapState("preferences", ["appName"])
+    }
 };
 </script>

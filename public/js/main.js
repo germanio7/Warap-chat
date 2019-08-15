@@ -2031,7 +2031,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       mobileDrawer: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("auth", ["token"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("preferences", ["appName"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("auth", ["account"]), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("auth", ["token"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])("auth", ["account"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("preferences", ["appName"]), {
     dark: {
       set: function set() {},
       get: function get() {
@@ -2062,10 +2062,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     if (this.token != null) {
       this.getUser();
     }
-
-    this.setAppName();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])("preferences", ["fillAppName"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("auth", ["logout", "getUser"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("auth", ["logout", "getUser"]), {
     sidenavControl: function sidenavControl() {
       if (this.screenWidth <= 600) {
         this.mini = false;
@@ -2073,24 +2071,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else {
         this.mini = !this.mini;
       }
-    },
-    setAppName: function setAppName() {
-      var _this = this;
-
-      var aplicationName = window.localStorage.getItem("appName");
-
-      if (!aplicationName) {
-        axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/api/preferences").then(function (response) {
-          _this.fillAppName(response.data.appName);
-
-          window.localStorage.setItem("appName", response.data.appName);
-          document.getElementById("appTitle").innerHTML = response.data.appName;
-        })["catch"](function (error) {
-          console.log(error);
-        });
-      }
-
-      document.getElementById("appTitle").innerHTML = window.localStorage.getItem("appName") || "";
     },
     exit: function () {
       var _exit = _asyncToGenerator(
@@ -2104,7 +2084,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return this.logout();
 
               case 2:
-                this.$router.push("/");
+                this.$user.set({
+                  role: "unregistered"
+                });
 
               case 3:
               case "end":
@@ -3644,8 +3626,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_auth_components_LoginForm_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/auth_components/LoginForm.vue */ "./resources/js/auth/components/auth_components/LoginForm.vue");
+/* harmony import */ var _components_auth_components_LoginForm_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/auth_components/LoginForm.vue */ "./resources/js/auth/components/auth_components/LoginForm.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3717,35 +3699,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//Components
+ //Vuex
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Login",
-  components: {
-    LoginForm: _components_auth_components_LoginForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  data: function data() {
+    return {
+      process: false
+    };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("auth", ["inProcess", "errors"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("auth", ["login"]), {
+  components: {
+    LoginForm: _components_auth_components_LoginForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("auth", ["errors"])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("auth", ["login", "getUser"]), {
     loginValidate: function () {
       var _loginValidate = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var userData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!this.$refs.loginForm.validate()) {
-                  _context.next = 4;
+                  _context.next = 10;
                   break;
                 }
 
-                _context.next = 3;
+                this.process = true;
+                _context.next = 4;
                 return this.login();
 
-              case 3:
-                this.$router.push("/account");
-
               case 4:
+                _context.next = 6;
+                return this.getUser();
+
+              case 6:
+                userData = _context.sent;
+                this.$user.set({
+                  role: userData.rol.role
+                });
+
+                if (userData.user.role_id != null) {
+                  this.$user.set({
+                    role: userData.rol.role
+                  });
+                } else {
+                  this.$user.set({
+                    role: "visitor"
+                  });
+                }
+
+                this.process = false;
+
+              case 10:
               case "end":
                 return _context.stop();
             }
@@ -3846,39 +3856,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+// Components
+ // Vuex
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Register",
+  data: function data() {
+    return {
+      process: false
+    };
+  },
   components: {
     RegisterForm: _components_auth_components_RegisterForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("auth", ["inProcess"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("auth", ["register", "login"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("auth", ["register", "login", "getUser"]), {
     registerValidate: function () {
       var _registerValidate = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var userData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!this.$refs.register_form.validate()) {
-                  _context.next = 6;
+                  _context.next = 11;
                   break;
                 }
 
-                _context.next = 3;
+                this.process = true;
+                _context.next = 4;
                 return this.register();
 
-              case 3:
-                _context.next = 5;
+              case 4:
+                _context.next = 6;
                 return this.login();
 
-              case 5:
-                this.$router.push("/account");
-
               case 6:
+                _context.next = 8;
+                return this.getUser();
+
+              case 8:
+                userData = _context.sent;
+
+                if (userData.user.role_id != null) {
+                  this.$user.set({
+                    role: userData.rol.role
+                  });
+                } else {
+                  this.$user.set({
+                    role: "visitor"
+                  });
+                }
+
+                this.process = false;
+
+              case 11:
               case "end":
                 return _context.stop();
             }
@@ -4735,26 +4769,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       process: false,
-      aplicationName: window.localStorage.getItem("appName") || null,
+      aplicationName: window.localStorage.getItem("appName"),
       logo: null
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("preferences", ["appName"])),
-  mounted: function mounted() {
-    this.setAppNameInput();
-  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("preferences", ["updateAppName", "updateAppLogo"]), {
-    setAppNameInput: function setAppNameInput() {
-      var _this = this;
-
-      if (!window.localStorage.getItem("appName")) {
-        axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/preferences").then(function (response) {
-          _this.aplicationName = response.data.appName;
-        })["catch"](function (error) {
-          console.log(error);
-        });
-      }
-    },
     updateName: function () {
       var _updateName = _asyncToGenerator(
       /*#__PURE__*/
@@ -4882,6 +4902,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4901,8 +4928,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+// Vuex
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Home"
+  name: "Home",
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("preferences", ["appName"]))
 });
 
 /***/ }),
@@ -11668,8 +11698,8 @@ var render = function() {
                                     {
                                       name: "show",
                                       rawName: "v-show",
-                                      value: _vm.inProcess,
-                                      expression: "inProcess"
+                                      value: _vm.process,
+                                      expression: "process"
                                     }
                                   ],
                                   attrs: { xs12: "", "pa-3": "" }
@@ -11704,8 +11734,8 @@ var render = function() {
                                     {
                                       name: "show",
                                       rawName: "v-show",
-                                      value: !_vm.inProcess,
-                                      expression: "!inProcess"
+                                      value: !_vm.process,
+                                      expression: "!process"
                                     }
                                   ],
                                   attrs: { xs12: "", "pa-3": "" }
@@ -11893,8 +11923,8 @@ var render = function() {
                                     {
                                       name: "show",
                                       rawName: "v-show",
-                                      value: _vm.inProcess,
-                                      expression: "inProcess"
+                                      value: _vm.process,
+                                      expression: "process"
                                     }
                                   ],
                                   attrs: { xs12: "", "pa-3": "" }
@@ -11929,8 +11959,8 @@ var render = function() {
                                     {
                                       name: "show",
                                       rawName: "v-show",
-                                      value: !_vm.inProcess,
-                                      expression: "!inProcess"
+                                      value: !_vm.process,
+                                      expression: "!process"
                                     }
                                   ],
                                   attrs: { xs12: "", "pa-3": "" }
@@ -13306,7 +13336,7 @@ var render = function() {
               _c(
                 "h1",
                 { staticClass: "display-2 font-weight-light secondary--text" },
-                [_vm._v("Laravel Passport Vue")]
+                [_vm._v(_vm._s(_vm.appName))]
               )
             ]
           )
@@ -13495,6 +13525,104 @@ function normalizeComponent (
     options: options
   }
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-router-user-roles/dist/vue-router-user-roles.common.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/vue-router-user-roles/dist/vue-router-user-roles.common.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/*!
+ * vue-router-user-roles v0.1.92 
+ * (c) 2019 Anthony Gore
+ * Released under the MIT License.
+ */
+
+
+function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+
+var Vue = _interopDefault(__webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"));
+
+var RouteProtect = function RouteProtect (router) {
+  this.router = router;
+  this.vm = new Vue({
+    data: {
+      user: null
+    }
+  });
+};
+RouteProtect.prototype.get = function get () {
+  if (!this.vm.user) {
+    throw new Error("Attempt to access user before being set");
+  }
+  return this.vm.user;
+};
+RouteProtect.prototype.set = function set (user) {
+  this.vm.user = user;
+  if (this.to) {
+    var ref = this._hasAccessToRoute(this.to);
+      var access = ref.access;
+      var redirect = ref.redirect;
+    if (!access) {
+      this.router.push({ name: redirect });
+    }
+  }
+};
+RouteProtect.prototype.hasAccess = function hasAccess (ref) {
+    var name = ref.name;
+
+  var route = this.router.options.routes.find(function (r) { return r.name === name; });
+  if (!route) {
+    throw new Error(("Route " + name + " is not defined in the current router"));
+  }
+
+  return this._hasAccessToRoute(route).access;
+};
+RouteProtect.prototype._hasAccessToRoute = function _hasAccessToRoute (route) {
+    var this$1 = this;
+
+  if (this.vm.user && route.meta.permissions) {
+    var matched = route.meta.permissions.find(function (item) { return item.role === this$1.vm.user.role; });
+    if (matched) {
+      if ((typeof matched.access === "boolean" && !matched.access) ||
+          (typeof matched.access === "function" && !matched.access(this.vm.user, route))) {
+        return { access: false, redirect: matched.redirect };
+      }
+    }
+  }
+
+  return { access: true };
+};
+RouteProtect.prototype.resolve = function resolve (to, from, next) {
+  this.to = to;
+
+  var ref = this._hasAccessToRoute(to);
+    var access = ref.access;
+    var redirect = ref.redirect;
+  access ? next() : next({ name: redirect });
+  };
+
+function plugin (Vue$$1, opts) {
+  if (!opts.router) {
+    throw new Error("You must supply a router instance in the options.");
+  }
+  var rp = new RouteProtect(opts.router);
+  Vue$$1.prototype.$user = rp;
+  opts.router.beforeEach(function (to, from, next) { return rp.resolve(to, from, next); });
+}
+
+plugin.version = "0.1.92";
+
+if (typeof window !== "undefined" && window.Vue) {
+  window.Vue.use(plugin);
+}
+
+module.exports = plugin;
 
 
 /***/ }),
@@ -67076,6 +67204,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_croppa_dist_vue_croppa_css__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_croppa_dist_vue_croppa_css__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var vue_croppa__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-croppa */ "./node_modules/vue-croppa/dist/vue-croppa.js");
 /* harmony import */ var vue_croppa__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_croppa__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var vue_router_user_roles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-router-user-roles */ "./node_modules/vue-router-user-roles/dist/vue-router-user-roles.common.js");
+/* harmony import */ var vue_router_user_roles__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(vue_router_user_roles__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _preferences_InitialsPreferences__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./preferences/InitialsPreferences */ "./resources/js/preferences/InitialsPreferences.js");
 
 
 
@@ -67085,36 +67216,38 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_croppa__WEBPACK_IMPORTED_MODULE_6___default.a);
-_router__WEBPACK_IMPORTED_MODULE_2__["default"].beforeEach(function (to, from, next) {
-  if (to.matched.some(function (record) {
-    return record.meta.requiresAuth;
-  })) {
-    if (_store__WEBPACK_IMPORTED_MODULE_3__["default"].state.auth.token == null) {
-      next({
-        path: "/login"
-      });
-    } else {
-      next();
-    }
-  } else if (to.matched.some(function (record) {
-    return record.meta.requiresVisitor;
-  })) {
-    if (_store__WEBPACK_IMPORTED_MODULE_3__["default"].state.auth.token != null) {
-      next({
-        path: "/account"
-      });
-    } else {
-      next();
-    }
-  } else {
-    next();
-  }
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_croppa__WEBPACK_IMPORTED_MODULE_6___default.a); // Vue User Roles
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router_user_roles__WEBPACK_IMPORTED_MODULE_7___default.a, {
+  router: _router__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
+var token = localStorage.getItem("accsess_token");
+
+if (token) {
+  axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+  axios.get("/api/user").then(function (response) {
+    vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$user.set({
+      role: response.data.rol.role
+    });
+  })["catch"](function (error) {
+    commit("fillErrors", error.response.data);
+    state.inProcess = false;
+    throw new Error(error);
+  });
+} else {
+  vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype.$user.set({
+    role: "unregistered"
+  });
+} //Configuracion Inicial
+
+
+
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.config.productionTip = false;
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
   store: _store__WEBPACK_IMPORTED_MODULE_3__["default"],
+  InitialsPreferences: _preferences_InitialsPreferences__WEBPACK_IMPORTED_MODULE_8__["default"],
   vuetify: _plugins_vuetify__WEBPACK_IMPORTED_MODULE_4__["default"],
   render: function render(h) {
     return h(_App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -67205,6 +67338,35 @@ if (darkMode == null) {
     current: "es"
   }
 }));
+
+/***/ }),
+
+/***/ "./resources/js/preferences/InitialsPreferences.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/preferences/InitialsPreferences.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+ // Nombre de la aplicación
+
+var aplicationName = window.localStorage.getItem("appName");
+
+if (!aplicationName) {
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/preferences").then(function (response) {
+    window.localStorage.setItem("appName", response.data.appName);
+    document.getElementById("appTitle").innerHTML = response.data.appName;
+  })["catch"](function (error) {
+    console.log(error);
+  });
+}
+
+document.getElementById("appTitle").innerHTML = window.localStorage.getItem("appName") || "";
+/* harmony default export */ __webpack_exports__["default"] = ("preferences complete");
 
 /***/ }),
 
@@ -67363,7 +67525,7 @@ var state = {
   darkMode: JSON.parse(window.localStorage.getItem("darkMode")) || null,
   darkColors: JSON.parse(window.localStorage.getItem("darkColors")) || null,
   lightColors: JSON.parse(window.localStorage.getItem("lightColors")) || null,
-  appName: window.localStorage.getItem("appName") || null,
+  appName: window.localStorage.getItem("appName") || "",
   errors: null
 };
 var mutations = {
@@ -67535,17 +67697,76 @@ __webpack_require__.r(__webpack_exports__);
 
  //Preferences Views
 
+ //Permisos
 
+var unregistered = [{
+  role: "unregistered",
+  access: true
+}, {
+  role: "visitor",
+  access: false,
+  redirect: "account"
+}, {
+  role: "superAdmin",
+  access: false,
+  redirect: "account"
+}, {
+  role: "administrador",
+  access: false,
+  redirect: "account"
+}];
+var visitor = [{
+  role: "unregistered",
+  access: true,
+  redirect: "login"
+}, {
+  role: "visitor",
+  access: true
+}, {
+  role: "superAdmin",
+  access: true
+}, {
+  role: "administrador",
+  access: true
+}];
+var administrador = [{
+  role: "unregistered",
+  access: false,
+  redirect: "login"
+}, {
+  role: "visitor",
+  access: false,
+  redirect: "account"
+}, {
+  role: "superAdmin",
+  access: true
+}, {
+  role: "administrador",
+  access: true
+}];
+var superAdmin = [{
+  role: "unregistered",
+  access: false,
+  redirect: "login"
+}, {
+  role: "visitor",
+  access: false,
+  redirect: "account"
+}, {
+  role: "superAdmin",
+  access: true
+}, {
+  role: "administrador",
+  access: false,
+  redirect: "account"
+}];
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: "history",
   routes: [{
     path: "/",
     name: "home",
-    component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    meta: {
-      requiresVisitor: true
-    }
+    component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: "*",
     component: _views_NotFound_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -67555,21 +67776,21 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: "register",
     component: _auth_views_Register_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     meta: {
-      requiresVisitor: true
+      permissions: unregistered
     }
   }, {
     path: "/login",
     name: "login",
     component: _auth_views_Login_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     meta: {
-      requiresVisitor: true
+      permissions: unregistered
     }
   }, {
     path: "/account",
     name: "account",
     component: _auth_views_Account_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
     meta: {
-      requiresAuth: true
+      permissions: visitor
     }
   }, //Roles Routes
   {
@@ -67577,7 +67798,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: "roles",
     component: _auth_views_Roles_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     meta: {
-      requiresAuth: true
+      permissions: superAdmin
     }
   }, //Users Routes
   {
@@ -67585,7 +67806,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: "users",
     component: _auth_views_Users_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
     meta: {
-      requiresAuth: true
+      permissions: administrador
     }
   }, //Preferences Routes
   {
@@ -67593,7 +67814,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     name: "preferences",
     component: _preferences_views_Preferences_vue__WEBPACK_IMPORTED_MODULE_9__["default"],
     meta: {
-      requiresAuth: true
+      permissions: administrador
     }
   }]
 }));

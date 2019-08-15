@@ -110,8 +110,8 @@ export default {
 
     computed: {
         ...mapState("auth", ["token"]),
-        ...mapState("preferences", ["appName"]),
         ...mapGetters("auth", ["account"]),
+        ...mapState("preferences", ["appName"]),
 
         dark: {
             set() {},
@@ -146,12 +146,9 @@ export default {
         if (this.token != null) {
             this.getUser();
         }
-
-        this.setAppName();
     },
 
     methods: {
-        ...mapMutations("preferences", ["fillAppName"]),
         ...mapActions("auth", ["logout", "getUser"]),
 
         sidenavControl() {
@@ -163,33 +160,9 @@ export default {
             }
         },
 
-        setAppName() {
-            let aplicationName = window.localStorage.getItem("appName");
-
-            if (!aplicationName) {
-                axios
-                    .get("/api/preferences")
-                    .then(response => {
-                        this.fillAppName(response.data.appName);
-                        window.localStorage.setItem(
-                            "appName",
-                            response.data.appName
-                        );
-                        document.getElementById("appTitle").innerHTML =
-                            response.data.appName;
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            }
-
-            document.getElementById("appTitle").innerHTML =
-                window.localStorage.getItem("appName") || "";
-        },
-
         exit: async function() {
             await this.logout();
-            this.$router.push("/");
+            this.$user.set({ role: "unregistered" });
         }
     }
 };

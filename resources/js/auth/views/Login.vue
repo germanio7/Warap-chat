@@ -14,7 +14,7 @@
                         <v-card-text style="padding: 0;">
                             <v-layout wrap align-center>
                                 <!-- Login Progress -->
-                                <v-flex xs12 pa-3 v-show="inProcess">
+                                <v-flex xs12 pa-3 v-show="process">
                                     <v-layout justify-center style="margin-top: 80px;">
                                         <v-progress-circular
                                             :size="70"
@@ -26,7 +26,7 @@
                                 </v-flex>
 
                                 <!-- Login Form -->
-                                <v-flex xs12 pa-3 v-show="!inProcess">
+                                <v-flex xs12 pa-3 v-show="!process">
                                     <v-alert :value="errors ? true : false" color="error">
                                         <div v-if="errors">{{ errors.error_description }}</div>
                                     </v-alert>
@@ -58,26 +58,43 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+//Components
 import LoginForm from "../components/auth_components/LoginForm.vue";
+
+//Vuex
+import { mapState, mapActions } from "vuex";
 
 export default {
     name: "Login",
+
+    data() {
+        return {
+            process: false
+        };
+    },
 
     components: {
         LoginForm
     },
 
     computed: {
-        ...mapState("auth", ["inProcess", "errors"])
+        ...mapState("auth", ["errors"])
     },
 
     methods: {
-        ...mapActions("auth", ["login"]),
+        ...mapActions("auth", ["login", "getUser"]),
         loginValidate: async function() {
             if (this.$refs.loginForm.validate()) {
+                this.process = true;
                 await this.login();
-                this.$router.push("/account");
+                let userData = await this.getUser();
+                this.$user.set({ role: userData.rol.role });
+                if (userData.user.role_id != null) {
+                    this.$user.set({ role: userData.rol.role });
+                } else {
+                    this.$user.set({ role: "visitor" });
+                }
+                this.process = false;
             }
         }
     }

@@ -5,7 +5,7 @@ const state = {
     darkMode: JSON.parse(window.localStorage.getItem("darkMode")) || null,
     darkColors: JSON.parse(window.localStorage.getItem("darkColors")) || null,
     lightColors: JSON.parse(window.localStorage.getItem("lightColors")) || null,
-    appName: window.localStorage.getItem("appName") || null,
+    appName: window.localStorage.getItem("appName") || "",
     errors: null
 };
 

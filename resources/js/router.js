@@ -17,6 +17,93 @@ import Users from "./auth/views/Users.vue";
 //Preferences Views
 import Preferences from "./preferences/views/Preferences.vue";
 
+//Permisos
+
+const unregistered = [
+    {
+        role: "unregistered",
+        access: true
+    },
+    {
+        role: "visitor",
+        access: false,
+        redirect: "account"
+    },
+    {
+        role: "superAdmin",
+        access: false,
+        redirect: "account"
+    },
+    {
+        role: "administrador",
+        access: false,
+        redirect: "account"
+    }
+];
+
+const visitor = [
+    {
+        role: "unregistered",
+        access: true,
+        redirect: "login"
+    },
+    {
+        role: "visitor",
+        access: true
+    },
+    {
+        role: "superAdmin",
+        access: true
+    },
+    {
+        role: "administrador",
+        access: true
+    }
+];
+
+const administrador = [
+    {
+        role: "unregistered",
+        access: false,
+        redirect: "login"
+    },
+    {
+        role: "visitor",
+        access: false,
+        redirect: "account"
+    },
+    {
+        role: "superAdmin",
+        access: true
+    },
+    {
+        role: "administrador",
+        access: true
+    }
+];
+
+const superAdmin = [
+    {
+        role: "unregistered",
+        access: false,
+        redirect: "login"
+    },
+    {
+        role: "visitor",
+        access: false,
+        redirect: "account"
+    },
+    {
+        role: "superAdmin",
+        access: true
+    },
+    {
+        role: "administrador",
+        access: false,
+        redirect: "account"
+    }
+];
+
 Vue.use(Router);
 
 export default new Router({
@@ -25,10 +112,7 @@ export default new Router({
         {
             path: "/",
             name: "home",
-            component: Home,
-            meta: {
-                requiresVisitor: true
-            }
+            component: Home
         },
         {
             path: "*",
@@ -41,7 +125,7 @@ export default new Router({
             name: "register",
             component: Register,
             meta: {
-                requiresVisitor: true
+                permissions: unregistered
             }
         },
         {
@@ -49,7 +133,7 @@ export default new Router({
             name: "login",
             component: Login,
             meta: {
-                requiresVisitor: true
+                permissions: unregistered
             }
         },
         {
@@ -57,7 +141,7 @@ export default new Router({
             name: "account",
             component: Account,
             meta: {
-                requiresAuth: true
+                permissions: visitor
             }
         },
 
@@ -67,7 +151,7 @@ export default new Router({
             name: "roles",
             component: Roles,
             meta: {
-                requiresAuth: true
+                permissions: superAdmin
             }
         },
 
@@ -77,7 +161,7 @@ export default new Router({
             name: "users",
             component: Users,
             meta: {
-                requiresAuth: true
+                permissions: administrador
             }
         },
 
@@ -87,7 +171,7 @@ export default new Router({
             name: "preferences",
             component: Preferences,
             meta: {
-                requiresAuth: true
+                permissions: administrador
             }
         }
     ]

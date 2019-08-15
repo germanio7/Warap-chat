@@ -11,33 +11,38 @@ import "vue-croppa/dist/vue-croppa.css";
 import Croppa from "vue-croppa";
 Vue.use(Croppa);
 
-router.beforeEach((to, from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (store.state.auth.token == null) {
-            next({
-                path: "/login"
+// Vue User Roles
+import VueRouterUserRoles from "vue-router-user-roles";
+Vue.use(VueRouterUserRoles, { router });
+
+let token = localStorage.getItem("accsess_token");
+if (token) {
+    axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+    axios
+        .get("/api/user")
+        .then(response => {
+            Vue.prototype.$user.set({
+                role: response.data.rol.role
             });
-        } else {
-            next();
-        }
-    } else if (to.matched.some(record => record.meta.requiresVisitor)) {
-        if (store.state.auth.token != null) {
-            next({
-                path: "/account"
-            });
-        } else {
-            next();
-        }
-    } else {
-        next();
-    }
-});
+        })
+        .catch(error => {
+            commit("fillErrors", error.response.data);
+            state.inProcess = false;
+            throw new Error(error);
+        });
+} else {
+    Vue.prototype.$user.set({ role: "unregistered" });
+}
+
+//Configuracion Inicial
+import InitialsPreferences from "./preferences/InitialsPreferences";
 
 Vue.config.productionTip = false;
 
 new Vue({
     router,
     store,
+    InitialsPreferences,
     vuetify,
     render: function(h) {
         return h(App);

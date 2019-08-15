@@ -148,7 +148,7 @@ export default {
     data() {
         return {
             process: false,
-            aplicationName: window.localStorage.getItem("appName") || null,
+            aplicationName: window.localStorage.getItem("appName"),
             logo: null
         };
     },
@@ -157,25 +157,8 @@ export default {
         ...mapState("preferences", ["appName"])
     },
 
-    mounted() {
-        this.setAppNameInput();
-    },
-
     methods: {
         ...mapActions("preferences", ["updateAppName", "updateAppLogo"]),
-
-        setAppNameInput() {
-            if (!window.localStorage.getItem("appName")) {
-                axios
-                    .get("/api/preferences")
-                    .then(response => {
-                        this.aplicationName = response.data.appName;
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            }
-        },
 
         updateName: async function() {
             if (this.aplicationName) {
