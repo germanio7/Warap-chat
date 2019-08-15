@@ -2,7 +2,6 @@
     <div>
         <v-container>
             <!-- Users Table -->
-
             <v-layout justify-center>
                 <v-flex xs12 sm10 lg8>
                     <v-card>
@@ -51,7 +50,6 @@
                     </v-card>
                 </v-flex>
             </v-layout>
-
             <!-- Edit Users Dialog -->
             <v-dialog v-model="editUsersDialog" width="500" persistent scrollable>
                 <v-form ref="userForm" @submit.prevent="updateUser()">
@@ -67,11 +65,18 @@
                             <v-layout justify-end>
                                 <v-btn
                                     @click="closeEdit()"
+                                    :disabled="inProcess"
                                     outlined
                                     color="primary"
                                     class="mx-2"
                                 >Cancelar</v-btn>
-                                <v-btn type="submit" color="primary" class="elevation-0 mx-2">Editar</v-btn>
+                                <v-btn
+                                    :disabled="inProcess"
+                                    :loading="inProcess"
+                                    type="submit"
+                                    color="primary"
+                                    class="elevation-0 mx-2"
+                                >Editar</v-btn>
                             </v-layout>
                         </v-card-actions>
                     </v-card>
@@ -90,11 +95,18 @@
                         <v-layout justify-end wrap>
                             <v-btn
                                 @click="deleteUsersDialog = false;"
+                                :disabled="inProcess"
                                 outlined
                                 color="primary"
                                 class="elevation-0 mx-2"
-                            >Cancel</v-btn>
-                            <v-btn @click="erase()" color="primary" class="elevation-0 mx-2">Delete</v-btn>
+                            >Cancelar</v-btn>
+                            <v-btn
+                                :disabled="inProcess"
+                                :loading="inProcess"
+                                @click="erase()"
+                                color="primary"
+                                class="elevation-0 mx-2"
+                            >Eliminar</v-btn>
                         </v-layout>
                     </v-card-text>
                 </v-card>
@@ -123,16 +135,8 @@ export default {
     },
 
     computed: {
-        ...mapState("crudx", ["data", "form"]),
+        ...mapState("crudx", ["inProcess", "data", "form"]),
         ...mapGetters("auth", ["account"])
-    },
-
-    created() {
-        this.getUser();
-    },
-
-    mounted() {
-        this.index({ url: "/api/users" });
     },
 
     methods: {
@@ -142,8 +146,8 @@ export default {
         updateUser: async function() {
             if (this.$refs.userForm.validate()) {
                 await this.update({ url: "/api/users/" + this.form.id });
-                this.index({ url: "/api/users" });
                 this.editUsersDialog = false;
+                this.index({ url: "/api/users" });
             }
         },
 
@@ -163,3 +167,12 @@ export default {
     }
 };
 </script>
+
+<style>
+.loading {
+    position: fixed;
+    z-index: 999999;
+    left: 47.3%;
+    top: 44%;
+}
+</style>

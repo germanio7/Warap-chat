@@ -62,7 +62,7 @@
                                                 :loading-size="25"
                                                 :prevent-white-space="true"
                                                 :zoom-speed="10"
-                                                initial-image="images/logo.png"
+                                                initial-image="img/logo.png"
                                             ></croppa>
                                         </v-layout>
                                     </v-flex>

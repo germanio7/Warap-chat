@@ -7,9 +7,7 @@
                 <v-layout justify-center>
                     <!-- Register card -->
                     <v-card style="width: 400px; min-height: 350px; height: auto;">
-                        <v-card-title class="primary">
-                            <h3 class="white--text">Registrarse</h3>
-                        </v-card-title>
+                        <v-card-title class="primary">Registrarse</v-card-title>
                         <v-card-text style="padding: 0;">
                             <v-layout wrap align-center>
                                 <!-- Register Progress -->
@@ -30,8 +28,8 @@
                                         ref="register_form"
                                         @submit.prevent="registerValidate()"
                                     >
-                                        <RegisterForm></RegisterForm>
-                                        <v-layout justify-center wrap>
+                                        <RegisterForm class="mt-5"></RegisterForm>
+                                        <v-layout justify-center wrap class="mb-5">
                                             <v-btn
                                                 to="/login"
                                                 class="mx-2"

@@ -12,7 +12,6 @@
         >
             <v-icon>fas fa-plus</v-icon>
         </v-btn>
-
         <v-dialog v-model="createUsersDialog" width="500" persistent scrollable>
             <v-form ref="usersForm" @submit.prevent="saveUser">
                 <v-card>
@@ -27,18 +26,32 @@
                         <v-layout justify-end>
                             <v-btn
                                 @click="cancelUser()"
+                                :disabled="inProcess"
                                 outlined
                                 color="primary"
                                 class="mx-2"
                             >Cancelar</v-btn>
-                            <v-btn type="submit" color="primary" class="elevation-0 mx-2">Guardar</v-btn>
+                            <v-btn
+                                :disabled="inProcess"
+                                :loading="inProcess"
+                                type="submit"
+                                color="primary"
+                                class="elevation-0 mx-2"
+                            >Guardar</v-btn>
                         </v-layout>
                     </v-card-actions>
                 </v-card>
             </v-form>
         </v-dialog>
         <br />
-        <UsersIndex></UsersIndex>
+        <template>
+            <div class="loading" v-show="process">
+                <v-layout justify-center>
+                    <v-progress-circular :size="70" :width="7" color="primary" indeterminate></v-progress-circular>
+                </v-layout>
+            </div>
+        </template>
+        <UsersIndex v-show="!process"></UsersIndex>
     </div>
 </template>
 
@@ -53,6 +66,7 @@ export default {
 
     data() {
         return {
+            process: false,
             createUsersDialog: false
         };
     },
@@ -63,11 +77,21 @@ export default {
     },
 
     computed: {
-        ...mapState("crudx", ["form"])
+        ...mapState("crudx", ["inProcess", "form"])
+    },
+
+    mounted() {
+        this.getUsers();
     },
 
     methods: {
         ...mapActions("crudx", ["index", "save"]),
+
+        getUsers: async function() {
+            this.process = true;
+            await this.index({ url: "/api/users" });
+            this.process = false;
+        },
 
         cancelUser() {
             this.$refs.usersForm.reset();
@@ -78,8 +102,8 @@ export default {
         saveUser: async function() {
             if (this.$refs.usersForm.validate()) {
                 await this.save({ url: "/api/users" });
-                this.index({ url: "/api/users" });
                 this.createUsersDialog = false;
+                this.getUsers();
             }
         }
     }

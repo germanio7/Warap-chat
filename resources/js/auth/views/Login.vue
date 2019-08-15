@@ -8,9 +8,7 @@
                 <v-layout justify-center>
                     <!-- Login card -->
                     <v-card style="width: 400px; min-height: 350px; height: auto;">
-                        <v-card-title class="primary">
-                            <h3 class="white--text">Iniciar Sesión</h3>
-                        </v-card-title>
+                        <v-card-title class="primary">Iniciar Sesión</v-card-title>
                         <v-card-text style="padding: 0;">
                             <v-layout wrap align-center>
                                 <!-- Login Progress -->

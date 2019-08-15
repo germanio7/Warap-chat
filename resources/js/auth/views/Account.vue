@@ -173,11 +173,14 @@
                                     <v-layout justify-end wrap>
                                         <v-btn
                                             @click="editDialog = false;"
+                                            :disabled="inProcess"
                                             outlined
                                             color="primary"
                                             class="mx-2"
                                         >Cancelar</v-btn>
                                         <v-btn
+                                            :disabled="inProcess"
+                                            :loading="inProcess"
                                             type="submit"
                                             color="primary"
                                             class="elevation-0 mx-2"
@@ -271,6 +274,7 @@ export default {
 
         erase: async function() {
             await this.deleteAccount();
+            this.$user.set({ role: "unregistered" });
             this.$router.push("/");
         }
     }

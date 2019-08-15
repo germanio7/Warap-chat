@@ -140,7 +140,6 @@ const actions = {
                 .delete(params.url)
                 .then(response => {
                     state.inProcess = false;
-                    console.log(response.data);
                     resolve(response.data);
                 })
                 .catch(error => {

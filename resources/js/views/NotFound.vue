@@ -6,7 +6,7 @@
         <v-layout wrap>
             <v-flex xs12>
                 <v-layout justify-center>
-                    <img src="images/logo.png" width="300" height="300" />
+                    <img src="img/logo.png" width="300" height="300" />
                 </v-layout>
             </v-flex>
             <v-flex xs12 style="text-align: center;">

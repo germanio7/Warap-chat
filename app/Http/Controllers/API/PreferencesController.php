@@ -21,7 +21,7 @@ class PreferencesController extends Controller
         $preference->appName = $request->appName;
 
         if ($request->get('logo')) {
-            Image::make($request->get('logo'))->save(public_path('images/logo.png'));
+            Image::make($request->get('logo'))->save(public_path('img/logo.png'));
         }
 
         $preference->update();

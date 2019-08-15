@@ -18,7 +18,6 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/update_foto', 'API\UsersController@updateFoto');
 
     /*Preferencias*/
-    Route::get('/preferences', 'API\PreferencesController@getPreferences');
     Route::post('/preferences/update', 'API\PreferencesController@updatePreferences');
 });
 
@@ -26,3 +25,6 @@ Route::middleware('auth:api')->group(function () {
 /*Auth*/
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');
+
+/*Preferencias*/
+Route::get('/preferences', 'API\PreferencesController@getPreferences');

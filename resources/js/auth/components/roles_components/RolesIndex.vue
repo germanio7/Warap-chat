@@ -52,7 +52,6 @@
                     </v-card>
                 </v-flex>
             </v-layout>
-
             <!-- Edit Roles Dialog -->
             <v-dialog v-model="editRolesDialog" width="500" persistent>
                 <v-card>
@@ -67,11 +66,18 @@
                             <v-layout justify-end wrap>
                                 <v-btn
                                     @click="closeEdit()"
+                                    :disabled="inProcess"
                                     outlined
                                     color="primary"
                                     class="mx-2"
                                 >Cancelar</v-btn>
-                                <v-btn type="submit" color="primary" class="elevation-0 mx-2">Editar</v-btn>
+                                <v-btn
+                                    :disabled="inProcess"
+                                    :loading="inProcess"
+                                    type="submit"
+                                    color="primary"
+                                    class="elevation-0 mx-2"
+                                >Editar</v-btn>
                             </v-layout>
                         </v-form>
                     </v-card-text>
@@ -90,12 +96,15 @@
                         <v-layout justify-end wrap>
                             <v-btn
                                 @click="deleteRolesDialog = false;"
+                                :disabled="inProcess"
                                 outlined
                                 color="primary"
                                 class="mx-2"
                             >Cancelar</v-btn>
                             <v-btn
                                 @click="erase()"
+                                :disabled="inProcess"
+                                :loading="inProcess"
                                 color="primary"
                                 class="elevation-0 mx-2"
                             >Eliminar</v-btn>
@@ -144,7 +153,6 @@ export default {
 
     data() {
         return {
-            roles: [],
             editRolesDialog: false,
             deleteRolesDialog: false,
             permisosRolesDialog: false,
@@ -166,21 +174,12 @@ export default {
     },
 
     computed: {
-        ...mapState("crudx", ["data", "showData", "form"])
-    },
-
-    mounted() {
-        this.getRoles();
+        ...mapState("crudx", ["inProcess", "data", "showData", "form"])
     },
 
     methods: {
         ...mapActions("crudx", ["index", "edit", "update", "destroy"]),
         ...mapMutations("crudx", ["resetForm"]),
-
-        getRoles: async function() {
-            let response = await this.index({ url: "/api/roles" });
-            this.roles = response;
-        },
 
         updateRole: async function() {
             if (this.$refs.roleForm.validate()) {
@@ -199,16 +198,16 @@ export default {
                 this.form.description = description;
                 await this.update({ url: "/api/roles/" + this.form.id });
                 this.$refs.roleForm.reset();
-                this.getRoles();
+                await this.index({ url: "/api/roles" });
                 this.editRolesDialog = false;
             }
         },
 
         closeEdit: async function() {
-            await this.getRoles();
+            this.editRolesDialog = false;
+            await this.index({ url: "/api/roles" });
             this.$refs.roleForm.reset();
             this.$refs.roleForm.resetValidation();
-            this.editRolesDialog = false;
         },
 
         openPermisos(rol) {
