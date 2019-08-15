@@ -3,12 +3,12 @@
         <v-container>
             <br />
             <v-layout justify-center wrap>
-                <v-flex xs12 sm8>
+                <v-flex xs12 sm8 v-show="rol == 'superAdmin'">
                     <h2 class="title">Aplicación</h2>
                     <appPreferences></appPreferences>
+                    <br />
                 </v-flex>
                 <v-flex xs12 sm8>
-                    <br />
                     <h2 class="title">Interfaz</h2>
                     <InterfacePreferences></InterfacePreferences>
                 </v-flex>
@@ -22,12 +22,19 @@
 import appPreferences from "../components/appPreferences.vue";
 import InterfacePreferences from "../components/InterfacePreferences.vue";
 
+// Vuex
+import { mapState } from "vuex";
+
 export default {
     name: "Preferences",
 
     components: {
         appPreferences,
         InterfacePreferences
+    },
+
+    computed: {
+        ...mapState("auth", ["rol"])
     }
 };
 </script>

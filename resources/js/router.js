@@ -44,7 +44,7 @@ const unregistered = [
 const visitor = [
     {
         role: "unregistered",
-        access: true,
+        access: false,
         redirect: "login"
     },
     {
@@ -171,7 +171,7 @@ export default new Router({
             name: "preferences",
             component: Preferences,
             meta: {
-                permissions: administrador
+                permissions: visitor
             }
         }
     ]

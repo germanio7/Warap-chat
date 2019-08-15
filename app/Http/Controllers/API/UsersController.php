@@ -30,7 +30,12 @@ class UsersController extends Controller
             $data = collect();
 
             foreach ($users as $usuario) {
-                $aux = $usuario->role->role;
+                
+                if($usuario->role_id != null) {
+                    $aux = $usuario->role->role;    
+                } else {
+                    $aux = null;
+                }
                 $usuario = collect($usuario);
                 $usuario->put('rol', $aux);
                 $data->push($usuario);
@@ -43,7 +48,12 @@ class UsersController extends Controller
             $data = collect();
 
             foreach ($users as $usuario) {
-                $aux = $usuario->role->role;
+                
+                if($usuario->role_id != null) {
+                    $aux = $usuario->role->role;    
+                } else {
+                    $aux = null;
+                }
                 $usuario = collect($usuario);
                 $usuario->put('rol', $aux);
                 $data->push($usuario);
@@ -77,19 +87,24 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|max:255|unique:users,email,' . $user->id,
+        ]);
 
-        if ($request->password == $request->password_confirm) {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|max:255|unique:users,email,' . $user->id,
-            ]);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->role_id = $request->role_id;
 
-            $user->name = $request->name;
-            $user->email = $request->email;
-            $user->role_id = $request->role_id;
-            $user->password =  bcrypt($request->password);
-            $user->save();
+        if($request->password) {
+            if ($request->password == $request->password_confirm) {
+                $user->password =  bcrypt($request->password);
+            }
         }
+
+        $user->save();
+        
     }
 
     public function updateFoto(Request $request)

@@ -69,7 +69,13 @@
                 class="sidenav"
             >
                 <v-list dense>
-                    <v-list-item v-for="route in routes" :key="route.title" link :to="route.url">
+                    <v-list-item
+                        v-for="route in routes"
+                        :key="route.title"
+                        link
+                        :to="route.url"
+                        v-show="route.access.find(function(element) { return element === rol; })"
+                    >
                         <v-list-item-icon>
                             <v-icon style="font-size: 1.3rem;">{{ route.icon }}</v-icon>
                         </v-list-item-icon>
@@ -100,8 +106,18 @@ export default {
         return {
             profileMenu: false,
             routes: [
-                { name: "Usuarios", icon: "fas fa-user", url: "/users" },
-                { name: "Roles", icon: "fas fa-tag", url: "/roles" }
+                {
+                    name: "Usuarios",
+                    icon: "fas fa-user",
+                    url: "/users",
+                    access: ["superAdmin", "administrador"]
+                },
+                {
+                    name: "Roles",
+                    icon: "fas fa-tag",
+                    url: "/roles",
+                    access: ["superAdmin"]
+                }
             ],
             mini: true,
             mobileDrawer: false
@@ -109,7 +125,7 @@ export default {
     },
 
     computed: {
-        ...mapState("auth", ["token"]),
+        ...mapState("auth", ["token", "rol"]),
         ...mapGetters("auth", ["account"]),
         ...mapState("preferences", ["appName"]),
 

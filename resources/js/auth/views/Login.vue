@@ -14,7 +14,7 @@
                         <v-card-text style="padding: 0;">
                             <v-layout wrap align-center>
                                 <!-- Login Progress -->
-                                <v-flex xs12 pa-3 v-show="process">
+                                <v-flex xs12 pa-3 v-show="inProcess">
                                     <v-layout justify-center style="margin-top: 80px;">
                                         <v-progress-circular
                                             :size="70"
@@ -26,7 +26,7 @@
                                 </v-flex>
 
                                 <!-- Login Form -->
-                                <v-flex xs12 pa-3 v-show="!process">
+                                <v-flex xs12 pa-3 v-show="!inProcess">
                                     <v-alert :value="errors ? true : false" color="error">
                                         <div v-if="errors">{{ errors.error_description }}</div>
                                     </v-alert>
@@ -67,34 +67,26 @@ import { mapState, mapActions } from "vuex";
 export default {
     name: "Login",
 
-    data() {
-        return {
-            process: false
-        };
-    },
-
     components: {
         LoginForm
     },
 
     computed: {
-        ...mapState("auth", ["errors"])
+        ...mapState("auth", ["errors", "inProcess"])
     },
 
     methods: {
         ...mapActions("auth", ["login", "getUser"]),
         loginValidate: async function() {
             if (this.$refs.loginForm.validate()) {
-                this.process = true;
                 await this.login();
+                this.$refs.loginForm.resetValidation();
                 let userData = await this.getUser();
-                this.$user.set({ role: userData.rol.role });
                 if (userData.user.role_id != null) {
                     this.$user.set({ role: userData.rol.role });
                 } else {
                     this.$user.set({ role: "visitor" });
                 }
-                this.process = false;
             }
         }
     }

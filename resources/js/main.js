@@ -1,4 +1,5 @@
 import Vue from "vue";
+import axios from "axios";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -21,9 +22,15 @@ if (token) {
     axios
         .get("/api/user")
         .then(response => {
-            Vue.prototype.$user.set({
-                role: response.data.rol.role
-            });
+            if (response.data.user.role_id != null) {
+                Vue.prototype.$user.set({
+                    role: response.data.rol.role
+                });
+            } else {
+                Vue.prototype.$user.set({
+                    role: "visitor"
+                });
+            }
         })
         .catch(error => {
             commit("fillErrors", error.response.data);

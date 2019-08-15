@@ -13,7 +13,7 @@
                         <v-card-text style="padding: 0;">
                             <v-layout wrap align-center>
                                 <!-- Register Progress -->
-                                <v-flex xs12 pa-3 v-show="process">
+                                <v-flex xs12 pa-3 v-show="inProcess">
                                     <v-layout justify-center style="margin-top: 80px;">
                                         <v-progress-circular
                                             :size="70"
@@ -25,7 +25,7 @@
                                 </v-flex>
 
                                 <!-- Register Form -->
-                                <v-flex xs12 pa-3 v-show="!process">
+                                <v-flex xs12 pa-3 v-show="!inProcess">
                                     <v-form
                                         ref="register_form"
                                         @submit.prevent="registerValidate()"
@@ -65,14 +65,12 @@ import { mapState, mapActions } from "vuex";
 export default {
     name: "Register",
 
-    data() {
-        return {
-            process: false
-        };
-    },
-
     components: {
         RegisterForm
+    },
+
+    computed: {
+        ...mapState("auth", ["inProcess"])
     },
 
     methods: {
@@ -80,16 +78,15 @@ export default {
 
         registerValidate: async function() {
             if (this.$refs.register_form.validate()) {
-                this.process = true;
                 await this.register();
                 await this.login();
+                this.$refs.register_form.resetValidation();
                 let userData = await this.getUser();
                 if (userData.user.role_id != null) {
                     this.$user.set({ role: userData.rol.role });
                 } else {
                     this.$user.set({ role: "visitor" });
                 }
-                this.process = false;
             }
         }
     }

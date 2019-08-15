@@ -82,6 +82,7 @@ const actions = {
                 })
                 .catch(error => {
                     commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });
@@ -147,6 +148,7 @@ const actions = {
                 })
                 .catch(error => {
                     commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     state.inProcess = false;
                     throw new Error(error);
                 });
