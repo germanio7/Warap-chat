@@ -11,7 +11,7 @@
             </v-flex>
             <v-flex xs12 style="text-align: center;">
                 <br />
-                <h1 class="display-2 font-weight-light secondary--text">{{ appName }}</h1>
+                <h1 class="display-2 font-weight-light">{{ appName }}</h1>
             </v-flex>
         </v-layout>
     </div>

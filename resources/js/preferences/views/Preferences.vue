@@ -1,6 +1,15 @@
 <template>
     <div>
+        <v-toolbar dark absolute color="primary">
+            <v-btn @click="$router.push('/main')" icon>
+                <v-icon>fas fa-arrow-left</v-icon>
+            </v-btn>
+            <v-toolbar-title>Preferencias</v-toolbar-title>
+        </v-toolbar>
         <v-container>
+            <br />
+            <br />
+            <br />
             <br />
             <v-layout justify-center wrap>
                 <v-flex xs12 sm8 v-show="rol == 'superAdmin'">

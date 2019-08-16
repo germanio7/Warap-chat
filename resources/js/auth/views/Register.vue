@@ -1,13 +1,11 @@
 <template>
     <div>
-        <br />
-        <br />
         <v-layout justify-center>
             <v-flex xs10 lg8>
                 <v-layout justify-center>
                     <!-- Register card -->
                     <v-card style="width: 400px; min-height: 350px; height: auto;">
-                        <v-card-title class="primary">Registrarse</v-card-title>
+                        <v-card-title class="primary white--text">Registrarse</v-card-title>
                         <v-card-text style="padding: 0;">
                             <v-layout wrap align-center>
                                 <!-- Register Progress -->

@@ -1,100 +1,35 @@
 <template>
-    <v-app>
-        <v-content>
-            <v-app-bar flat app>
-                <v-app-bar-nav-icon
-                    v-show="token !== null"
-                    @click="sidenavControl()"
-                    style="margin-left: 0px;"
-                ></v-app-bar-nav-icon>
-                <v-toolbar-title>{{ appName }}</v-toolbar-title>
-                <v-spacer></v-spacer>
-                <v-toolbar-items>
-                    <v-btn to="/login" text v-show="token == null">Iniciar Sesión</v-btn>
-                    <v-btn to="/register" text v-show="token == null">Registrarse</v-btn>
-                    <v-menu v-show="token != null" v-model="profileMenu" offset-y min-width="250px">
-                        <template v-slot:activator="{ on }">
-                            <v-avatar
-                                v-show="token != null"
-                                color="primary"
-                                size="40"
-                                style="cursor: pointer; margin-top: 12px;"
-                                v-on="on"
-                            >
-                                <img v-show="account.user.foto != null" :src="account.user.foto" />
-                                <span
-                                    v-show="account.user.foto == null"
-                                    class="white--text"
-                                >{{ account.profile }}</span>
-                            </v-avatar>
-                        </template>
-                        <v-card>
-                            <v-list>
-                                <v-list-item to="/account">
-                                    <v-list-item-title>Mi Cuenta</v-list-item-title>
-                                    <v-list-item-icon>
-                                        <v-icon>fas fa-user</v-icon>
-                                    </v-list-item-icon>
-                                </v-list-item>
-                                <v-list-item to="/preferences">
-                                    <v-list-item-title>Preferencias</v-list-item-title>
-                                    <v-list-item-icon>
-                                        <v-icon>fas fa-cog</v-icon>
-                                    </v-list-item-icon>
-                                </v-list-item>
-                                <v-list-item @click="exit()">
-                                    <v-list-item-content>
-                                        <v-list-item-title>Cerrar Sesión</v-list-item-title>
-                                    </v-list-item-content>
-                                    <v-list-item-icon>
-                                        <v-icon>fas fa-sign-out-alt</v-icon>
-                                    </v-list-item-icon>
-                                </v-list-item>
-                            </v-list>
-                        </v-card>
-                    </v-menu>
-                </v-toolbar-items>
-            </v-app-bar>
-            <v-divider></v-divider>
-
-            <v-navigation-drawer
-                v-show="token !== null"
-                v-model="sidenav"
-                :mini-variant="screenWidth > 600 ? mini : false"
-                :hide-overlay="screenWidth > 600"
-                :stateless="screenWidth > 600"
-                :fixed="screenWidth > 600"
-                :absolute="screenWidth <= 600"
-                :temporary="screenWidth <= 600"
-                class="sidenav"
-            >
-                <v-list dense>
-                    <v-list-item
-                        v-for="route in routes"
-                        :key="route.title"
-                        link
-                        :to="route.url"
-                        v-show="route.access.find(function(element) { return element === rol; })"
-                    >
-                        <v-list-item-icon>
-                            <v-icon style="font-size: 1.3rem;">{{ route.icon }}</v-icon>
-                        </v-list-item-icon>
-
-                        <v-list-item-content>
-                            <v-list-item-title>{{ route.name }}</v-list-item-title>
-                        </v-list-item-content>
-                    </v-list-item>
-                </v-list>
-            </v-navigation-drawer>
-
-            <router-view />
-        </v-content>
+    <v-app
+        :style="dark ? 'background: url(img/patterndark.png);' : 'background: url(img/patternlight.png);'"
+    >
+        <v-app-bar
+            v-show="token == null"
+            fixed
+            flat
+            dark
+            extended
+            src="img/background.png"
+            color="primary"
+        >
+            <template v-slot:img="{ props }" v-show="token == null">
+                <v-img
+                    v-bind="props"
+                    gradient="to top right, rgba(37,211,102,.5), rgba(7, 94, 84,.8)"
+                ></v-img>
+            </template>
+            <v-toolbar-title>Warapp</v-toolbar-title>
+        </v-app-bar>
+        <div :class="token == null ? 'app-content' : ''">
+            <v-content>
+                <router-view />
+            </v-content>
+        </div>
     </v-app>
 </template>
 
 <script>
 // Vuex
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 // axios
 import axios from "axios";
@@ -102,58 +37,20 @@ import axios from "axios";
 export default {
     name: "App",
 
-    data() {
-        return {
-            profileMenu: false,
-            routes: [
-                {
-                    name: "Usuarios",
-                    icon: "fas fa-user",
-                    url: "/users",
-                    access: ["superAdmin", "administrador"]
-                },
-                {
-                    name: "Roles",
-                    icon: "fas fa-tag",
-                    url: "/roles",
-                    access: ["superAdmin"]
-                }
-            ],
-            mini: true,
-            mobileDrawer: false
-        };
-    },
-
     computed: {
-        ...mapState("auth", ["token", "rol"]),
-        ...mapGetters("auth", ["account"]),
-        ...mapState("preferences", ["appName"]),
+        ...mapState("auth", ["token"]),
 
-        dark: {
-            set() {},
-            get() {
-                var darkMode = localStorage.getItem("darkMode");
+        dark() {
+            let darkMode = window.localStorage.getItem("darkMode");
 
-                if (darkMode == "false") {
+            if (darkMode) {
+                if (darkMode == "true") {
+                    return true;
+                } else if (darkMode == "false") {
                     return false;
-                } else {
-                    return true;
                 }
-            }
-        },
-
-        screenWidth() {
-            return window.innerWidth;
-        },
-
-        sidenav: {
-            set() {},
-            get() {
-                if (window.innerWidth <= 600) {
-                    return this.mobileDrawer;
-                } else {
-                    return true;
-                }
+            } else {
+                return false;
             }
         }
     },
@@ -165,39 +62,20 @@ export default {
     },
 
     methods: {
-        ...mapActions("auth", ["logout", "getUser"]),
-
-        sidenavControl() {
-            if (this.screenWidth <= 600) {
-                this.mini = false;
-                this.mobileDrawer = !this.mobileDrawer;
-            } else {
-                this.mini = !this.mini;
-            }
-        },
-
-        exit: async function() {
-            await this.logout();
-            this.$user.set({ role: "unregistered" });
-        }
+        ...mapActions("auth", ["getUser"])
     }
 };
 </script>
 
 <style>
-.app {
-    font-family: "Roboto", sans-serif;
+.app-content {
+    z-index: 9;
+    margin-top: 56px;
 }
 
-.sidenav {
-    position: fixed;
-    margin-top: 57px;
-    z-index: 999999;
-}
-
-@media (min-width: 960px) {
-    .sidenav {
-        margin-top: 65px;
+@media (max-width: 960px) {
+    .app-content {
+        margin-top: 48px;
     }
 }
 </style>

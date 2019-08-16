@@ -14,8 +14,8 @@ let darkMode = localStorage.getItem("darkMode");
 
 if (darkMode == null) {
     let darkColors = {
-        primary: "#41B883",
-        secondary: "#ffffff",
+        primary: "#25D366",
+        secondary: "#FFFFFF",
         accent: "#41B883",
         error: "#F44336",
         info: "#00BCD4",
@@ -24,8 +24,8 @@ if (darkMode == null) {
     };
 
     let lightColors = {
-        primary: "#41B883",
-        secondary: "#34495E",
+        primary: "#25D366",
+        secondary: "#FFFFFF",
         accent: "#41B883",
         error: "#F44336",
         info: "#00BCD4",

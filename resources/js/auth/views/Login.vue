@@ -1,14 +1,12 @@
 <template>
     <div>
-        <br />
-        <br />
-        <br />
         <v-layout justify-center>
             <v-flex xs10 lg8>
                 <v-layout justify-center>
                     <!-- Login card -->
                     <v-card style="width: 400px; min-height: 350px; height: auto;">
-                        <v-card-title class="primary">Iniciar Sesión</v-card-title>
+                        <v-card-title class="primary white--text">Iniciar Sesión</v-card-title>
+                        <v-divider></v-divider>
                         <v-card-text style="padding: 0;">
                             <v-layout wrap align-center>
                                 <!-- Login Progress -->

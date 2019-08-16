@@ -6,7 +6,7 @@ import NotFound from "./views/NotFound.vue";
 //Auth Views
 import Register from "./auth/views/Register.vue";
 import Login from "./auth/views/Login.vue";
-import Account from "./auth/views/Account.vue";
+import Main from "./views/Main.vue";
 
 //Roles Views
 import Roles from "./auth/views/Roles.vue";
@@ -27,17 +27,17 @@ const unregistered = [
     {
         role: "visitor",
         access: false,
-        redirect: "account"
+        redirect: "main"
     },
     {
         role: "superAdmin",
         access: false,
-        redirect: "account"
+        redirect: "main"
     },
     {
         role: "administrador",
         access: false,
-        redirect: "account"
+        redirect: "main"
     }
 ];
 
@@ -70,7 +70,7 @@ const administrador = [
     {
         role: "visitor",
         access: false,
-        redirect: "account"
+        redirect: "main"
     },
     {
         role: "superAdmin",
@@ -91,7 +91,7 @@ const superAdmin = [
     {
         role: "visitor",
         access: false,
-        redirect: "account"
+        redirect: "main"
     },
     {
         role: "superAdmin",
@@ -100,7 +100,7 @@ const superAdmin = [
     {
         role: "administrador",
         access: false,
-        redirect: "account"
+        redirect: "main"
     }
 ];
 
@@ -110,9 +110,33 @@ export default new Router({
     mode: "history",
     routes: [
         {
-            path: "/",
+            path: "",
             name: "home",
-            component: Home
+            component: Home,
+            meta: {
+                permissions: [
+                    {
+                        role: "unregistered",
+                        access: false,
+                        redirect: "main"
+                    },
+                    {
+                        role: "visitor",
+                        access: false,
+                        redirect: "main"
+                    },
+                    {
+                        role: "superAdmin",
+                        access: false,
+                        redirect: "main"
+                    },
+                    {
+                        role: "administrador",
+                        access: false,
+                        redirect: "main"
+                    }
+                ]
+            }
         },
         {
             path: "*",
@@ -137,9 +161,9 @@ export default new Router({
             }
         },
         {
-            path: "/account",
-            name: "account",
-            component: Account,
+            path: "/main",
+            name: "main",
+            component: Main,
             meta: {
                 permissions: visitor
             }

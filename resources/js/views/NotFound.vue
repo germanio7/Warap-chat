@@ -11,7 +11,7 @@
             </v-flex>
             <v-flex xs12 style="text-align: center;">
                 <br />
-                <h1 class="display-2 font-weight-light secondary--text">404 | Not Found</h1>
+                <h1 class="display-2 font-weight-light">404 | Not Found</h1>
             </v-flex>
         </v-layout>
     </div>

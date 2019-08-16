@@ -1,5 +1,11 @@
 <template>
     <div>
+        <v-toolbar dark absolute color="primary">
+            <v-btn @click="$router.push('/main')" icon>
+                <v-icon>fas fa-arrow-left</v-icon>
+            </v-btn>
+            <v-toolbar-title>Usuarios</v-toolbar-title>
+        </v-toolbar>
         <v-btn
             dark
             fab
@@ -43,6 +49,9 @@
                 </v-card>
             </v-form>
         </v-dialog>
+        <br />
+        <br />
+        <br />
         <br />
         <template>
             <div class="loading" v-show="process">

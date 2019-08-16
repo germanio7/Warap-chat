@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -68,12 +68,6 @@ class AuthController extends Controller
         if($request->current_password) {
             if(Hash::check($request->current_password, auth()->user()->password)){
                 if($request->password == $request->confirm_password) {
-                    $request->validate([
-                        'name' => 'required|string|max:255',
-                        'password' => 'required|string|min:6',
-                        'email' => 'required|string|max:255|unique:users,email,'.$user->id,
-                    ]);
-
                     $user->name = $request->name;
                     $user->email = $request->email;
                     $user->password =  bcrypt($request->password);
