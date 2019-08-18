@@ -1,16 +1,8 @@
 <template>
     <v-app
-        :style="dark ? 'background: url(img/patterndark.png);' : 'background: url(img/patternlight.png);'"
+        :style="darkMode ? 'background: url(img/patterndark.png);' : 'background: url(img/patternlight.png);'"
     >
-        <v-app-bar
-            v-show="token == null"
-            fixed
-            flat
-            dark
-            extended
-            src="img/background.png"
-            color="primary"
-        >
+        <v-app-bar v-show="token == null" fixed flat dark extended src="img/background.png">
             <template v-slot:img="{ props }" v-show="token == null">
                 <v-img
                     v-bind="props"
@@ -31,28 +23,12 @@
 // Vuex
 import { mapState, mapActions } from "vuex";
 
-// axios
-import axios from "axios";
-
 export default {
     name: "App",
 
     computed: {
         ...mapState("auth", ["token"]),
-
-        dark() {
-            let darkMode = window.localStorage.getItem("darkMode");
-
-            if (darkMode) {
-                if (darkMode == "true") {
-                    return true;
-                } else if (darkMode == "false") {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
+        ...mapState("preferences", ["darkMode"])
     },
 
     mounted() {

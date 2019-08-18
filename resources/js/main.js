@@ -1,8 +1,8 @@
 import Vue from "vue";
 import axios from "axios";
 import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+import router from "./routes/router";
+import store from "./store/store";
 
 // Vuetify
 import vuetify from "./plugins/vuetify";
@@ -42,14 +42,28 @@ if (token) {
 }
 
 //Configuracion Inicial
-import InitialsPreferences from "./preferences/InitialsPreferences";
+let aplicationName = window.localStorage.getItem("appName");
+if (!aplicationName) {
+    axios
+        .get("/api/preferences")
+        .then(response => {
+            window.localStorage.setItem("appName", response.data.appName);
+            document.getElementById("appTitle").innerHTML =
+                response.data.appName;
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
+
+document.getElementById("appTitle").innerHTML =
+    window.localStorage.getItem("appName") || "";
 
 Vue.config.productionTip = false;
 
 new Vue({
     router,
     store,
-    InitialsPreferences,
     vuetify,
     render: function(h) {
         return h(App);

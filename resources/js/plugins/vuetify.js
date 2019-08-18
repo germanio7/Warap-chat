@@ -10,25 +10,25 @@ var mode = false;
 var dark = {};
 var light = {};
 
-let darkMode = localStorage.getItem("darkMode");
+let lightColorsStorage = localStorage.getItem("lightColors");
 
-if (darkMode == null) {
+if (lightColorsStorage == null) {
     let darkColors = {
         primary: "#25D366",
-        secondary: "#FFFFFF",
-        accent: "#41B883",
+        secondary: "#128C7E",
+        accent: "#075E54",
         error: "#F44336",
-        info: "#00BCD4",
+        info: "#34B7F1",
         success: "#4CAF50",
         warning: "#FFC107"
     };
 
     let lightColors = {
         primary: "#25D366",
-        secondary: "#FFFFFF",
-        accent: "#41B883",
+        secondary: "#128C7E",
+        accent: "#075E54",
         error: "#F44336",
-        info: "#00BCD4",
+        info: "#34B7F1",
         success: "#4CAF50",
         warning: "#FFC107"
     };
