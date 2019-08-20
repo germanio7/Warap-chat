@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Chat;
 use App\Grupo;
+use App\Mensaje;
+use App\Events\MessageSent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -59,8 +61,32 @@ class ChatsController extends Controller
         }
     }
 
-    public function fetchMessages($id)
+    public function fetchMessages()
     {
-        $grupo = Grupo::find($id);
+        $grupo = Grupo::find(3);
+        $arreglo = $grupo->with('chats.mensajes.chat.user')->get();
+        $arrg = $arreglo[0]->chats;
+        $mens = collect();
+
+        foreach ($arrg as $arr) {
+            $mens->push($arr->mensajes);
+        }
+
+        return $mens->flatten()->sortByDesc('created_at')->values();
+    }
+
+    public function sendMessages()
+    {
+        // $id;
+        $chat = Chat::where('user_id', auth()->user()->id)->where('grupo_id', 3)->get();
+        $id = $chat[0]->id;
+        $message = Mensaje::create([
+            'chat_id' => $id,
+            'mensaje' => 'Nuevo Mensaje',
+        ]);
+
+        broadcast(new MessageSent($message->load('chat.user')));
+
+        return ['msg' => 'enviado'];
     }
 }

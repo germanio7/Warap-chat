@@ -4,6 +4,9 @@ import App from "./App.vue";
 import router from "./routes/router";
 import store from "./store/store";
 
+// Pusher
+require("./pusher");
+
 // Vuetify
 import vuetify from "./plugins/vuetify";
 

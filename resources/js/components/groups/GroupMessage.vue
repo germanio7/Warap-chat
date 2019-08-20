@@ -15,11 +15,53 @@
             </v-toolbar>
             <v-divider></v-divider>
         </v-card>
+
+        <v-layout justify-center wrap>
+            <v-flex xs12>
+                <v-layout justify-center>
+                    <v-btn @click="send()" color="primary">Nuevo Mensaje</v-btn>
+                </v-layout>
+            </v-flex>
+            <v-flex xs12>
+                <v-list class="transparent">
+                    <v-list-item v-for="mes in messages" :key="mes.id">
+                        <v-list-item-content>{{mes.id}} {{ mes.mensaje }}</v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </v-flex>
+        </v-layout>
     </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-    name: "GroupMessage"
+    name: "GroupMessage",
+
+    data() {
+        return {
+            messages: []
+        };
+    },
+
+    created() {
+        this.get();
+        Echo.join("chat").listen("MessageSent", event => {
+            this.messages.push(event.message);
+        });
+    },
+
+    methods: {
+        send() {
+            axios.post("/api/send");
+        },
+
+        get() {
+            axios.get("/api/getMessage").then(response => {
+                this.messages = response.data;
+            });
+        }
+    }
 };
 </script>

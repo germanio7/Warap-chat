@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mensajes extends Model
+class Mensaje extends Model
 {
-    protected $fillable = ['chat_id','mensaje'];
+    protected $fillable = ['chat_id', 'mensaje'];
 
     protected $casts = ['created_at' => 'datetime:d-m-Y H:i:s'];
 
