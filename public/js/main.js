@@ -2697,40 +2697,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 // Vuex
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ChatList",
-  data: function data() {
-    return {
-      chat: null,
-      chats: [{
-        id: 1,
-        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        nombre: "AAA Mamá",
-        ultimo_mensaje: "yendo"
-      }, {
-        id: 2,
-        avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-        nombre: "Plomero cambio la canilla",
-        ultimo_mensaje: "uep"
-      }, {
-        id: 3,
-        avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-        nombre: "Maxi Nuevo",
-        ultimo_mensaje: ";)"
-      }, {
-        id: 4,
-        avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-        nombre: "Ale Marzo",
-        ultimo_mensaje: "okey"
-      }, {
-        id: 5,
-        avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
-        nombre: "Chachin",
-        ultimo_mensaje: "siguiente pregunta"
-      }]
-    };
+  computed: {
+    chatsList: function chatsList() {
+      var _this = this;
+
+      var chats = this.$store.state.chat.chats;
+
+      if (chats != null) {
+        var arrayData = [];
+
+        for (var i = 0; i < chats.chats.length; i++) {
+          var findUser = void 0;
+          var find = null;
+
+          if (chats.chats[i].grupo.chats.length <= 2) {
+            find = chats.chats[i].grupo.chats.find(function (chat) {
+              return chat.user_id != _this.$store.state.auth.user.id;
+            });
+          }
+
+          if (find) {
+            findUser = find.user;
+          } else {
+            findUser = {
+              foto: null,
+              name: "Grupo"
+            };
+          }
+
+          var data = {
+            id: chats.chats[i].id,
+            grupo_id: chats.chats[i].grupo_id,
+            user: findUser
+          };
+          arrayData.push(data);
+        }
+
+        return arrayData;
+      } else {
+        return [];
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.$store.dispatch("chat/index");
+  },
+  methods: {
+    log: function log() {
+      console.log(this.chatsList);
+    }
   }
 });
 
@@ -2753,63 +2774,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "GroupMessage",
-  data: function data() {
-    return {
-      messages: []
-    };
-  },
-  created: function created() {
-    var _this = this;
-
-    this.get();
-    Echo.join("chat").listen("MessageSent", function (event) {
-      _this.messages.push(event.message);
-    });
-  },
-  methods: {
-    send: function send() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/send");
-    },
-    get: function get() {
-      var _this2 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/getMessage").then(function (response) {
-        _this2.messages = response.data;
-      });
-    }
-  }
+  name: "GroupMessage"
 });
 
 /***/ }),
@@ -4653,6 +4620,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "\n.foto-buttons {\r\n    height: 350px;\r\n    display: block;\r\n    position: absolute;\r\n    right: 30px;\r\n    z-index: 9;\n}\n.croppa-container {\r\n    width: 300px;\r\n    height: 300px;\r\n    border-radius: 50%;\n}\n.croppa-container canvas {\r\n    margin-top: 0px;\r\n    border-radius: 50%;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/groups/GroupMessage.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/groups/GroupMessage.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.chat-container {\r\n    border: solid 1px red;\r\n    max-height: 100vh;\r\n    overflow: auto;\n}\r\n", ""]);
 
 // exports
 
@@ -16311,6 +16297,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/groups/GroupMessage.vue?vue&type=style&index=0&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/groups/GroupMessage.vue?vue&type=style&index=0&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./GroupMessage.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/groups/GroupMessage.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/roles/RolesIndex.vue?vue&type=style&index=0&lang=css&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--5-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--5-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/roles/RolesIndex.vue?vue&type=style&index=0&lang=css& ***!
@@ -20170,21 +20186,24 @@ var render = function() {
         [
           [
             _c(
+              "v-btn",
+              {
+                on: {
+                  click: function($event) {
+                    return _vm.log()
+                  }
+                }
+              },
+              [_vm._v("log")]
+            ),
+            _vm._v(" "),
+            _c(
               "v-list",
               [
                 _c(
                   "v-list-item-group",
-                  {
-                    attrs: { color: "primary" },
-                    model: {
-                      value: _vm.chat,
-                      callback: function($$v) {
-                        _vm.chat = $$v
-                      },
-                      expression: "chat"
-                    }
-                  },
-                  _vm._l(_vm.chats, function(chat) {
+                  { attrs: { color: "primary" } },
+                  _vm._l(_vm.chatsList, function(chat) {
                     return _c(
                       "v-list-item",
                       {
@@ -20200,7 +20219,14 @@ var render = function() {
                       [
                         _c(
                           "v-list-item-avatar",
-                          [_c("v-img", { attrs: { src: chat.avatar } })],
+                          { attrs: { color: "primary" } },
+                          [
+                            chat.user.foto != null
+                              ? _c("v-img", { attrs: { src: chat.user.foto } })
+                              : _c("span", { staticClass: "white--text" }, [
+                                  _vm._v(_vm._s(chat.user.name[0]))
+                                ])
+                          ],
                           1
                         ),
                         _vm._v(" "),
@@ -20208,11 +20234,11 @@ var render = function() {
                           "v-list-item-content",
                           [
                             _c("v-list-item-title", [
-                              _vm._v(_vm._s(chat.nombre))
+                              _vm._v(_vm._s(chat.user.name))
                             ]),
                             _vm._v(" "),
                             _c("v-list-item-subtitle", [
-                              _vm._v(_vm._s(chat.ultimo_mensaje))
+                              _vm._v("ultimo mensaje")
                             ])
                           ],
                           1
@@ -20256,120 +20282,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "v-card",
-        { attrs: { flat: "" } },
-        [
-          _c(
-            "v-toolbar",
-            { attrs: { flat: "" } },
-            [
-              _c(
-                "v-toolbar-title",
-                [
-                  _c(
-                    "v-list-item",
-                    { staticClass: "hidden-sm-and-up" },
-                    [
-                      _c(
-                        "v-list-item-icon",
-                        {
-                          staticStyle: {
-                            "margin-left": "-10px",
-                            cursor: "pointer"
-                          },
-                          on: {
-                            click: function($event) {
-                              return _vm.$store.commit("home/setMode", {
-                                mode: "chat"
-                              })
-                            }
-                          }
-                        },
-                        [_c("v-icon", [_vm._v("fas fa-arrow-left")])],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c("v-divider")
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "v-layout",
-        { attrs: { "justify-center": "", wrap: "" } },
-        [
-          _c(
-            "v-flex",
-            { attrs: { xs12: "" } },
-            [
-              _c(
-                "v-layout",
-                { attrs: { "justify-center": "" } },
-                [
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { color: "primary" },
-                      on: {
-                        click: function($event) {
-                          return _vm.send()
-                        }
-                      }
-                    },
-                    [_vm._v("Nuevo Mensaje")]
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-flex",
-            { attrs: { xs12: "" } },
-            [
-              _c(
-                "v-list",
-                { staticClass: "transparent" },
-                _vm._l(_vm.messages, function(mes) {
-                  return _c(
-                    "v-list-item",
-                    { key: mes.id },
-                    [
-                      _c("v-list-item-content", [
-                        _vm._v(_vm._s(mes.id) + " " + _vm._s(mes.mensaje))
-                      ])
-                    ],
-                    1
-                  )
-                }),
-                1
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h1", [_vm._v("mensajes")])])
+  }
+]
 render._withStripped = true
 
 
@@ -75685,7 +75607,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GroupMessage_vue_vue_type_template_id_4c1094f0___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GroupMessage.vue?vue&type=template&id=4c1094f0& */ "./resources/js/components/groups/GroupMessage.vue?vue&type=template&id=4c1094f0&");
 /* harmony import */ var _GroupMessage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GroupMessage.vue?vue&type=script&lang=js& */ "./resources/js/components/groups/GroupMessage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _GroupMessage_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GroupMessage.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/groups/GroupMessage.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -75693,7 +75617,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _GroupMessage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _GroupMessage_vue_vue_type_template_id_4c1094f0___WEBPACK_IMPORTED_MODULE_0__["render"],
   _GroupMessage_vue_vue_type_template_id_4c1094f0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -75722,6 +75646,22 @@ component.options.__file = "resources/js/components/groups/GroupMessage.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupMessage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./GroupMessage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/groups/GroupMessage.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupMessage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/groups/GroupMessage.vue?vue&type=style&index=0&lang=css&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/groups/GroupMessage.vue?vue&type=style&index=0&lang=css& ***!
+  \******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupMessage_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--5-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--5-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./GroupMessage.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/groups/GroupMessage.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupMessage_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupMessage_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupMessage_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupMessage_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_5_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_5_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupMessage_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -76687,16 +76627,7 @@ var actions = {
   },
   profile: function profile(_ref7, name) {
     var commit = _ref7.commit;
-    var arrayname = name.split(" ");
-    var profile = "";
-
-    for (var i = 0; i < arrayname.length; i++) {
-      for (var e = 0; e < 1; e++) {
-        profile = profile + arrayname[i][e];
-      }
-    }
-
-    commit("fillProfile", profile);
+    commit("fillProfile", name[0]);
   },
   logout: function logout(_ref8) {
     var state = _ref8.state,
