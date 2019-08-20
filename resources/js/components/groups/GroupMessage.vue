@@ -3,7 +3,21 @@
         <v-card flat v-if="chatID">
             <v-toolbar flat>
                 <v-toolbar-title>
-                    <v-list-item>
+                    <v-list-item class="hidden-sm-and-up">
+                        <v-list-item-icon
+                            @click="setMode('chat')"
+                            style="margin-left: -10px; cursor: pointer"
+                        >
+                            <v-icon>fas fa-arrow-left</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-avatar style="margin-left: -25px; margin-right: 15px;">
+                            <v-img :src="chats[chatID - 1].avatar"></v-img>
+                        </v-list-item-avatar>
+                        <v-list-item-content>
+                            <v-list-item-title>{{chats[chatID - 1].nombre}}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item class="hidden-xs-only">
                         <v-list-item-avatar>
                             <v-img :src="chats[chatID - 1].avatar"></v-img>
                         </v-list-item-avatar>
@@ -20,7 +34,7 @@
 
 <script>
 // Vuex
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 
 export default {
     name: "GroupMessage",
@@ -64,6 +78,10 @@ export default {
 
     computed: {
         ...mapState("chat", ["chatID"])
+    },
+
+    methods: {
+        ...mapMutations("home", ["setMode"])
     }
 };
 </script>

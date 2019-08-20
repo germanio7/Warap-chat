@@ -2,12 +2,17 @@
     <div>
         <v-layout justify-center wrap>
             <v-flex xs10>
-                <v-text-field v-model="form.role" :rules="[rules.required]" label="Rol" outlined></v-text-field>
+                <v-text-field
+                    v-model="formRoles.role"
+                    :rules="[rules.required]"
+                    label="Rol"
+                    outlined
+                ></v-text-field>
             </v-flex>
             <v-flex xs10>
                 <v-select
-                    v-model="form.scope"
-                    :items="showData"
+                    v-model="formRoles.scope"
+                    :items="permissions"
                     item-text="description"
                     item-value="id"
                     :rules="[rules.required]"
@@ -36,15 +41,15 @@ export default {
     },
 
     computed: {
-        ...mapState("crudx", ["form", "showData"])
+        ...mapState("roles", ["formRoles", "permissions"])
     },
 
     mounted() {
-        this.show({ url: "/api/roles/show" });
+        this.indexPermissions();
     },
 
     methods: {
-        ...mapActions("crudx", ["show"])
+        ...mapActions("roles", ["indexPermissions"])
     }
 };
 </script>

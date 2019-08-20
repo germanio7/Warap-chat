@@ -2209,6 +2209,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 // Vuex
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2234,7 +2241,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.setForm();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])("auth", ["fillForm"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("auth", ["getUser", "updateAccount", "updatePhoto"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])("auth", ["fillForm"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("auth", ["getUser", "updateAccount", "updatePhoto"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])("home", ["setMode"]), {
     setForm: function () {
       var _setForm = _asyncToGenerator(
       /*#__PURE__*/
@@ -2520,6 +2527,109 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatCreate.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chats/ChatCreate.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// Vuex
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ChatCreate",
+  data: function data() {
+    return {
+      name: ""
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("users", ["users"]), {
+    usersFind: function usersFind() {
+      if (this.users != null) {
+        var _usersArray = [];
+
+        for (var i = 0; i < this.users.length; i++) {
+          var userName = this.users[i].name.toLowerCase().substring(0, this.name.length);
+
+          if (userName == this.name.toLowerCase()) {
+            _usersArray.push(this.users[i]);
+          }
+        }
+
+        return _usersArray;
+      } else {
+        return [];
+      }
+    }
+  }),
+  mounted: function mounted() {
+    if (this.users == null) {
+      this.indexUsers();
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("users", ["indexUsers"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("chat", ["saveChat"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("home", ["setMode"]), {
+    createChat: function createChat(user) {
+      var dataArray = [];
+      usersArray.push(user);
+      this.saveChat({
+        users: dataArray
+      });
+    }
+  })
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatList.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chats/ChatList.vue?vue&type=script&lang=js& ***!
@@ -2558,6 +2668,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 // Vuex
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2569,31 +2683,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         id: 1,
         avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
         nombre: "AAA Mamá",
-        mensaje: "yendo"
+        ultimo_mensaje: "yendo"
       }, {
         id: 2,
         avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
         nombre: "Plomero cambio la canilla",
-        mensaje: "uep"
+        ultimo_mensaje: "uep"
       }, {
         id: 3,
         avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
         nombre: "Maxi Nuevo",
-        mensaje: ";)"
+        ultimo_mensaje: ";)"
       }, {
         id: 4,
         avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
         nombre: "Ale Marzo",
-        mensaje: "okey"
+        ultimo_mensaje: "okey"
       }, {
         id: 5,
         avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
         nombre: "Chachin",
-        mensaje: "siguiente pregunta"
+        ultimo_mensaje: "siguiente pregunta"
       }]
     };
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("chat", ["setChatID"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("chat", ["setChatID"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("home", ["setMode"]), {
     setChat: function setChat(id) {
       this.setChatID(id);
     }
@@ -2618,6 +2732,20 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2672,253 +2800,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }]
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("chat", ["chatID"]))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("chat", ["chatID"])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("home", ["setMode"]))
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/AppPreferences.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/preferences/AppPreferences.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// axios
- // vuex
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "AppPreferences",
-  data: function data() {
-    return {
-      process: false,
-      aplicationName: window.localStorage.getItem("appName"),
-      logo: null
-    };
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("preferences", ["appName"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("preferences", ["updateAppName", "updateAppLogo"]), {
-    updateName: function () {
-      var _updateName = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                if (!this.aplicationName) {
-                  _context.next = 6;
-                  break;
-                }
-
-                this.process = true;
-                _context.next = 4;
-                return this.updateAppName({
-                  url: "/api/preferences/update",
-                  appName: this.aplicationName
-                });
-
-              case 4:
-                document.getElementById("appTitle").innerHTML = this.aplicationName;
-                this.process = false;
-
-              case 6:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee, this);
-      }));
-
-      function updateName() {
-        return _updateName.apply(this, arguments);
-      }
-
-      return updateName;
-    }(),
-    updateLogo: function () {
-      var _updateLogo = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                this.process = true;
-                _context2.next = 3;
-                return this.updateAppLogo({
-                  url: "/api/preferences/update",
-                  logo: this.logo.generateDataUrl()
-                });
-
-              case 3:
-                this.process = false;
-
-              case 4:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2, this);
-      }));
-
-      function updateLogo() {
-        return _updateLogo.apply(this, arguments);
-      }
-
-      return updateLogo;
-    }()
-  })
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/InterfacePreferences.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/preferences/InterfacePreferences.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/Preferences.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/preferences/Preferences.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2957,19 +2848,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//Vuex
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+// Vuex
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "InterfacePreferences",
+  name: "Preferences",
   data: function data() {
     return {
       mode: JSON.parse(window.localStorage.getItem("darkMode")) || false
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("preferences", ["darkMode"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])("preferences", ["modeControl"]), {
-    setMode: function () {
-      var _setMode = _asyncToGenerator(
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])("home", ["setMode"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])("preferences", ["modeControl"]), {
+    darkControl: function () {
+      var _darkControl = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -2990,53 +2896,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee, this);
       }));
 
-      function setMode() {
-        return _setMode.apply(this, arguments);
+      function darkControl() {
+        return _darkControl.apply(this, arguments);
       }
 
-      return setMode;
+      return darkControl;
     }()
   })
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/Preferences.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/preferences/Preferences.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AppPreferences_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppPreferences.vue */ "./resources/js/components/preferences/AppPreferences.vue");
-/* harmony import */ var _InterfacePreferences_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InterfacePreferences.vue */ "./resources/js/components/preferences/InterfacePreferences.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-// Components
-
- // Vuex
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Preferences",
-  components: {
-    appPreferences: _AppPreferences_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    InterfacePreferences: _InterfacePreferences_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("auth", ["rol"]))
 });
 
 /***/ }),
@@ -3079,6 +2945,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RolesForm",
@@ -3092,13 +2963,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("crudx", ["form", "showData"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("roles", ["formRoles", "permissions"])),
   mounted: function mounted() {
-    this.show({
-      url: "/api/roles/show"
-    });
+    this.indexPermissions();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("crudx", ["show"]))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("roles", ["indexPermissions"]))
 });
 
 /***/ }),
@@ -3285,16 +3154,16 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     RolesForm: _RolesForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   updated: function updated() {
-    if (this.form.permission) {
-      if (_typeof(this.form.permission == "string")) {
-        this.form.scope = this.form.permission.split([" "]);
+    if (this.formRoles.permission) {
+      if (_typeof(this.formRoles.permission == "string")) {
+        this.formRoles.scope = this.formRoles.permission.split([" "]);
       }
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("crudx", ["inProcess", "data", "showData", "form"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("crudx", ["index", "edit", "update", "destroy"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])("crudx", ["resetForm"]), {
-    updateRole: function () {
-      var _updateRole = _asyncToGenerator(
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("roles", ["inProcessRoles", "roles", "permissions", "formRoles"])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("roles", ["indexRoles", "editRoles", "updateRoles", "destroyRoles"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])("roles", ["resetFormRoles"]), {
+    rolesUpdate: function () {
+      var _rolesUpdate = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _this = this;
@@ -3314,8 +3183,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
                 description = "";
 
                 _loop = function _loop(i) {
-                  var find = _this.showData.find(function (permiso) {
-                    return permiso.id === _this.form.scope[i];
+                  var find = _this.permissions.find(function (permiso) {
+                    return permiso.id === _this.formRoles.scope[i];
                   });
 
                   if (find) {
@@ -3324,23 +3193,21 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
                   }
                 };
 
-                for (i = 0; i < this.form.scope.length; i++) {
+                for (i = 0; i < this.formRoles.scope.length; i++) {
                   _loop(i);
                 }
 
-                this.form.permission = permission;
-                this.form.description = description;
+                this.formRoles.permission = permission;
+                this.formRoles.description = description;
                 _context.next = 9;
-                return this.update({
-                  url: "/api/roles/" + this.form.id
+                return this.updateRoles({
+                  id: this.formRoles.id
                 });
 
               case 9:
                 this.$refs.roleForm.reset();
                 _context.next = 12;
-                return this.index({
-                  url: "/api/roles"
-                });
+                return this.indexRoles();
 
               case 12:
                 this.editRolesDialog = false;
@@ -3353,11 +3220,11 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }, _callee, this);
       }));
 
-      function updateRole() {
-        return _updateRole.apply(this, arguments);
+      function rolesUpdate() {
+        return _rolesUpdate.apply(this, arguments);
       }
 
-      return updateRole;
+      return rolesUpdate;
     }(),
     closeEdit: function () {
       var _closeEdit = _asyncToGenerator(
@@ -3369,9 +3236,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               case 0:
                 this.editRolesDialog = false;
                 _context2.next = 3;
-                return this.index({
-                  url: "/api/roles"
-                });
+                return this.indexRoles();
 
               case 3:
                 this.$refs.roleForm.reset();
@@ -3418,14 +3283,12 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return this.destroy({
-                  url: "/api/roles/" + this.roleID
+                return this.destroyRoles({
+                  id: this.roleID
                 });
 
               case 2:
-                this.index({
-                  url: "/api/roles"
-                });
+                this.indexRoles();
                 this.roleID = null;
                 this.deleteRolesDialog = false;
 
@@ -3509,6 +3372,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "UsersForm",
@@ -3531,12 +3404,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("crudx", ["form", "showData"]), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("users", ["formUsers"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("roles", ["roles"]), {
     rulesPassword: function rulesPassword() {
       if (this.mode == "create") {
         return true;
       } else if (this.mode == "edit") {
-        if (this.form.password) {
+        if (this.formUsers.password) {
           return true;
         } else {
           return false;
@@ -3545,11 +3418,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
-    this.show({
-      url: "/api/roles"
-    });
+    if (this.roles == null) {
+      this.indexRoles();
+    }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("crudx", ["show"]))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("roles", ["indexRoles"]))
 });
 
 /***/ }),
@@ -3708,10 +3581,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     UsersForm: _UsersForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("crudx", ["inProcess", "data", "form"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])("auth", ["account"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("crudx", ["index", "edit", "update", "destroy"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("auth", ["getUser"]), {
-    updateUser: function () {
-      var _updateUser = _asyncToGenerator(
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("users", ["inProcessUsers", "users", "formUsers"])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("users", ["indexUsers", "editUsers", "updateUsers", "destroyUsers"]), {
+    userUpdate: function () {
+      var _userUpdate = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -3724,15 +3597,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
 
                 _context.next = 3;
-                return this.update({
-                  url: "/api/users/" + this.form.id
+                return this.updateUsers({
+                  id: this.formUsers.id
                 });
 
               case 3:
                 this.editUsersDialog = false;
-                this.index({
-                  url: "/api/users"
-                });
+                this.indexUsers();
 
               case 5:
               case "end":
@@ -3742,11 +3613,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee, this);
       }));
 
-      function updateUser() {
-        return _updateUser.apply(this, arguments);
+      function userUpdate() {
+        return _userUpdate.apply(this, arguments);
       }
 
-      return updateUser;
+      return userUpdate;
     }(),
     closeEdit: function () {
       var _closeEdit = _asyncToGenerator(
@@ -3757,9 +3628,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return this.index({
-                  url: "/api/users"
-                });
+                return this.indexUsers();
 
               case 2:
                 this.$refs.userForm.reset();
@@ -3789,14 +3658,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return this.destroy({
-                  url: "/api/users/" + this.userID
+                return this.destroyUsers({
+                  id: this.userID
                 });
 
               case 2:
-                this.index({
-                  url: "/api/users"
-                });
+                this.indexUsers();
                 this.userID = null;
                 this.deleteUsersDialog = false;
 
@@ -3833,8 +3700,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_auth_EditAccount_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/auth/EditAccount.vue */ "./resources/js/components/auth/EditAccount.vue");
 /* harmony import */ var _components_preferences_Preferences_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/preferences/Preferences.vue */ "./resources/js/components/preferences/Preferences.vue");
 /* harmony import */ var _components_chats_ChatList_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/chats/ChatList.vue */ "./resources/js/components/chats/ChatList.vue");
-/* harmony import */ var _components_groups_GroupMessage_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/groups/GroupMessage.vue */ "./resources/js/components/groups/GroupMessage.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _components_chats_ChatCreate_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/chats/ChatCreate.vue */ "./resources/js/components/chats/ChatCreate.vue");
+/* harmony import */ var _components_groups_GroupMessage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/groups/GroupMessage.vue */ "./resources/js/components/groups/GroupMessage.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3942,14 +3810,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 // Components
+
 
 
 
@@ -3960,7 +3822,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "Main",
   data: function data() {
     return {
-      mode: "chat",
       routes: [{
         name: "Usuarios",
         url: "/users",
@@ -3975,11 +3836,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     EditAccount: _components_auth_EditAccount_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
     ChatList: _components_chats_ChatList_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    GroupMessage: _components_groups_GroupMessage_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    ChatCreate: _components_chats_ChatCreate_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    GroupMessage: _components_groups_GroupMessage_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     Preferences: _components_preferences_Preferences_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapState"])("auth", ["token", "rol"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapState"])("preferences", ["appName"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapGetters"])("auth", ["account"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_5__["mapActions"])("auth", ["logout"]), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapState"])("auth", ["token", "rol"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapState"])("home", ["mode"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapState"])("preferences", ["appName"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapGetters"])("auth", ["account"])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapActions"])("auth", ["logout"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapMutations"])("home", ["setMode"]), {
     exit: function () {
       var _exit = _asyncToGenerator(
       /*#__PURE__*/
@@ -4446,11 +4308,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     RolesIndex: _components_roles_RolesIndex_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     RolesForm: _components_roles_RolesForm_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("crudx", ["inProcess", "form", "showData"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("roles", ["inProcessRoles", "roles", "permissions", "formRoles"])),
   mounted: function mounted() {
     this.getRoles();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("crudx", ["index", "show", "save"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("roles", ["indexRoles", "indexPermissions", "saveRoles"]), {
     getRoles: function () {
       var _getRoles = _asyncToGenerator(
       /*#__PURE__*/
@@ -4461,16 +4323,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 this.process = true;
-                _context.next = 3;
-                return this.index({
-                  url: "/api/roles"
-                });
 
-              case 3:
+                if (!(this.roles == null)) {
+                  _context.next = 5;
+                  break;
+                }
+
+                _context.next = 4;
+                return this.indexRoles();
+
+              case 4:
                 response = _context.sent;
-                this.process = false;
 
               case 5:
+                this.process = false;
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -4510,8 +4378,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 description = "";
 
                 _loop = function _loop(i) {
-                  var find = _this.showData.find(function (permiso) {
-                    return permiso.id === _this.form.scope[i];
+                  var find = _this.permissions.find(function (permiso) {
+                    return permiso.id === _this.formRoles.scope[i];
                   });
 
                   if (find) {
@@ -4520,21 +4388,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   }
                 };
 
-                for (i = 0; i < this.form.scope.length; i++) {
+                for (i = 0; i < this.formRoles.scope.length; i++) {
                   _loop(i);
                 }
 
-                this.form.permission = permission;
-                this.form.description = description;
+                this.formRoles.permission = permission;
+                this.formRoles.description = description;
                 _context2.next = 9;
-                return this.save({
-                  url: "/api/roles"
-                });
+                return this.saveRoles();
 
               case 9:
                 this.createRolesDialog = false;
                 _context2.next = 12;
-                return this.getRoles();
+                return this.indexRoles();
 
               case 12:
               case "end":
@@ -4660,11 +4526,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     UsersIndex: _components_users_UsersIndex_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
     UsersForm: _components_users_UsersForm_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("crudx", ["inProcess", "form"])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("users", ["inProcessUsers"])),
   mounted: function mounted() {
     this.getUsers();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("crudx", ["index", "save"]), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("users", ["indexUsers", "saveUsers"]), {
     getUsers: function () {
       var _getUsers = _asyncToGenerator(
       /*#__PURE__*/
@@ -4674,15 +4540,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 this.process = true;
-                _context.next = 3;
-                return this.index({
-                  url: "/api/users"
-                });
 
-              case 3:
-                this.process = false;
+                if (!(this.users == null)) {
+                  _context.next = 4;
+                  break;
+                }
+
+                _context.next = 4;
+                return this.indexUsers();
 
               case 4:
+                this.process = false;
+
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -4701,8 +4571,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$refs.usersForm.resetValidation();
       this.createUsersDialog = false;
     },
-    saveUser: function () {
-      var _saveUser = _asyncToGenerator(
+    userSave: function () {
+      var _userSave = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -4715,13 +4585,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
 
                 _context2.next = 3;
-                return this.save({
-                  url: "/api/users"
-                });
+                return this.saveUsers();
 
               case 3:
                 this.createUsersDialog = false;
-                this.getUsers();
+                this.indexUsers();
 
               case 5:
               case "end":
@@ -4731,11 +4599,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }, _callee2, this);
       }));
 
-      function saveUser() {
-        return _saveUser.apply(this, arguments);
+      function userSave() {
+        return _userSave.apply(this, arguments);
       }
 
-      return saveUser;
+      return userSave;
     }()
   })
 });
@@ -8929,6 +8797,35 @@ var render = function() {
     "div",
     [
       _c(
+        "v-toolbar",
+        { attrs: { color: "primary", dark: "", prominent: "", flat: "" } },
+        [
+          _c(
+            "v-toolbar-title",
+            [
+              _c(
+                "v-btn",
+                {
+                  staticStyle: { margin: "0px 15px 4px 0px" },
+                  attrs: { icon: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.setMode("chat")
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("fas fa-arrow-left")])],
+                1
+              ),
+              _vm._v("Perfil\n        ")
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
         "v-layout",
         { attrs: { "justify-center": "" } },
         [
@@ -8957,7 +8854,7 @@ var render = function() {
                                 _vm._g(
                                   {
                                     staticStyle: { cursor: "pointer" },
-                                    attrs: { size: "160" }
+                                    attrs: { size: "160", color: "primary" }
                                   },
                                   on
                                 ),
@@ -9877,6 +9774,175 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatCreate.vue?vue&type=template&id=5ed11f53&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chats/ChatCreate.vue?vue&type=template&id=5ed11f53& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "v-toolbar",
+        { attrs: { color: "primary", dark: "", prominent: "", flat: "" } },
+        [
+          _c(
+            "v-toolbar-title",
+            [
+              _c(
+                "v-btn",
+                {
+                  staticStyle: { margin: "0px 15px 4px 0px" },
+                  attrs: { icon: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.setMode("chat")
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("fas fa-arrow-left")])],
+                1
+              ),
+              _vm._v("Nuevo chat\n        ")
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-layout",
+        { attrs: { wrap: "" } },
+        [
+          _c(
+            "v-flex",
+            {
+              staticStyle: { "background-color": "#eeeeee" },
+              attrs: { xs12: "", "px-3": "", "pt-3": "" }
+            },
+            [
+              _c("v-text-field", {
+                attrs: {
+                  label: "Buscar usuarios",
+                  solo: "",
+                  "single-line": "",
+                  rounded: ""
+                },
+                model: {
+                  value: _vm.name,
+                  callback: function($$v) {
+                    _vm.name = $$v
+                  },
+                  expression: "name"
+                }
+              })
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-flex",
+            { staticStyle: { "margin-top": "-18px" }, attrs: { xs12: "" } },
+            [
+              _c(
+                "v-list",
+                [
+                  [
+                    _c(
+                      "v-list",
+                      _vm._l(_vm.usersFind, function(user) {
+                        return _c(
+                          "v-list-item",
+                          {
+                            key: user.id,
+                            on: {
+                              click: function($event) {
+                                return _vm.createChat(user)
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "v-list-item-avatar",
+                              { attrs: { color: "primary" } },
+                              [
+                                _c("img", {
+                                  directives: [
+                                    {
+                                      name: "show",
+                                      rawName: "v-show",
+                                      value: user.foto != null,
+                                      expression: "user.foto != null"
+                                    }
+                                  ],
+                                  attrs: { src: user.foto }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "span",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "show",
+                                        rawName: "v-show",
+                                        value: user.foto == null,
+                                        expression: "user.foto == null"
+                                      }
+                                    ],
+                                    staticClass: "white--text"
+                                  },
+                                  [_vm._v(_vm._s(user.name[0]))]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c("v-list-item-title", [
+                                  _vm._v(_vm._s(user.name))
+                                ])
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      }),
+                      1
+                    )
+                  ]
+                ],
+                2
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatList.vue?vue&type=template&id=f4121c96&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chats/ChatList.vue?vue&type=template&id=f4121c96& ***!
@@ -9922,7 +9988,8 @@ var render = function() {
                         key: chat.id,
                         on: {
                           click: function($event) {
-                            return _vm.setChat(chat.id)
+                            _vm.setChat(chat.id)
+                            _vm.setMode("chatGroup")
                           }
                         }
                       },
@@ -9941,7 +10008,7 @@ var render = function() {
                             ]),
                             _vm._v(" "),
                             _c("v-list-item-subtitle", [
-                              _vm._v(_vm._s(chat.mensaje))
+                              _vm._v(_vm._s(chat.ultimo_mensaje))
                             ])
                           ],
                           1
@@ -10002,6 +10069,57 @@ var render = function() {
                     [
                       _c(
                         "v-list-item",
+                        { staticClass: "hidden-sm-and-up" },
+                        [
+                          _c(
+                            "v-list-item-icon",
+                            {
+                              staticStyle: {
+                                "margin-left": "-10px",
+                                cursor: "pointer"
+                              },
+                              on: {
+                                click: function($event) {
+                                  return _vm.setMode("chat")
+                                }
+                              }
+                            },
+                            [_c("v-icon", [_vm._v("fas fa-arrow-left")])],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item-avatar",
+                            {
+                              staticStyle: {
+                                "margin-left": "-25px",
+                                "margin-right": "15px"
+                              }
+                            },
+                            [
+                              _c("v-img", {
+                                attrs: { src: _vm.chats[_vm.chatID - 1].avatar }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-list-item-content",
+                            [
+                              _c("v-list-item-title", [
+                                _vm._v(_vm._s(_vm.chats[_vm.chatID - 1].nombre))
+                              ])
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-list-item",
+                        { staticClass: "hidden-xs-only" },
                         [
                           _c(
                             "v-list-item-avatar",
@@ -10048,10 +10166,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/AppPreferences.vue?vue&type=template&id=bb76dc8e&":
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/preferences/AppPreferences.vue?vue&type=template&id=bb76dc8e& ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/Preferences.vue?vue&type=template&id=e465e574&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/preferences/Preferences.vue?vue&type=template&id=e465e574& ***!
+  \**************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10067,428 +10185,34 @@ var render = function() {
     "div",
     [
       _c(
-        "v-expansion-panels",
+        "v-toolbar",
+        { attrs: { color: "primary", dark: "", prominent: "", flat: "" } },
         [
           _c(
-            "v-expansion-panel",
+            "v-toolbar-title",
             [
               _c(
-                "v-expansion-panel-header",
-                { attrs: { "expand-icon": "fas fa-caret-down" } },
-                [_vm._v("Nombre de la Aplicación")]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-expansion-panel-content",
-                [
-                  _c(
-                    "v-list",
-                    [
-                      _c(
-                        "v-list-item",
-                        [
-                          _c(
-                            "v-list-item-content",
-                            [
-                              _c(
-                                "v-flex",
-                                { attrs: { xs8: "", sm6: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: {
-                                      placeholder: "Nombre de la Aplicación",
-                                      outlined: ""
-                                    },
-                                    model: {
-                                      value: _vm.aplicationName,
-                                      callback: function($$v) {
-                                        _vm.aplicationName = $$v
-                                      },
-                                      expression: "aplicationName"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-item-action",
-                            { staticStyle: { "margin-top": "-15px" } },
-                            [
-                              _c(
-                                "v-btn",
-                                {
-                                  attrs: {
-                                    loading: _vm.process,
-                                    text: "",
-                                    icon: ""
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.updateName()
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("v-icon", { attrs: { size: "medium" } }, [
-                                    _vm._v("fas fa-pen")
-                                  ])
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("v-divider"),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-item",
-                        [
-                          _c("v-list-item-content", [
-                            _c("p", [
-                              _vm._v(
-                                "Nombre que será mostrado en distintas partes de la aplicación."
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "mt-2" }, [
-                              _vm._v(
-                                "Por ejemplo, en pantallas de bienvenida, errores, etc."
-                              )
-                            ])
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
+                "v-btn",
+                {
+                  staticStyle: { margin: "0px 15px 4px 0px" },
+                  attrs: { icon: "" },
+                  on: {
+                    click: function($event) {
+                      return _vm.setMode("chat")
+                    }
+                  }
+                },
+                [_c("v-icon", [_vm._v("fas fa-arrow-left")])],
                 1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "v-expansion-panel",
-            [
-              _c(
-                "v-expansion-panel-header",
-                { attrs: { "expand-icon": "fas fa-caret-down" } },
-                [_vm._v("Logo")]
               ),
-              _vm._v(" "),
-              _c(
-                "v-expansion-panel-content",
-                [
-                  _c(
-                    "v-list",
-                    [
-                      _c(
-                        "v-list-item",
-                        [
-                          _c(
-                            "v-list-item-content",
-                            [
-                              _c(
-                                "v-layout",
-                                { attrs: { "justify-center": "" } },
-                                [
-                                  _c(
-                                    "v-flex",
-                                    [
-                                      _c(
-                                        "v-layout",
-                                        { attrs: { "justify-end": "" } },
-                                        [
-                                          _c("croppa", {
-                                            attrs: {
-                                              width: 260,
-                                              height: 260,
-                                              placeholder: "Logo",
-                                              "placeholder-color": "#000",
-                                              "placeholder-font-size": 24,
-                                              "canvas-color": "transparent",
-                                              "show-remove-button": false,
-                                              "show-loading": true,
-                                              "loading-size": 25,
-                                              "prevent-white-space": true,
-                                              "zoom-speed": 10,
-                                              "initial-image": "img/logo.png"
-                                            },
-                                            model: {
-                                              value: _vm.logo,
-                                              callback: function($$v) {
-                                                _vm.logo = $$v
-                                              },
-                                              expression: "logo"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "v-flex",
-                                    { staticStyle: { "margin-top": "-5px" } },
-                                    [
-                                      _c(
-                                        "v-layout",
-                                        { attrs: { column: "" } },
-                                        [
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              attrs: { text: "", icon: "" },
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.logo.zoomIn()
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("v-icon", [
-                                                _vm._v("fas fa-search-plus")
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              attrs: { text: "", icon: "" },
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.logo.zoomOut()
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("v-icon", [
-                                                _vm._v("fas fa-search-minus")
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "v-btn",
-                                            {
-                                              attrs: { text: "", icon: "" },
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.logo.rotate()
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _c("v-icon", [
-                                                _vm._v("fas fa-redo-alt")
-                                              ])
-                                            ],
-                                            1
-                                          ),
-                                          _vm._v(" "),
-                                          _vm.logo != null
-                                            ? _c(
-                                                "div",
-                                                [
-                                                  _c(
-                                                    "v-btn",
-                                                    {
-                                                      directives: [
-                                                        {
-                                                          name: "show",
-                                                          rawName: "v-show",
-                                                          value: _vm.logo.hasImage(),
-                                                          expression:
-                                                            "logo.hasImage()"
-                                                        }
-                                                      ],
-                                                      attrs: {
-                                                        text: "",
-                                                        icon: ""
-                                                      },
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.logo.remove()
-                                                        }
-                                                      }
-                                                    },
-                                                    [
-                                                      _c("v-icon", [
-                                                        _vm._v("fas fa-times")
-                                                      ])
-                                                    ],
-                                                    1
-                                                  ),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "v-btn",
-                                                    {
-                                                      directives: [
-                                                        {
-                                                          name: "show",
-                                                          rawName: "v-show",
-                                                          value: !_vm.logo.hasImage(),
-                                                          expression:
-                                                            "!logo.hasImage()"
-                                                        }
-                                                      ],
-                                                      attrs: {
-                                                        text: "",
-                                                        icon: ""
-                                                      },
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.logo.chooseFile()
-                                                        }
-                                                      }
-                                                    },
-                                                    [
-                                                      _c("v-icon", [
-                                                        _vm._v("fas fa-plus")
-                                                      ])
-                                                    ],
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            : _vm._e(),
-                                          _vm._v(" "),
-                                          _vm.logo != null
-                                            ? _c(
-                                                "div",
-                                                [
-                                                  _c(
-                                                    "v-btn",
-                                                    {
-                                                      attrs: {
-                                                        disabled: !_vm.logo.hasImage(),
-                                                        loading: _vm.process,
-                                                        text: "",
-                                                        icon: ""
-                                                      },
-                                                      on: {
-                                                        click: function(
-                                                          $event
-                                                        ) {
-                                                          return _vm.updateLogo()
-                                                        }
-                                                      }
-                                                    },
-                                                    [
-                                                      _c(
-                                                        "v-icon",
-                                                        {
-                                                          attrs: {
-                                                            size: "medium"
-                                                          }
-                                                        },
-                                                        [_vm._v("fas fa-pen")]
-                                                      )
-                                                    ],
-                                                    1
-                                                  )
-                                                ],
-                                                1
-                                              )
-                                            : _vm._e()
-                                        ],
-                                        1
-                                      )
-                                    ],
-                                    1
-                                  )
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("v-divider"),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-item",
-                        [
-                          _c("v-list-item-content", [
-                            _c("p", [
-                              _vm._v(
-                                "Logo que será mostrado en distintas partes de la aplicación."
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "mt-2" }, [
-                              _vm._v(
-                                "Por ejemplo, en pantallas de bienvenida, errores, etc."
-                              )
-                            ])
-                          ])
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
+              _vm._v("Configuración\n        ")
             ],
             1
           )
         ],
         1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/InterfacePreferences.vue?vue&type=template&id=3609fc21&":
-/*!***********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/preferences/InterfacePreferences.vue?vue&type=template&id=3609fc21& ***!
-  \***********************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
+      ),
+      _vm._v(" "),
       _c(
         "v-list",
         [
@@ -10511,9 +10235,10 @@ var render = function() {
                 "v-list-item-action",
                 [
                   _c("v-switch", {
+                    attrs: { color: "primary" },
                     on: {
                       change: function($event) {
-                        return _vm.setMode()
+                        return _vm.darkControl()
                       }
                     },
                     model: {
@@ -10529,6 +10254,26 @@ var render = function() {
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-list-item",
+            [
+              _c("v-list-item-content", [
+                _c("p", [
+                  _vm._v(
+                    "Este tema oscurece las zonas claras de la página, lo que brinda una experiencia ideal para la noche"
+                  )
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "mt-3" }, [
+                  _vm._v(
+                    "Tu configuración de tema oscuro se aplicará solo en este navegador."
+                  )
+                ])
+              ])
+            ],
+            1
           )
         ],
         1
@@ -10536,30 +10281,6 @@ var render = function() {
     ],
     1
   )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/Preferences.vue?vue&type=template&id=e465e574&":
-/*!**************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/preferences/Preferences.vue?vue&type=template&id=e465e574& ***!
-  \**************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [_c("InterfacePreferences")], 1)
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -10601,11 +10322,11 @@ var render = function() {
                   outlined: ""
                 },
                 model: {
-                  value: _vm.form.role,
+                  value: _vm.formRoles.role,
                   callback: function($$v) {
-                    _vm.$set(_vm.form, "role", $$v)
+                    _vm.$set(_vm.formRoles, "role", $$v)
                   },
-                  expression: "form.role"
+                  expression: "formRoles.role"
                 }
               })
             ],
@@ -10618,7 +10339,7 @@ var render = function() {
             [
               _c("v-select", {
                 attrs: {
-                  items: _vm.showData,
+                  items: _vm.permissions,
                   "item-text": "description",
                   "item-value": "id",
                   rules: [_vm.rules.required],
@@ -10627,11 +10348,11 @@ var render = function() {
                   outlined: ""
                 },
                 model: {
-                  value: _vm.form.scope,
+                  value: _vm.formRoles.scope,
                   callback: function($$v) {
-                    _vm.$set(_vm.form, "scope", $$v)
+                    _vm.$set(_vm.formRoles, "scope", $$v)
                   },
-                  expression: "form.scope"
+                  expression: "formRoles.scope"
                 }
               })
             ],
@@ -10704,7 +10425,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "tbody",
-                                _vm._l(_vm.data, function(rol) {
+                                _vm._l(_vm.roles, function(rol) {
                                   return _c("tr", { key: rol.id }, [
                                     _c("td", [_vm._v(_vm._s(rol.role))]),
                                     _vm._v(" "),
@@ -10774,7 +10495,9 @@ var render = function() {
                                                   {
                                                     on: {
                                                       click: function($event) {
-                                                        _vm.edit({ data: rol })
+                                                        _vm.editRoles({
+                                                          data: rol
+                                                        })
                                                         _vm.editRolesDialog = true
                                                       }
                                                     }
@@ -10885,7 +10608,7 @@ var render = function() {
                           on: {
                             submit: function($event) {
                               $event.preventDefault()
-                              return _vm.updateRole()
+                              return _vm.rolesUpdate()
                             }
                           }
                         },
@@ -10903,7 +10626,7 @@ var render = function() {
                                 {
                                   staticClass: "mx-2",
                                   attrs: {
-                                    disabled: _vm.inProcess,
+                                    disabled: _vm.inProcessRoles,
                                     outlined: "",
                                     color: "primary"
                                   },
@@ -10921,8 +10644,8 @@ var render = function() {
                                 {
                                   staticClass: "elevation-0 mx-2",
                                   attrs: {
-                                    disabled: _vm.inProcess,
-                                    loading: _vm.inProcess,
+                                    disabled: _vm.inProcessRoles,
+                                    loading: _vm.inProcessRoles,
                                     type: "submit",
                                     color: "primary"
                                   }
@@ -10987,7 +10710,7 @@ var render = function() {
                             {
                               staticClass: "mx-2",
                               attrs: {
-                                disabled: _vm.inProcess,
+                                disabled: _vm.inProcessRoles,
                                 outlined: "",
                                 color: "error"
                               },
@@ -11005,8 +10728,8 @@ var render = function() {
                             {
                               staticClass: "elevation-0 mx-2",
                               attrs: {
-                                disabled: _vm.inProcess,
-                                loading: _vm.inProcess,
+                                disabled: _vm.inProcessRoles,
+                                loading: _vm.inProcessRoles,
                                 color: "error"
                               },
                               on: {
@@ -11154,11 +10877,11 @@ var render = function() {
                   outlined: ""
                 },
                 model: {
-                  value: _vm.form.name,
+                  value: _vm.formUsers.name,
                   callback: function($$v) {
-                    _vm.$set(_vm.form, "name", $$v)
+                    _vm.$set(_vm.formUsers, "name", $$v)
                   },
-                  expression: "form.name"
+                  expression: "formUsers.name"
                 }
               })
             ],
@@ -11176,11 +10899,11 @@ var render = function() {
                   outlined: ""
                 },
                 model: {
-                  value: _vm.form.email,
+                  value: _vm.formUsers.email,
                   callback: function($$v) {
-                    _vm.$set(_vm.form, "email", $$v)
+                    _vm.$set(_vm.formUsers, "email", $$v)
                   },
-                  expression: "form.email"
+                  expression: "formUsers.email"
                 }
               })
             ],
@@ -11209,11 +10932,11 @@ var render = function() {
                   }
                 },
                 model: {
-                  value: _vm.form.password,
+                  value: _vm.formUsers.password,
                   callback: function($$v) {
-                    _vm.$set(_vm.form, "password", $$v)
+                    _vm.$set(_vm.formUsers, "password", $$v)
                   },
-                  expression: "form.password"
+                  expression: "formUsers.password"
                 }
               })
             ],
@@ -11242,11 +10965,11 @@ var render = function() {
                   }
                 },
                 model: {
-                  value: _vm.form.password_confirm,
+                  value: _vm.formUsers.password_confirm,
                   callback: function($$v) {
-                    _vm.$set(_vm.form, "password_confirm", $$v)
+                    _vm.$set(_vm.formUsers, "password_confirm", $$v)
                   },
-                  expression: "form.password_confirm"
+                  expression: "formUsers.password_confirm"
                 }
               })
             ],
@@ -11259,18 +10982,18 @@ var render = function() {
             [
               _c("v-select", {
                 attrs: {
-                  items: _vm.showData,
+                  items: _vm.roles,
                   "item-text": "role",
                   "item-value": "id",
                   label: "Role",
                   outlined: ""
                 },
                 model: {
-                  value: _vm.form.role_id,
+                  value: _vm.formUsers.role_id,
                   callback: function($$v) {
-                    _vm.$set(_vm.form, "role_id", $$v)
+                    _vm.$set(_vm.formUsers, "role_id", $$v)
                   },
-                  expression: "form.role_id"
+                  expression: "formUsers.role_id"
                 }
               })
             ],
@@ -11347,7 +11070,7 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "tbody",
-                                _vm._l(_vm.data, function(user) {
+                                _vm._l(_vm.users, function(user) {
                                   return _c("tr", { key: user.id }, [
                                     _c("td", [_vm._v(_vm._s(user.name))]),
                                     _vm._v(" "),
@@ -11415,7 +11138,9 @@ var render = function() {
                                                   {
                                                     on: {
                                                       click: function($event) {
-                                                        _vm.edit({ data: user })
+                                                        _vm.editUsers({
+                                                          data: user
+                                                        })
                                                         _vm.editUsersDialog = true
                                                       }
                                                     }
@@ -11493,7 +11218,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.updateUser()
+                      return _vm.userUpdate()
                     }
                   }
                 },
@@ -11523,7 +11248,7 @@ var render = function() {
                                 {
                                   staticClass: "mx-2",
                                   attrs: {
-                                    disabled: _vm.inProcess,
+                                    disabled: _vm.inProcessUsers,
                                     outlined: "",
                                     color: "primary"
                                   },
@@ -11541,8 +11266,8 @@ var render = function() {
                                 {
                                   staticClass: "elevation-0 mx-2",
                                   attrs: {
-                                    disabled: _vm.inProcess,
-                                    loading: _vm.inProcess,
+                                    disabled: _vm.inProcessUsers,
+                                    loading: _vm.inProcessUsers,
                                     type: "submit",
                                     color: "primary"
                                   }
@@ -11607,7 +11332,7 @@ var render = function() {
                             {
                               staticClass: "elevation-0 mx-2",
                               attrs: {
-                                disabled: _vm.inProcess,
+                                disabled: _vm.inProcessUsers,
                                 outlined: "",
                                 color: "error"
                               },
@@ -11625,8 +11350,8 @@ var render = function() {
                             {
                               staticClass: "elevation-0 mx-2",
                               attrs: {
-                                disabled: _vm.inProcess,
-                                loading: _vm.inProcess,
+                                disabled: _vm.inProcessUsers,
+                                loading: _vm.inProcessUsers,
                                 color: "error"
                               },
                               on: {
@@ -11683,10 +11408,11 @@ var render = function() {
     [
       _c(
         "v-layout",
+        { attrs: { wrap: "" } },
         [
           _c(
             "v-flex",
-            { staticStyle: { height: "100vh" }, attrs: { xs4: "" } },
+            { staticStyle: { height: "100vh" }, attrs: { xs12: "", sm4: "" } },
             [
               _c(
                 "v-card",
@@ -11703,7 +11429,7 @@ var render = function() {
                           attrs: { color: "primary", size: "40" },
                           on: {
                             click: function($event) {
-                              _vm.mode = "account"
+                              return _vm.setMode("account")
                             }
                           }
                         },
@@ -11742,7 +11468,14 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "v-btn",
-                        { attrs: { icon: "" } },
+                        {
+                          attrs: { icon: "" },
+                          on: {
+                            click: function($event) {
+                              return _vm.setMode("chatCreate")
+                            }
+                          }
+                        },
                         [
                           _c("v-icon", { attrs: { size: "medium" } }, [
                             _vm._v("fas fa-comments")
@@ -11788,7 +11521,7 @@ var render = function() {
                                 {
                                   on: {
                                     click: function($event) {
-                                      _vm.mode = "preferences"
+                                      return _vm.setMode("preferences")
                                     }
                                   }
                                 },
@@ -11874,56 +11607,49 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.mode == "account",
-                      expression: "mode == 'account'"
+                      value: _vm.mode == "chatCreate",
+                      expression: "mode == 'chatCreate'"
                     }
                   ],
                   staticClass: "sidenav",
-                  attrs: { xs4: "" }
+                  attrs: { xs12: "", sm4: "" }
                 },
                 [
                   _c(
                     "v-card",
                     { attrs: { flat: "", height: "inherit" } },
-                    [
-                      _c(
-                        "v-toolbar",
-                        {
-                          attrs: {
-                            color: "primary",
-                            dark: "",
-                            prominent: "",
-                            flat: ""
-                          }
-                        },
-                        [
-                          _c(
-                            "v-toolbar-title",
-                            [
-                              _c(
-                                "v-btn",
-                                {
-                                  staticStyle: { margin: "0px 15px 4px 0px" },
-                                  attrs: { icon: "" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.mode = "chat"
-                                    }
-                                  }
-                                },
-                                [_c("v-icon", [_vm._v("fas fa-arrow-left")])],
-                                1
-                              ),
-                              _vm._v("Perfil\n                        ")
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("EditAccount")
-                    ],
+                    [_c("ChatCreate")],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-slide-x-transition",
+            [
+              _c(
+                "v-flex",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.mode == "account",
+                      expression: "mode == 'account'"
+                    }
+                  ],
+                  staticClass: "sidenav",
+                  attrs: { xs12: "", sm4: "" }
+                },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { flat: "", height: "inherit" } },
+                    [_c("EditAccount")],
                     1
                   )
                 ],
@@ -11948,51 +11674,13 @@ var render = function() {
                     }
                   ],
                   staticClass: "sidenav",
-                  attrs: { xs4: "" }
+                  attrs: { xs12: "", sm4: "" }
                 },
                 [
                   _c(
                     "v-card",
                     { attrs: { flat: "", height: "inherit" } },
-                    [
-                      _c(
-                        "v-toolbar",
-                        {
-                          attrs: {
-                            color: "primary",
-                            dark: "",
-                            prominent: "",
-                            flat: ""
-                          }
-                        },
-                        [
-                          _c(
-                            "v-toolbar-title",
-                            [
-                              _c(
-                                "v-btn",
-                                {
-                                  staticStyle: { margin: "0px 15px 4px 0px" },
-                                  attrs: { icon: "" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.mode = "chat"
-                                    }
-                                  }
-                                },
-                                [_c("v-icon", [_vm._v("fas fa-arrow-left")])],
-                                1
-                              ),
-                              _vm._v("Configuración\n                        ")
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("Preferences")
-                    ],
+                    [_c("Preferences")],
                     1
                   )
                 ],
@@ -12002,9 +11690,47 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("v-divider", { attrs: { vertical: "" } }),
+          _c(
+            "v-slide-x-transition",
+            [
+              _c(
+                "v-flex",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.mode == "chatGroup",
+                      expression: "mode == 'chatGroup'"
+                    }
+                  ],
+                  staticClass: "sidenav hidden-sm-and-up",
+                  attrs: { xs12: "", sm4: "" }
+                },
+                [
+                  _c(
+                    "v-card",
+                    { attrs: { flat: "", height: "inherit" } },
+                    [_c("GroupMessage")],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
           _vm._v(" "),
-          _c("v-flex", { attrs: { xs8: "" } }, [_c("GroupMessage")], 1)
+          _c(
+            "v-flex",
+            {
+              staticClass: "hidden-xs-only",
+              staticStyle: { "border-left": "0.5px solid #eeeeee" },
+              attrs: { xs12: "", sm8: "" }
+            },
+            [_c("GroupMessage")],
+            1
+          )
         ],
         1
       )
@@ -12611,7 +12337,7 @@ var render = function() {
                             {
                               staticClass: "mx-2",
                               attrs: {
-                                disabled: _vm.inProcess,
+                                disabled: _vm.inProcessRoles,
                                 color: "primary",
                                 outlined: ""
                               },
@@ -12629,8 +12355,8 @@ var render = function() {
                             {
                               staticClass: "elevation-0 mx-2",
                               attrs: {
-                                disabled: _vm.inProcess,
-                                loading: _vm.inProcess,
+                                disabled: _vm.inProcessRoles,
+                                loading: _vm.inProcessRoles,
                                 color: "primary",
                                 type: "submit"
                               }
@@ -12800,7 +12526,7 @@ var render = function() {
               on: {
                 submit: function($event) {
                   $event.preventDefault()
-                  return _vm.saveUser($event)
+                  return _vm.userSave($event)
                 }
               }
             },
@@ -12828,7 +12554,7 @@ var render = function() {
                             {
                               staticClass: "mx-2",
                               attrs: {
-                                disabled: _vm.inProcess,
+                                disabled: _vm.inProcessUsers,
                                 outlined: "",
                                 color: "primary"
                               },
@@ -12846,8 +12572,8 @@ var render = function() {
                             {
                               staticClass: "elevation-0 mx-2",
                               attrs: {
-                                disabled: _vm.inProcess,
-                                loading: _vm.inProcess,
+                                disabled: _vm.inProcessUsers,
+                                loading: _vm.inProcessUsers,
                                 type: "submit",
                                 color: "primary"
                               }
@@ -65594,6 +65320,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/chats/ChatCreate.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/chats/ChatCreate.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ChatCreate_vue_vue_type_template_id_5ed11f53___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChatCreate.vue?vue&type=template&id=5ed11f53& */ "./resources/js/components/chats/ChatCreate.vue?vue&type=template&id=5ed11f53&");
+/* harmony import */ var _ChatCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ChatCreate.vue?vue&type=script&lang=js& */ "./resources/js/components/chats/ChatCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ChatCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ChatCreate_vue_vue_type_template_id_5ed11f53___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ChatCreate_vue_vue_type_template_id_5ed11f53___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/chats/ChatCreate.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/chats/ChatCreate.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/chats/ChatCreate.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChatCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ChatCreate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChatCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/chats/ChatCreate.vue?vue&type=template&id=5ed11f53&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/chats/ChatCreate.vue?vue&type=template&id=5ed11f53& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChatCreate_vue_vue_type_template_id_5ed11f53___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ChatCreate.vue?vue&type=template&id=5ed11f53& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatCreate.vue?vue&type=template&id=5ed11f53&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChatCreate_vue_vue_type_template_id_5ed11f53___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChatCreate_vue_vue_type_template_id_5ed11f53___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/chats/ChatList.vue":
 /*!****************************************************!*\
   !*** ./resources/js/components/chats/ChatList.vue ***!
@@ -65727,144 +65522,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupMessage_vue_vue_type_template_id_4c1094f0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GroupMessage_vue_vue_type_template_id_4c1094f0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/preferences/AppPreferences.vue":
-/*!****************************************************************!*\
-  !*** ./resources/js/components/preferences/AppPreferences.vue ***!
-  \****************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AppPreferences_vue_vue_type_template_id_bb76dc8e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AppPreferences.vue?vue&type=template&id=bb76dc8e& */ "./resources/js/components/preferences/AppPreferences.vue?vue&type=template&id=bb76dc8e&");
-/* harmony import */ var _AppPreferences_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AppPreferences.vue?vue&type=script&lang=js& */ "./resources/js/components/preferences/AppPreferences.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AppPreferences_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AppPreferences_vue_vue_type_template_id_bb76dc8e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AppPreferences_vue_vue_type_template_id_bb76dc8e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/preferences/AppPreferences.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/preferences/AppPreferences.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************!*\
-  !*** ./resources/js/components/preferences/AppPreferences.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppPreferences_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./AppPreferences.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/AppPreferences.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AppPreferences_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/preferences/AppPreferences.vue?vue&type=template&id=bb76dc8e&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/components/preferences/AppPreferences.vue?vue&type=template&id=bb76dc8e& ***!
-  \***********************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppPreferences_vue_vue_type_template_id_bb76dc8e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./AppPreferences.vue?vue&type=template&id=bb76dc8e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/AppPreferences.vue?vue&type=template&id=bb76dc8e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppPreferences_vue_vue_type_template_id_bb76dc8e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AppPreferences_vue_vue_type_template_id_bb76dc8e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/preferences/InterfacePreferences.vue":
-/*!**********************************************************************!*\
-  !*** ./resources/js/components/preferences/InterfacePreferences.vue ***!
-  \**********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _InterfacePreferences_vue_vue_type_template_id_3609fc21___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InterfacePreferences.vue?vue&type=template&id=3609fc21& */ "./resources/js/components/preferences/InterfacePreferences.vue?vue&type=template&id=3609fc21&");
-/* harmony import */ var _InterfacePreferences_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./InterfacePreferences.vue?vue&type=script&lang=js& */ "./resources/js/components/preferences/InterfacePreferences.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _InterfacePreferences_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _InterfacePreferences_vue_vue_type_template_id_3609fc21___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _InterfacePreferences_vue_vue_type_template_id_3609fc21___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/preferences/InterfacePreferences.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/preferences/InterfacePreferences.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/components/preferences/InterfacePreferences.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InterfacePreferences_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./InterfacePreferences.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/InterfacePreferences.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_InterfacePreferences_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/preferences/InterfacePreferences.vue?vue&type=template&id=3609fc21&":
-/*!*****************************************************************************************************!*\
-  !*** ./resources/js/components/preferences/InterfacePreferences.vue?vue&type=template&id=3609fc21& ***!
-  \*****************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InterfacePreferences_vue_vue_type_template_id_3609fc21___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./InterfacePreferences.vue?vue&type=template&id=3609fc21& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/preferences/InterfacePreferences.vue?vue&type=template&id=3609fc21&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InterfacePreferences_vue_vue_type_template_id_3609fc21___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_InterfacePreferences_vue_vue_type_template_id_3609fc21___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -66855,15 +66512,74 @@ var actions = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("accsess_token");
 var state = {
+  chats: null,
+  errorsChat: null,
   chatID: null
 };
 var mutations = {
+  fillChats: function fillChats(state, chats) {
+    state.chats = chats;
+  },
+  fillErrorsChats: function fillErrorsChats(state, errors) {
+    state.errorsChat = errors;
+  },
+  resetChats: function resetChats(state) {
+    state.chats = null;
+  },
+  resetErrorsChats: function resetErrorsChats(state) {
+    state.errorsChat = null;
+  },
+  resetAll: function resetAll(state) {
+    state.chats = null;
+    state.errorsChat = null;
+  },
   setChatID: function setChatID(state, id) {
     state.chatID = id;
   }
 };
-var actions = {};
+var actions = {
+  indexChat: function indexChat(_ref, params) {
+    var state = _ref.state,
+        commit = _ref.commit;
+    commit("resetErrorsChats");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/chats", {
+        params: params
+      }).then(function (response) {
+        commit("fillChats", response.data);
+        state.inProcess = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrorsChats", error.response.data);
+        state.inProcess = false;
+        throw new Error(error);
+      });
+    });
+  },
+  saveChat: function saveChat(_ref2, params) {
+    var state = _ref2.state,
+        commit = _ref2.commit;
+    commit("resetErrorsChats");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/chats", {
+        users: params.users
+      }).then(function (response) {
+        commit("resetForm");
+        state.inProcess = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrorsChats", error.response.data);
+        state.inProcess = false;
+        throw new Error(error);
+      });
+    });
+  }
+};
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: state,
@@ -67031,6 +66747,31 @@ var actions = {
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/home.js":
+/*!********************************************!*\
+  !*** ./resources/js/store/modules/home.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var state = {
+  mode: "chat"
+};
+var mutations = {
+  setMode: function setMode(state, mode) {
+    state.mode = mode;
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/modules/preferences.js":
 /*!***************************************************!*\
   !*** ./resources/js/store/modules/preferences.js ***!
@@ -67040,70 +66781,319 @@ var actions = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-
 var state = {
-  inProcess: false,
-  darkMode: JSON.parse(window.localStorage.getItem("darkMode")) || null,
-  darkColors: JSON.parse(window.localStorage.getItem("darkColors")) || null,
-  lightColors: JSON.parse(window.localStorage.getItem("lightColors")) || null,
-  appName: window.localStorage.getItem("appName") || "",
-  errors: null
+  darkMode: JSON.parse(window.localStorage.getItem("darkMode")) || null
 };
 var mutations = {
   modeControl: function modeControl(state, value) {
     state.darkMode = value;
     window.localStorage.setItem("darkMode", JSON.stringify(value));
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/roles.js":
+/*!*********************************************!*\
+  !*** ./resources/js/store/modules/roles.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("accsess_token");
+var state = {
+  inProcessRoles: false,
+  roles: null,
+  permissions: null,
+  formRoles: {},
+  errorsRoles: null
+};
+var mutations = {
+  fillRoles: function fillRoles(state, roles) {
+    state.roles = roles;
   },
-  darkControl: function darkControl(state, color) {
-    state.darkColors[color.name] = color.value;
-    this.$vuetify.theme.themes.dark = state.darkColors;
-    window.localStorage.setItem("darkColors", JSON.stringify(state.darkColors));
+  fillPermissions: function fillPermissions(state, permissions) {
+    state.permissions = permissions;
   },
-  lightControl: function lightControl(state, color) {
-    state.lightColors[color.name] = color.value;
-    window.localStorage.setItem("lightColors", JSON.stringify(state.lightColors));
+  fillFormRoles: function fillFormRoles(state, form) {
+    state.formRoles = form;
   },
-  fillAppName: function fillAppName(state, name) {
-    state.appName = name;
+  fillErrorsRoles: function fillErrorsRoles(state, errors) {
+    state.errorsRoles = errors;
   },
-  fillErrors: function fillErrors(state, errors) {
-    state.errors = errors;
+  resetRoles: function resetRoles() {
+    state.roles = null;
   },
-  resetErrors: function resetErrors(state) {
-    state.errors = null;
+  resetPermissions: function resetPermissions() {
+    state.permissions = null;
+  },
+  resetFormRoles: function resetFormRoles(state) {
+    state.formRoles = {};
+  },
+  resetErrorsRoles: function resetErrorsRoles(state) {
+    state.errorsRoles = null;
+  },
+  resetAll: function resetAll() {
+    state.roles = null;
+    state.permissions = null;
+    state.formRoles = {};
+    state.errorsRoles = null;
   }
 };
 var actions = {
-  updateAppName: function updateAppName(_ref, data) {
+  indexRoles: function indexRoles(_ref, params) {
     var state = _ref.state,
         commit = _ref.commit;
-    state.inProcess = true;
-    commit("resetErrors");
+    state.inProcessRoles = true;
+    commit("resetErrorsRoles");
     return new Promise(function (resolve) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(data.url, data).then(function (response) {
-        commit("fillAppName", data.appName);
-        window.localStorage.setItem("appName", data.appName);
-        state.inProcess = false;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/roles", {
+        params: params
+      }).then(function (response) {
+        commit("fillRoles", response.data);
+        state.inProcessRoles = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrors", error.response.data);
+        commit("fillErrorsRoles", error.response.data);
+        state.inProcessRoles = false;
         throw new Error(error);
       });
     });
   },
-  updateAppLogo: function updateAppLogo(_ref2, data) {
+  indexPermissions: function indexPermissions(_ref2, params) {
     var state = _ref2.state,
         commit = _ref2.commit;
-    state.inProcess = true;
-    commit("resetErrors");
+    state.inProcessRoles = true;
+    commit("resetErrorsRoles");
     return new Promise(function (resolve) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(data.url, data).then(function (response) {
-        state.inProcess = false;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/roles/show", {
+        params: params
+      }).then(function (response) {
+        commit("fillPermissions", response.data);
+        state.inProcessRoles = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrors", error.response.data);
+        commit("fillErrorsRoles", error.response.data);
+        state.inProcessRoles = false;
+        throw new Error(error);
+      });
+    });
+  },
+  saveRoles: function saveRoles(_ref3) {
+    var state = _ref3.state,
+        commit = _ref3.commit;
+    state.inProcessRoles = true;
+    commit("resetErrorsRoles");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/roles", state.formRoles).then(function (response) {
+        commit("resetFormRoles");
+        state.inProcessRoles = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrorsRoles", error.response.data);
+        state.inProcessRoles = false;
+        throw new Error(error);
+      });
+    });
+  },
+  editRoles: function editRoles(_ref4, params) {
+    var commit = _ref4.commit;
+    commit("fillFormRoles", params.data);
+  },
+  updateRoles: function updateRoles(_ref5, params) {
+    var state = _ref5.state,
+        commit = _ref5.commit;
+    state.inProcessRoles = true;
+    commit("resetErrorsRoles");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/roles/" + params.id, state.formRoles).then(function (response) {
+        commit("resetFormRoles");
+        state.inProcessRoles = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrorsRoles", error.response.data);
+        state.inProcessRoles = false;
+        throw new Error(error);
+      });
+    });
+  },
+  destroyRoles: function destroyRoles(_ref6, params) {
+    var state = _ref6.state,
+        commit = _ref6.commit;
+    state.inProcessRoles = true;
+    commit("resetErrorsRoles");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/roles/" + params.id).then(function (response) {
+        state.inProcessRoles = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrorsRoles", error.response.data);
+        state.inProcessRoles = false;
+        throw new Error(error);
+      });
+    });
+  }
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  namespaced: true,
+  state: state,
+  mutations: mutations,
+  actions: actions
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/users.js":
+/*!*********************************************!*\
+  !*** ./resources/js/store/modules/users.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("accsess_token");
+var state = {
+  inProcessUsers: false,
+  users: null,
+  user: null,
+  formUsers: {},
+  errorsUsers: null
+};
+var mutations = {
+  fillUsers: function fillUsers(state, users) {
+    state.users = users;
+  },
+  fillUser: function fillUser(state, user) {
+    state.user = user;
+  },
+  fillFormUsers: function fillFormUsers(state, form) {
+    state.formUsers = form;
+  },
+  fillErrorsUsers: function fillErrorsUsers(state, errors) {
+    state.errorsUsers = errors;
+  },
+  resetUsers: function resetUsers(state) {
+    state.users = null;
+  },
+  resetUser: function resetUser(state) {
+    state.user = null;
+  },
+  resetFormUsers: function resetFormUsers(state) {
+    state.formUsers = {};
+  },
+  resetErrorsUsers: function resetErrorsUsers(state) {
+    state.errorsUsers = null;
+  },
+  resetAll: function resetAll(state) {
+    state.users = null;
+    state.user = null;
+    state.formUsers = {};
+    state.errorsUsers = null;
+  }
+};
+var actions = {
+  indexUsers: function indexUsers(_ref, params) {
+    var state = _ref.state,
+        commit = _ref.commit;
+    state.inProcessUsers = true;
+    commit("resetErrorsUsers");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users", {
+        params: params
+      }).then(function (response) {
+        commit("fillUsers", response.data);
+        state.inProcessUsers = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrorsUsers", error.response.data);
+        state.inProcessUsers = false;
+        throw new Error(error);
+      });
+    });
+  },
+  showUsers: function showUsers(_ref2, params) {
+    var state = _ref2.state,
+        commit = _ref2.commit;
+    state.inProcessUsers = true;
+    commit("resetErrorsUsers");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/user/" + params.id, {
+        params: params
+      }).then(function (response) {
+        commit("fillUser", response.data);
+        state.inProcessUsers = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrorsUsers", error.response.data);
+        state.inProcessUsers = false;
+        throw new Error(error);
+      });
+    });
+  },
+  saveUsers: function saveUsers(_ref3) {
+    var state = _ref3.state,
+        commit = _ref3.commit;
+    state.inProcessUsers = true;
+    commit("resetErrorsUsers");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/users", state.formUsers).then(function (response) {
+        commit("resetFormUsers");
+        state.inProcessUsers = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrorsUsers", error.response.data);
+        state.inProcessUsers = false;
+        throw new Error(error);
+      });
+    });
+  },
+  editUsers: function editUsers(_ref4, params) {
+    var commit = _ref4.commit;
+    commit("fillFormUsers", params.data);
+  },
+  updateUsers: function updateUsers(_ref5, params) {
+    var state = _ref5.state,
+        commit = _ref5.commit;
+    state.inProcessUsers = true;
+    commit("resetErrorsUsers");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/users/" + params.id, state.formUsers).then(function (response) {
+        commit("resetFormUsers");
+        state.inProcessUsers = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrorsUsers", error.response.data);
+        state.inProcessUsers = false;
+        throw new Error(error);
+      });
+    });
+  },
+  destroyUsers: function destroyUsers(_ref6, params) {
+    var state = _ref6.state,
+        commit = _ref6.commit;
+    state.inProcessUsers = true;
+    commit("resetErrorsUsers");
+    return new Promise(function (resolve) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/users/" + params.id).then(function (response) {
+        state.inProcessUsers = false;
+        resolve(response.data);
+      })["catch"](function (error) {
+        commit("fillErrorsUsers", error.response.data);
+        state.inProcessUsers = false;
         throw new Error(error);
       });
     });
@@ -67130,12 +67120,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
-/* harmony import */ var _modules_crudx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/crudx */ "./resources/js/store/modules/crudx.js");
-/* harmony import */ var _modules_preferences__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/preferences */ "./resources/js/store/modules/preferences.js");
-/* harmony import */ var _modules_chat__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/chat */ "./resources/js/store/modules/chat.js");
+/* harmony import */ var _modules_crudx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/crudx */ "./resources/js/store/modules/crudx.js");
+/* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
+/* harmony import */ var _modules_home__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/home */ "./resources/js/store/modules/home.js");
+/* harmony import */ var _modules_users__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/users */ "./resources/js/store/modules/users.js");
+/* harmony import */ var _modules_roles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/roles */ "./resources/js/store/modules/roles.js");
+/* harmony import */ var _modules_preferences__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/preferences */ "./resources/js/store/modules/preferences.js");
+/* harmony import */ var _modules_chat__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/chat */ "./resources/js/store/modules/chat.js");
 
  // Modules
+
+
+
 
 
 
@@ -67144,10 +67140,13 @@ __webpack_require__.r(__webpack_exports__);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   modules: {
-    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_2__["default"],
-    crudx: _modules_crudx__WEBPACK_IMPORTED_MODULE_3__["default"],
-    preferences: _modules_preferences__WEBPACK_IMPORTED_MODULE_4__["default"],
-    chat: _modules_chat__WEBPACK_IMPORTED_MODULE_5__["default"]
+    crudx: _modules_crudx__WEBPACK_IMPORTED_MODULE_2__["default"],
+    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_3__["default"],
+    home: _modules_home__WEBPACK_IMPORTED_MODULE_4__["default"],
+    users: _modules_users__WEBPACK_IMPORTED_MODULE_5__["default"],
+    roles: _modules_roles__WEBPACK_IMPORTED_MODULE_6__["default"],
+    preferences: _modules_preferences__WEBPACK_IMPORTED_MODULE_7__["default"],
+    chat: _modules_chat__WEBPACK_IMPORTED_MODULE_8__["default"]
   }
 }));
 

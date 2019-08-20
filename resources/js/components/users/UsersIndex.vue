@@ -17,7 +17,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="user in data" :key="user.id">
+                                        <tr v-for="user in users" :key="user.id">
                                             <td>{{ user.name }}</td>
                                             <td>{{ user.email }}</td>
                                             <td>{{ user.rol }}</td>
@@ -30,7 +30,7 @@
                                                     </template>
                                                     <v-list>
                                                         <v-list-item
-                                                            @click="edit({data: user}); editUsersDialog = true"
+                                                            @click="editUsers({data: user}); editUsersDialog = true"
                                                         >
                                                             <v-list-item-title>Editar</v-list-item-title>
                                                         </v-list-item>
@@ -52,7 +52,7 @@
             </v-layout>
             <!-- Edit Users Dialog -->
             <v-dialog v-model="editUsersDialog" width="500" persistent scrollable>
-                <v-form ref="userForm" @submit.prevent="updateUser()">
+                <v-form ref="userForm" @submit.prevent="userUpdate()">
                     <v-card>
                         <v-card-text class="primary white--text">
                             <h2>Editar Usuario</h2>
@@ -63,14 +63,14 @@
                             <v-layout justify-end>
                                 <v-btn
                                     @click="closeEdit()"
-                                    :disabled="inProcess"
+                                    :disabled="inProcessUsers"
                                     outlined
                                     color="primary"
                                     class="mx-2"
                                 >Cancelar</v-btn>
                                 <v-btn
-                                    :disabled="inProcess"
-                                    :loading="inProcess"
+                                    :disabled="inProcessUsers"
+                                    :loading="inProcessUsers"
                                     type="submit"
                                     color="primary"
                                     class="elevation-0 mx-2"
@@ -93,14 +93,14 @@
                         <v-layout justify-end wrap>
                             <v-btn
                                 @click="deleteUsersDialog = false;"
-                                :disabled="inProcess"
+                                :disabled="inProcessUsers"
                                 outlined
                                 color="error"
                                 class="elevation-0 mx-2"
                             >Cancelar</v-btn>
                             <v-btn
-                                :disabled="inProcess"
-                                :loading="inProcess"
+                                :disabled="inProcessUsers"
+                                :loading="inProcessUsers"
                                 @click="erase()"
                                 color="error"
                                 class="elevation-0 mx-2"
@@ -133,32 +133,35 @@ export default {
     },
 
     computed: {
-        ...mapState("crudx", ["inProcess", "data", "form"]),
-        ...mapGetters("auth", ["account"])
+        ...mapState("users", ["inProcessUsers", "users", "formUsers"])
     },
 
     methods: {
-        ...mapActions("crudx", ["index", "edit", "update", "destroy"]),
-        ...mapActions("auth", ["getUser"]),
+        ...mapActions("users", [
+            "indexUsers",
+            "editUsers",
+            "updateUsers",
+            "destroyUsers"
+        ]),
 
-        updateUser: async function() {
+        userUpdate: async function() {
             if (this.$refs.userForm.validate()) {
-                await this.update({ url: "/api/users/" + this.form.id });
+                await this.updateUsers({ id: this.formUsers.id });
                 this.editUsersDialog = false;
-                this.index({ url: "/api/users" });
+                this.indexUsers();
             }
         },
 
         closeEdit: async function() {
-            await this.index({ url: "/api/users" });
+            await this.indexUsers();
             this.$refs.userForm.reset();
             this.$refs.userForm.resetValidation();
             this.editUsersDialog = false;
         },
 
         erase: async function() {
-            await this.destroy({ url: "/api/users/" + this.userID });
-            this.index({ url: "/api/users" });
+            await this.destroyUsers({ id: this.userID });
+            this.indexUsers();
             this.userID = null;
             this.deleteUsersDialog = false;
         }

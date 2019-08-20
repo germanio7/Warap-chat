@@ -30,14 +30,14 @@
                         <v-layout justify-end>
                             <v-btn
                                 @click="cancelRole()"
-                                :disabled="inProcess"
+                                :disabled="inProcessRoles"
                                 color="primary"
                                 class="mx-2"
                                 outlined
                             >Cancelar</v-btn>
                             <v-btn
-                                :disabled="inProcess"
-                                :loading="inProcess"
+                                :disabled="inProcessRoles"
+                                :loading="inProcessRoles"
                                 color="primary"
                                 class="elevation-0 mx-2"
                                 type="submit"
@@ -84,7 +84,12 @@ export default {
     },
 
     computed: {
-        ...mapState("crudx", ["inProcess", "form", "showData"])
+        ...mapState("roles", [
+            "inProcessRoles",
+            "roles",
+            "permissions",
+            "formRoles"
+        ])
     },
 
     mounted() {
@@ -92,11 +97,13 @@ export default {
     },
 
     methods: {
-        ...mapActions("crudx", ["index", "show", "save"]),
+        ...mapActions("roles", ["indexRoles", "indexPermissions", "saveRoles"]),
 
         getRoles: async function() {
             this.process = true;
-            let response = await this.index({ url: "/api/roles" });
+            if (this.roles == null) {
+                let response = await this.indexRoles();
+            }
             this.process = false;
         },
 
@@ -110,22 +117,21 @@ export default {
             if (this.$refs.roleForm.validate()) {
                 let permission = "";
                 let description = "";
-                for (let i = 0; i < this.form.scope.length; i++) {
-                    let find = this.showData.find(
-                        permiso => permiso.id === this.form.scope[i]
+                for (let i = 0; i < this.formRoles.scope.length; i++) {
+                    let find = this.permissions.find(
+                        permiso => permiso.id === this.formRoles.scope[i]
                     );
-
                     if (find) {
                         permission = permission + find.id + " ";
                         description = description + find.description + ", ";
                     }
                 }
 
-                this.form.permission = permission;
-                this.form.description = description;
-                await this.save({ url: "/api/roles" });
+                this.formRoles.permission = permission;
+                this.formRoles.description = description;
+                await this.saveRoles();
                 this.createRolesDialog = false;
-                await this.getRoles();
+                await this.indexRoles();
             }
         }
     }

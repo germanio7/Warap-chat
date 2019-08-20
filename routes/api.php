@@ -19,6 +19,9 @@ Route::middleware('auth:api')->group(function () {
 
     /*Preferencias*/
     Route::post('/preferences/update', 'API\PreferencesController@updatePreferences');
+
+    /*Chats*/
+    Route::apiResource('chats', 'API\ChatsController', ['only' => ['index', 'store']]);
 });
 
 

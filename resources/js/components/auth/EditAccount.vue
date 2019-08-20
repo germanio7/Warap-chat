@@ -1,5 +1,12 @@
 <template>
     <div>
+        <v-toolbar color="primary" dark prominent flat>
+            <v-toolbar-title>
+                <v-btn @click="setMode('chat')" icon style="margin: 0px 15px 4px 0px;">
+                    <v-icon>fas fa-arrow-left</v-icon>
+                </v-btn>Perfil
+            </v-toolbar-title>
+        </v-toolbar>
         <!-- Ver y editar Foto -->
         <v-layout justify-center>
             <v-flex xs12>
@@ -7,7 +14,7 @@
                 <v-layout justify-center>
                     <v-menu absolute>
                         <template v-slot:activator="{ on }">
-                            <v-avatar v-on="on" size="160" style="cursor: pointer;">
+                            <v-avatar v-on="on" size="160" color="primary" style="cursor: pointer;">
                                 <img
                                     v-show="account.user.foto != null"
                                     :src="account.user.foto"
@@ -271,6 +278,7 @@ export default {
     methods: {
         ...mapMutations("auth", ["fillForm"]),
         ...mapActions("auth", ["getUser", "updateAccount", "updatePhoto"]),
+        ...mapMutations("home", ["setMode"]),
 
         setForm: async function() {
             let response = await this.getUser();

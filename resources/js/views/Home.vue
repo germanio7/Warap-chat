@@ -1,12 +1,12 @@
 <template>
     <div>
-        <v-layout>
+        <v-layout wrap>
             <!-- Chat list -->
-            <v-flex xs4 style="height: 100vh;">
+            <v-flex xs12 sm4 style="height: 100vh;">
                 <v-card height="inherit">
                     <v-toolbar flat>
                         <v-avatar
-                            @click="mode = 'account'"
+                            @click="setMode('account')"
                             color="primary"
                             size="40"
                             style="cursor: pointer;"
@@ -18,7 +18,7 @@
                             >{{ account.profile }}</span>
                         </v-avatar>
                         <v-spacer></v-spacer>
-                        <v-btn icon>
+                        <v-btn icon @click="setMode('chatCreate')">
                             <v-icon size="medium">fas fa-comments</v-icon>
                         </v-btn>
                         <v-menu offset-y>
@@ -28,7 +28,7 @@
                                 </v-btn>
                             </template>
                             <v-list>
-                                <v-list-item @click="mode = 'preferences'">
+                                <v-list-item @click="setMode('preferences')">
                                     <v-list-item-title>Configuración</v-list-item-title>
                                 </v-list-item>
                                 <v-list-item
@@ -51,21 +51,19 @@
                 </v-card>
             </v-flex>
 
+            <!-- Chat create -->
+            <v-slide-x-transition>
+                <v-flex xs12 sm4 v-show="mode == 'chatCreate'" class="sidenav">
+                    <v-card flat height="inherit">
+                        <ChatCreate></ChatCreate>
+                    </v-card>
+                </v-flex>
+            </v-slide-x-transition>
+
             <!-- Account Settings -->
             <v-slide-x-transition>
-                <v-flex xs4 v-show="mode == 'account'" class="sidenav">
+                <v-flex xs12 sm4 v-show="mode == 'account'" class="sidenav">
                     <v-card flat height="inherit">
-                        <v-toolbar color="primary" dark prominent flat>
-                            <v-toolbar-title>
-                                <v-btn
-                                    @click="mode = 'chat'"
-                                    icon
-                                    style="margin: 0px 15px 4px 0px;"
-                                >
-                                    <v-icon>fas fa-arrow-left</v-icon>
-                                </v-btn>Perfil
-                            </v-toolbar-title>
-                        </v-toolbar>
                         <EditAccount></EditAccount>
                     </v-card>
                 </v-flex>
@@ -73,27 +71,22 @@
 
             <!-- Preferences -->
             <v-slide-x-transition>
-                <v-flex xs4 v-show="mode == 'preferences'" class="sidenav">
+                <v-flex xs12 sm4 v-show="mode == 'preferences'" class="sidenav">
                     <v-card flat height="inherit">
-                        <v-toolbar color="primary" dark prominent flat>
-                            <v-toolbar-title>
-                                <v-btn
-                                    @click="mode = 'chat'"
-                                    icon
-                                    style="margin: 0px 15px 4px 0px;"
-                                >
-                                    <v-icon>fas fa-arrow-left</v-icon>
-                                </v-btn>Configuración
-                            </v-toolbar-title>
-                        </v-toolbar>
                         <Preferences></Preferences>
                     </v-card>
                 </v-flex>
             </v-slide-x-transition>
 
             <!-- Chat Message -->
-            <v-divider vertical></v-divider>
-            <v-flex xs8>
+            <v-slide-x-transition>
+                <v-flex xs12 sm4 v-show="mode == 'chatGroup'" class="sidenav hidden-sm-and-up">
+                    <v-card flat height="inherit">
+                        <GroupMessage></GroupMessage>
+                    </v-card>
+                </v-flex>
+            </v-slide-x-transition>
+            <v-flex xs12 sm8 style="border-left: 0.5px solid #eeeeee;" class="hidden-xs-only">
                 <GroupMessage></GroupMessage>
             </v-flex>
         </v-layout>
@@ -105,17 +98,17 @@
 import EditAccount from "../components/auth/EditAccount.vue";
 import Preferences from "../components/preferences/Preferences.vue";
 import ChatList from "../components/chats/ChatList.vue";
+import ChatCreate from "../components/chats/ChatCreate.vue";
 import GroupMessage from "../components/groups/GroupMessage.vue";
 
 // Vuex
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
     name: "Main",
 
     data() {
         return {
-            mode: "chat",
             routes: [
                 {
                     name: "Usuarios",
@@ -134,18 +127,21 @@ export default {
     components: {
         EditAccount,
         ChatList,
+        ChatCreate,
         GroupMessage,
         Preferences
     },
 
     computed: {
         ...mapState("auth", ["token", "rol"]),
+        ...mapState("home", ["mode"]),
         ...mapState("preferences", ["appName"]),
         ...mapGetters("auth", ["account"])
     },
 
     methods: {
         ...mapActions("auth", ["logout"]),
+        ...mapMutations("home", ["setMode"]),
 
         exit: async function() {
             await this.logout();

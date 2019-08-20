@@ -19,7 +19,7 @@
             <v-icon>fas fa-plus</v-icon>
         </v-btn>
         <v-dialog v-model="createUsersDialog" width="500" persistent scrollable>
-            <v-form ref="usersForm" @submit.prevent="saveUser">
+            <v-form ref="usersForm" @submit.prevent="userSave">
                 <v-card>
                     <v-card-text class="primary white--text">
                         <h2>Nuevo Usuario</h2>
@@ -30,14 +30,14 @@
                         <v-layout justify-end>
                             <v-btn
                                 @click="cancelUser()"
-                                :disabled="inProcess"
+                                :disabled="inProcessUsers"
                                 outlined
                                 color="primary"
                                 class="mx-2"
                             >Cancelar</v-btn>
                             <v-btn
-                                :disabled="inProcess"
-                                :loading="inProcess"
+                                :disabled="inProcessUsers"
+                                :loading="inProcessUsers"
                                 type="submit"
                                 color="primary"
                                 class="elevation-0 mx-2"
@@ -84,7 +84,7 @@ export default {
     },
 
     computed: {
-        ...mapState("crudx", ["inProcess", "form"])
+        ...mapState("users", ["inProcessUsers"])
     },
 
     mounted() {
@@ -92,11 +92,13 @@ export default {
     },
 
     methods: {
-        ...mapActions("crudx", ["index", "save"]),
+        ...mapActions("users", ["indexUsers", "saveUsers"]),
 
         getUsers: async function() {
             this.process = true;
-            await this.index({ url: "/api/users" });
+            if (this.users == null) {
+                await this.indexUsers();
+            }
             this.process = false;
         },
 
@@ -106,11 +108,11 @@ export default {
             this.createUsersDialog = false;
         },
 
-        saveUser: async function() {
+        userSave: async function() {
             if (this.$refs.usersForm.validate()) {
-                await this.save({ url: "/api/users" });
+                await this.saveUsers();
                 this.createUsersDialog = false;
-                this.getUsers();
+                this.indexUsers();
             }
         }
     }
