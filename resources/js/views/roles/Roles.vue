@@ -30,14 +30,14 @@
                         <v-layout justify-end>
                             <v-btn
                                 @click="cancelRole()"
-                                :disabled="inProcessRoles"
+                                :disabled="$store.state.roles.inProcess"
                                 color="primary"
                                 class="mx-2"
                                 outlined
                             >Cancelar</v-btn>
                             <v-btn
-                                :disabled="inProcessRoles"
-                                :loading="inProcessRoles"
+                                :disabled="$store.state.roles.inProcess"
+                                :loading="$store.state.roles.inProcess"
                                 color="primary"
                                 class="elevation-0 mx-2"
                                 type="submit"
@@ -63,8 +63,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-
+// Components
 import RolesIndex from "../../components/roles/RolesIndex.vue";
 import RolesForm from "../../components/roles/RolesForm.vue";
 
@@ -83,26 +82,15 @@ export default {
         RolesForm
     },
 
-    computed: {
-        ...mapState("roles", [
-            "inProcessRoles",
-            "roles",
-            "permissions",
-            "formRoles"
-        ])
-    },
-
     mounted() {
         this.getRoles();
     },
 
     methods: {
-        ...mapActions("roles", ["indexRoles", "indexPermissions", "saveRoles"]),
-
         getRoles: async function() {
             this.process = true;
-            if (this.roles == null) {
-                let response = await this.indexRoles();
+            if (this.$store.state.roles.roles == null) {
+                await this.$store.dispatch("roles/index");
             }
             this.process = false;
         },
@@ -117,9 +105,14 @@ export default {
             if (this.$refs.roleForm.validate()) {
                 let permission = "";
                 let description = "";
-                for (let i = 0; i < this.formRoles.scope.length; i++) {
-                    let find = this.permissions.find(
-                        permiso => permiso.id === this.formRoles.scope[i]
+                for (
+                    let i = 0;
+                    i < this.$store.state.roles.form.scope.length;
+                    i++
+                ) {
+                    let find = this.$store.state.roles.permissions.find(
+                        permiso =>
+                            permiso.id === this.$store.state.roles.form.scope[i]
                     );
                     if (find) {
                         permission = permission + find.id + " ";
@@ -127,11 +120,11 @@ export default {
                     }
                 }
 
-                this.formRoles.permission = permission;
-                this.formRoles.description = description;
-                await this.saveRoles();
+                this.$store.state.roles.form.permission = permission;
+                this.$store.state.roles.form.description = description;
+                await this.$store.dispatch("roles/save");
                 this.createRolesDialog = false;
-                await this.indexRoles();
+                await this.$store.dispatch("roles/index");
             }
         }
     }

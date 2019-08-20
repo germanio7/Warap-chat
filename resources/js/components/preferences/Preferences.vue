@@ -2,7 +2,11 @@
     <div>
         <v-toolbar color="primary" dark prominent flat>
             <v-toolbar-title>
-                <v-btn @click="setMode('chat')" icon style="margin: 0px 15px 4px 0px;">
+                <v-btn
+                    @click="$store.commit('home/setMode', { mode: 'chat' })"
+                    icon
+                    style="margin: 0px 15px 4px 0px;"
+                >
                     <v-icon>fas fa-arrow-left</v-icon>
                 </v-btn>Configuración
             </v-toolbar-title>
@@ -32,9 +36,6 @@
 </template>
 
 <script>
-// Vuex
-import { mapState, mapMutations } from "vuex";
-
 export default {
     name: "Preferences",
 
@@ -44,16 +45,11 @@ export default {
         };
     },
 
-    computed: {
-        ...mapState("preferences", ["darkMode"])
-    },
-
     methods: {
-        ...mapMutations("home", ["setMode"]),
-        ...mapMutations("preferences", ["modeControl"]),
-
         darkControl: async function() {
-            await this.modeControl(this.mode);
+            await this.$store.commit("preferences/modeControl", {
+                value: this.mode
+            });
             this.$vuetify.theme.dark = this.mode;
         }
     }

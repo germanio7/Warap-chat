@@ -30,14 +30,14 @@
                         <v-layout justify-end>
                             <v-btn
                                 @click="cancelUser()"
-                                :disabled="inProcessUsers"
+                                :disabled="$store.state.users.inProcess"
                                 outlined
                                 color="primary"
                                 class="mx-2"
                             >Cancelar</v-btn>
                             <v-btn
-                                :disabled="inProcessUsers"
-                                :loading="inProcessUsers"
+                                :disabled="$store.state.users.inProcess"
+                                :loading="$store.state.users.inProcess"
                                 type="submit"
                                 color="primary"
                                 class="elevation-0 mx-2"
@@ -63,8 +63,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-
+// Components
 import UsersIndex from "../../components/users/UsersIndex.vue";
 import UsersForm from "../../components/users/UsersForm.vue";
 
@@ -83,21 +82,15 @@ export default {
         UsersForm
     },
 
-    computed: {
-        ...mapState("users", ["inProcessUsers"])
-    },
-
     mounted() {
         this.getUsers();
     },
 
     methods: {
-        ...mapActions("users", ["indexUsers", "saveUsers"]),
-
         getUsers: async function() {
             this.process = true;
-            if (this.users == null) {
-                await this.indexUsers();
+            if (this.$store.state.users.users == null) {
+                await this.$store.dispatch("users/index");
             }
             this.process = false;
         },
@@ -110,9 +103,9 @@ export default {
 
         userSave: async function() {
             if (this.$refs.usersForm.validate()) {
-                await this.saveUsers();
+                await this.$store.dispatch("users/save");
                 this.createUsersDialog = false;
-                this.indexUsers();
+                this.$store.dispatch("users/index");
             }
         }
     }

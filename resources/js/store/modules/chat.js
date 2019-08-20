@@ -3,9 +3,9 @@ axios.defaults.headers.common["Authorization"] =
     "Bearer " + localStorage.getItem("accsess_token");
 
 const state = {
+    inProcess: false,
     chats: null,
-    errorsChat: null,
-    chatID: null
+    errors: null
 };
 
 const mutations = {
@@ -13,31 +13,28 @@ const mutations = {
         state.chats = chats;
     },
 
-    fillErrorsChats(state, errors) {
-        state.errorsChat = errors;
+    fillErrors(state, errors) {
+        state.errors = errors;
     },
 
     resetChats(state) {
         state.chats = null;
     },
 
-    resetErrorsChats(state) {
-        state.errorsChat = null;
+    resetErrors(state) {
+        state.errors = null;
     },
 
     resetAll(state) {
         state.chats = null;
-        state.errorsChat = null;
-    },
-
-    setChatID(state, id) {
-        state.chatID = id;
+        state.errors = null;
     }
 };
 
 const actions = {
-    indexChat: function({ state, commit }, params) {
-        commit("resetErrorsChats");
+    index: function({ state, commit }, params) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
                 .get("/api/chats", { params: params })
@@ -47,27 +44,27 @@ const actions = {
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsChats", error.response.data);
+                    commit("fillErrors", error.response.data);
                     state.inProcess = false;
                     throw new Error(error);
                 });
         });
     },
 
-    saveChat: function({ state, commit }, params) {
-        commit("resetErrorsChats");
+    save: function({ state, commit }, params) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
                 .post("/api/chats", {
                     users: params.users
                 })
                 .then(response => {
-                    commit("resetForm");
                     state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsChats", error.response.data);
+                    commit("fillErrors", error.response.data);
                     state.inProcess = false;
                     throw new Error(error);
                 });

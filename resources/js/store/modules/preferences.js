@@ -3,9 +3,9 @@ const state = {
 };
 
 const mutations = {
-    modeControl(state, value) {
-        state.darkMode = value;
-        window.localStorage.setItem("darkMode", JSON.stringify(value));
+    modeControl(state, data) {
+        state.darkMode = data.value;
+        window.localStorage.setItem("darkMode", JSON.stringify(data.value));
     }
 };
 

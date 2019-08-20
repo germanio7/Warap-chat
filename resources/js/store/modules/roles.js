@@ -3,11 +3,11 @@ axios.defaults.headers.common["Authorization"] =
     "Bearer " + localStorage.getItem("accsess_token");
 
 const state = {
-    inProcessRoles: false,
+    inProcess: false,
     roles: null,
     permissions: null,
-    formRoles: {},
-    errorsRoles: null
+    form: {},
+    errors: null
 };
 
 const mutations = {
@@ -19,12 +19,12 @@ const mutations = {
         state.permissions = permissions;
     },
 
-    fillFormRoles(state, form) {
-        state.formRoles = form;
+    fillForm(state, form) {
+        state.form = form;
     },
 
-    fillErrorsRoles(state, errors) {
-        state.errorsRoles = errors;
+    fillErrors(state, errors) {
+        state.errors = errors;
     },
 
     resetRoles() {
@@ -35,116 +35,116 @@ const mutations = {
         state.permissions = null;
     },
 
-    resetFormRoles(state) {
-        state.formRoles = {};
+    resetForm(state) {
+        state.form = {};
     },
 
-    resetErrorsRoles(state) {
-        state.errorsRoles = null;
+    resetErrors(state) {
+        state.errors = null;
     },
 
     resetAll() {
         state.roles = null;
         state.permissions = null;
-        state.formRoles = {};
-        state.errorsRoles = null;
+        state.form = {};
+        state.errors = null;
     }
 };
 
 const actions = {
-    indexRoles: function({ state, commit }, params) {
-        state.inProcessRoles = true;
-        commit("resetErrorsRoles");
+    index: function({ state, commit }, params) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
                 .get("/api/roles", { params: params })
                 .then(response => {
                     commit("fillRoles", response.data);
-                    state.inProcessRoles = false;
+                    state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsRoles", error.response.data);
-                    state.inProcessRoles = false;
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });
     },
 
-    indexPermissions: function({ state, commit }, params) {
-        state.inProcessRoles = true;
-        commit("resetErrorsRoles");
+    show: function({ state, commit }, params) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
                 .get("/api/roles/show", { params: params })
                 .then(response => {
                     commit("fillPermissions", response.data);
-                    state.inProcessRoles = false;
+                    state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsRoles", error.response.data);
-                    state.inProcessRoles = false;
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });
     },
 
-    saveRoles: function({ state, commit }) {
-        state.inProcessRoles = true;
-        commit("resetErrorsRoles");
+    save: function({ state, commit }) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
-                .post("/api/roles", state.formRoles)
+                .post("/api/roles", state.form)
                 .then(response => {
-                    commit("resetFormRoles");
-                    state.inProcessRoles = false;
+                    commit("resetForm");
+                    state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsRoles", error.response.data);
-                    state.inProcessRoles = false;
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });
     },
 
-    editRoles: function({ commit }, params) {
-        commit("fillFormRoles", params.data);
+    edit: function({ commit }, params) {
+        commit("fillForm", params.data);
     },
 
-    updateRoles: function({ state, commit }, params) {
-        state.inProcessRoles = true;
-        commit("resetErrorsRoles");
+    update: function({ state, commit }, params) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
-                .put("/api/roles/" + params.id, state.formRoles)
+                .put("/api/roles/" + params.id, state.form)
                 .then(response => {
-                    commit("resetFormRoles");
-                    state.inProcessRoles = false;
+                    commit("resetForm");
+                    state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsRoles", error.response.data);
-                    state.inProcessRoles = false;
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });
     },
 
-    destroyRoles: function({ state, commit }, params) {
-        state.inProcessRoles = true;
-        commit("resetErrorsRoles");
+    destroy: function({ state, commit }, params) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
                 .delete("/api/roles/" + params.id)
                 .then(response => {
-                    state.inProcessRoles = false;
+                    state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsRoles", error.response.data);
-                    state.inProcessRoles = false;
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });

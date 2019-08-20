@@ -21,7 +21,6 @@ class ChatsController extends Controller
 
     public function store(Request $request)
     {
-        $users = $request->get('users');
 
         if ($request->admins) {
             $admins = [auth()->user()->id];
@@ -29,20 +28,34 @@ class ChatsController extends Controller
             $admins = null;
         }
 
-        $grupo = Grupo::create([
-            'admins' => $admins,
-        ]);
+        $cond = Chat::whereIn('user_id', [auth()->user()->id, $request->get('users')[0]['id']])->get();
+        $condicion = true;
+        $cant = count($cond);
 
-        $chat = Chat::create([
-            'user_id' => auth()->user()->id,
-            'grupo_id' => $grupo->id
-        ]);
+        for ($i = 0; $i < $cant; $i++) {
+            $j = $i + 1;
+            if ($j < $cant) {
+                if ($cond[$i]->grupo_id == $cond[$j]->grupo_id) {
+                    $condicion = false;
+                }
+            }
+        }
+        if ($condicion) {
+            $grupo = Grupo::create([
+                'admins' => $admins,
+            ]);
 
-        foreach ($request->get('users') as $user) {
-            $chat = Chat::create([
-                'user_id' => $user['id'],
+            Chat::create([
+                'user_id' => auth()->user()->id,
                 'grupo_id' => $grupo->id
             ]);
+
+            foreach ($request->get('users') as $user) {
+                $chat = Chat::create([
+                    'user_id' => $user['id'],
+                    'grupo_id' => $grupo->id
+                ]);
+            }
         }
     }
 

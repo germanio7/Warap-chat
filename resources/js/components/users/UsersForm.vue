@@ -3,7 +3,7 @@
         <v-layout justify-center wrap>
             <v-flex xs10>
                 <v-text-field
-                    v-model="formUsers.name"
+                    v-model="$store.state.users.form.name"
                     :rules="[rules.required]"
                     label="Name"
                     outlined
@@ -11,7 +11,7 @@
             </v-flex>
             <v-flex xs10>
                 <v-text-field
-                    v-model="formUsers.email"
+                    v-model="$store.state.users.form.email"
                     :rules="[rules.required]"
                     label="Email"
                     outlined
@@ -19,7 +19,7 @@
             </v-flex>
             <v-flex xs10>
                 <v-text-field
-                    v-model="formUsers.password"
+                    v-model="$store.state.users.form.password"
                     :rules="rulesPassword ? [rules.required, rules.max, rules.min] : []"
                     :append-icon="password ? 'fas fa-eye' : 'fas fa-eye-slash'"
                     @click:append="password = !password"
@@ -30,7 +30,7 @@
             </v-flex>
             <v-flex xs10>
                 <v-text-field
-                    v-model="formUsers.password_confirm"
+                    v-model="$store.state.users.form.password_confirm"
                     :rules="rulesPassword ? [rules.required, rules.max, rules.min] : []"
                     :append-icon="confirm_password ? 'fas fa-eye' : 'fas fa-eye-slash'"
                     @click:append="confirm_password = !confirm_password"
@@ -41,8 +41,8 @@
             </v-flex>
             <v-flex xs10>
                 <v-select
-                    v-model="formUsers.role_id"
-                    :items="roles"
+                    v-model="$store.state.users.form.role_id"
+                    :items="$store.state.roles.roles"
                     item-text="role"
                     item-value="id"
                     label="Role"
@@ -54,8 +54,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-
 export default {
     name: "UsersForm",
 
@@ -79,14 +77,11 @@ export default {
     },
 
     computed: {
-        ...mapState("users", ["formUsers"]),
-        ...mapState("roles", ["roles"]),
-
         rulesPassword() {
             if (this.mode == "create") {
                 return true;
             } else if (this.mode == "edit") {
-                if (this.formUsers.password) {
+                if (this.$store.state.users.form.password) {
                     return true;
                 } else {
                     return false;
@@ -96,13 +91,9 @@ export default {
     },
 
     mounted() {
-        if (this.roles == null) {
-            this.indexRoles();
+        if (this.$store.state.roles.roles == null) {
+            this.$store.dispatch("roles/index");
         }
-    },
-
-    methods: {
-        ...mapActions("roles", ["indexRoles"])
     }
 };
 </script>

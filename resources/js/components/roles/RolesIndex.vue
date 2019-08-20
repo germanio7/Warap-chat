@@ -16,7 +16,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="rol in roles" :key="rol.id">
+                                        <tr v-for="rol in $store.state.roles.roles" :key="rol.id">
                                             <td>{{ rol.role }}</td>
                                             <td class="tokens-description">{{ rol.description }}</td>
                                             <td>
@@ -28,7 +28,7 @@
                                                     </template>
                                                     <v-list>
                                                         <v-list-item
-                                                            @click="editRoles({data: rol}); editRolesDialog = true"
+                                                            @click="$store.dispatch('roles/edit', {data: rol}); editRolesDialog = true"
                                                         >
                                                             <v-list-item-title>Editar</v-list-item-title>
                                                         </v-list-item>
@@ -66,14 +66,14 @@
                             <v-layout justify-end wrap>
                                 <v-btn
                                     @click="closeEdit()"
-                                    :disabled="inProcessRoles"
+                                    :disabled="$store.state.roles.inProcess"
                                     outlined
                                     color="primary"
                                     class="mx-2"
                                 >Cancelar</v-btn>
                                 <v-btn
-                                    :disabled="inProcessRoles"
-                                    :loading="inProcessRoles"
+                                    :disabled="$store.state.roles.inProcess"
+                                    :loading="$store.state.roles.inProcess"
                                     type="submit"
                                     color="primary"
                                     class="elevation-0 mx-2"
@@ -96,15 +96,15 @@
                         <v-layout justify-end wrap>
                             <v-btn
                                 @click="deleteRolesDialog = false;"
-                                :disabled="inProcessRoles"
+                                :disabled="$store.state.roles.inProcess"
                                 outlined
                                 color="error"
                                 class="mx-2"
                             >Cancelar</v-btn>
                             <v-btn
                                 @click="erase()"
-                                :disabled="inProcessRoles"
-                                :loading="inProcessRoles"
+                                :disabled="$store.state.roles.inProcess"
+                                :loading="$store.state.roles.inProcess"
                                 color="error"
                                 class="elevation-0 mx-2"
                             >Eliminar</v-btn>
@@ -158,56 +158,48 @@ export default {
     },
 
     updated() {
-        if (this.formRoles.permission) {
-            if (typeof (this.formRoles.permission == "string")) {
-                this.formRoles.scope = this.formRoles.permission.split([" "]);
+        if (this.$store.state.roles.form.permission) {
+            if (typeof (this.$store.state.roles.form.permission == "string")) {
+                this.$store.state.roles.form.scope = this.$store.state.roles.form.permission.split(
+                    [" "]
+                );
             }
         }
     },
 
-    computed: {
-        ...mapState("roles", [
-            "inProcessRoles",
-            "roles",
-            "permissions",
-            "formRoles"
-        ])
-    },
-
     methods: {
-        ...mapActions("roles", [
-            "indexRoles",
-            "editRoles",
-            "updateRoles",
-            "destroyRoles"
-        ]),
-        ...mapMutations("roles", ["resetFormRoles"]),
-
         rolesUpdate: async function() {
             if (this.$refs.roleForm.validate()) {
                 let permission = "";
                 let description = "";
-                for (let i = 0; i < this.formRoles.scope.length; i++) {
-                    let find = this.permissions.find(
-                        permiso => permiso.id === this.formRoles.scope[i]
+                for (
+                    let i = 0;
+                    i < this.$store.state.roles.form.scope.length;
+                    i++
+                ) {
+                    let find = this.$store.state.roles.permissions.find(
+                        permiso =>
+                            permiso.id === this.$store.state.roles.form.scope[i]
                     );
                     if (find) {
                         permission = permission + find.id + " ";
                         description = description + find.description + ", ";
                     }
                 }
-                this.formRoles.permission = permission;
-                this.formRoles.description = description;
-                await this.updateRoles({ id: this.formRoles.id });
+                this.$store.state.roles.form.permission = permission;
+                this.$store.state.roles.form.description = description;
+                await this.$store.dispatch("roles/update", {
+                    id: this.$store.state.roles.form.id
+                });
                 this.$refs.roleForm.reset();
-                await this.indexRoles();
+                await this.$store.dispatch("roles/index");
                 this.editRolesDialog = false;
             }
         },
 
         closeEdit: async function() {
             this.editRolesDialog = false;
-            await this.indexRoles();
+            await this.$store.dispatch("roles/index");
             this.$refs.roleForm.reset();
             this.$refs.roleForm.resetValidation();
         },
@@ -234,8 +226,8 @@ export default {
         },
 
         erase: async function() {
-            await this.destroyRoles({ id: this.roleID });
-            this.indexRoles();
+            await this.$store.dispatch("roles/destroy", { id: this.roleID });
+            await this.$store.dispatch("roles/index");
             this.roleID = null;
             this.deleteRolesDialog = false;
         }

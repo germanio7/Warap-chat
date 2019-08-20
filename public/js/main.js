@@ -2536,12 +2536,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 //
 //
@@ -2584,8 +2585,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-// Vuex
-
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ChatCreate",
   data: function data() {
@@ -2593,39 +2596,67 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       name: ""
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("users", ["users"]), {
+  computed: {
     usersFind: function usersFind() {
-      if (this.users != null) {
-        var _usersArray = [];
+      if (this.$store.state.users.users != null) {
+        var usersArray = [];
 
-        for (var i = 0; i < this.users.length; i++) {
-          var userName = this.users[i].name.toLowerCase().substring(0, this.name.length);
+        for (var i = 0; i < this.$store.state.users.users.length; i++) {
+          var userName = this.$store.state.users.users[i].name.toLowerCase().substring(0, this.name.length);
 
           if (userName == this.name.toLowerCase()) {
-            _usersArray.push(this.users[i]);
+            usersArray.push(this.$store.state.users.users[i]);
           }
         }
 
-        return _usersArray;
+        return usersArray;
       } else {
         return [];
       }
     }
-  }),
+  },
   mounted: function mounted() {
-    if (this.users == null) {
-      this.indexUsers();
+    if (this.$store.state.users.users == null) {
+      this.$store.dispatch("users/index");
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("users", ["indexUsers"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("chat", ["saveChat"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("home", ["setMode"]), {
-    createChat: function createChat(user) {
-      var dataArray = [];
-      usersArray.push(user);
-      this.saveChat({
-        users: dataArray
-      });
-    }
-  })
+  methods: {
+    create: function () {
+      var _create = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(user) {
+        var arrayChats;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                arrayChats = [];
+                arrayChats.push(user);
+                _context.next = 4;
+                return this.$store.dispatch("chat/save", {
+                  users: arrayChats
+                });
+
+              case 4:
+                this.$store.commit("home/setMode", {
+                  mode: "chat"
+                });
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function create(_x) {
+        return _create.apply(this, arguments);
+      }
+
+      return create;
+    }()
+  }
 });
 
 /***/ }),
@@ -2640,12 +2671,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2706,12 +2731,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         ultimo_mensaje: "siguiente pregunta"
       }]
     };
-  },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("chat", ["setChatID"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("home", ["setMode"]), {
-    setChat: function setChat(id) {
-      this.setChatID(id);
-    }
-  })
+  }
 });
 
 /***/ }),
@@ -2725,13 +2745,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2752,56 +2765,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-// Vuex
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "GroupMessage",
-  data: function data() {
-    return {
-      chats: [{
-        id: 1,
-        avatar: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
-        nombre: "AAA Mamá",
-        mensaje: "yendo"
-      }, {
-        id: 2,
-        avatar: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
-        nombre: "Plomero cambio la canilla",
-        mensaje: "uep"
-      }, {
-        id: 3,
-        avatar: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
-        nombre: "Maxi Nuevo",
-        mensaje: ";)"
-      }, {
-        id: 4,
-        avatar: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
-        nombre: "Ale Marzo",
-        mensaje: "okey"
-      }, {
-        id: 5,
-        avatar: "https://cdn.vuetifyjs.com/images/lists/5.jpg",
-        nombre: "Chachin",
-        mensaje: "siguiente pregunta"
-      }]
-    };
-  },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("chat", ["chatID"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])("home", ["setMode"]))
+  name: "GroupMessage"
 });
 
 /***/ }),
@@ -2817,19 +2782,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2863,8 +2821,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-// Vuex
-
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Preferences",
   data: function data() {
@@ -2872,8 +2832,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       mode: JSON.parse(window.localStorage.getItem("darkMode")) || false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("preferences", ["darkMode"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])("home", ["setMode"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])("preferences", ["modeControl"]), {
+  methods: {
     darkControl: function () {
       var _darkControl = _asyncToGenerator(
       /*#__PURE__*/
@@ -2883,7 +2842,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.modeControl(this.mode);
+                return this.$store.commit("preferences/modeControl", {
+                  value: this.mode
+                });
 
               case 2:
                 this.$vuetify.theme.dark = this.mode;
@@ -2902,7 +2863,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return darkControl;
     }()
-  })
+  }
 });
 
 /***/ }),
@@ -2916,13 +2877,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2950,7 +2904,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RolesForm",
   data: function data() {
@@ -2963,11 +2916,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("roles", ["formRoles", "permissions"])),
   mounted: function mounted() {
-    this.indexPermissions();
-  },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("roles", ["indexPermissions"]))
+    this.$store.dispatch("roles/show");
+  }
 });
 
 /***/ }),
@@ -2990,12 +2941,6 @@ __webpack_require__.r(__webpack_exports__);
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -3154,14 +3099,13 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     RolesForm: _RolesForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   updated: function updated() {
-    if (this.formRoles.permission) {
-      if (_typeof(this.formRoles.permission == "string")) {
-        this.formRoles.scope = this.formRoles.permission.split([" "]);
+    if (this.$store.state.roles.form.permission) {
+      if (_typeof(this.$store.state.roles.form.permission == "string")) {
+        this.$store.state.roles.form.scope = this.$store.state.roles.form.permission.split([" "]);
       }
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("roles", ["inProcessRoles", "roles", "permissions", "formRoles"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("roles", ["indexRoles", "editRoles", "updateRoles", "destroyRoles"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])("roles", ["resetFormRoles"]), {
+  methods: {
     rolesUpdate: function () {
       var _rolesUpdate = _asyncToGenerator(
       /*#__PURE__*/
@@ -3183,8 +3127,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
                 description = "";
 
                 _loop = function _loop(i) {
-                  var find = _this.permissions.find(function (permiso) {
-                    return permiso.id === _this.formRoles.scope[i];
+                  var find = _this.$store.state.roles.permissions.find(function (permiso) {
+                    return permiso.id === _this.$store.state.roles.form.scope[i];
                   });
 
                   if (find) {
@@ -3193,21 +3137,21 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
                   }
                 };
 
-                for (i = 0; i < this.formRoles.scope.length; i++) {
+                for (i = 0; i < this.$store.state.roles.form.scope.length; i++) {
                   _loop(i);
                 }
 
-                this.formRoles.permission = permission;
-                this.formRoles.description = description;
+                this.$store.state.roles.form.permission = permission;
+                this.$store.state.roles.form.description = description;
                 _context.next = 9;
-                return this.updateRoles({
-                  id: this.formRoles.id
+                return this.$store.dispatch("roles/update", {
+                  id: this.$store.state.roles.form.id
                 });
 
               case 9:
                 this.$refs.roleForm.reset();
                 _context.next = 12;
-                return this.indexRoles();
+                return this.$store.dispatch("roles/index");
 
               case 12:
                 this.editRolesDialog = false;
@@ -3236,7 +3180,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
               case 0:
                 this.editRolesDialog = false;
                 _context2.next = 3;
-                return this.indexRoles();
+                return this.$store.dispatch("roles/index");
 
               case 3:
                 this.$refs.roleForm.reset();
@@ -3283,16 +3227,19 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return this.destroyRoles({
+                return this.$store.dispatch("roles/destroy", {
                   id: this.roleID
                 });
 
               case 2:
-                this.indexRoles();
+                _context3.next = 4;
+                return this.$store.dispatch("roles/index");
+
+              case 4:
                 this.roleID = null;
                 this.deleteRolesDialog = false;
 
-              case 5:
+              case 6:
               case "end":
                 return _context3.stop();
             }
@@ -3306,7 +3253,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       return erase;
     }()
-  })
+  }
 });
 
 /***/ }),
@@ -3320,13 +3267,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -3382,7 +3322,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "UsersForm",
   props: ["mode"],
@@ -3404,25 +3343,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("users", ["formUsers"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])("roles", ["roles"]), {
+  computed: {
     rulesPassword: function rulesPassword() {
       if (this.mode == "create") {
         return true;
       } else if (this.mode == "edit") {
-        if (this.formUsers.password) {
+        if (this.$store.state.users.form.password) {
           return true;
         } else {
           return false;
         }
       }
     }
-  }),
-  mounted: function mounted() {
-    if (this.roles == null) {
-      this.indexRoles();
-    }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])("roles", ["indexRoles"]))
+  mounted: function mounted() {
+    if (this.$store.state.roles.roles == null) {
+      this.$store.dispatch("roles/index");
+    }
+  }
 });
 
 /***/ }),
@@ -3439,19 +3377,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _UsersForm_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UsersForm.vue */ "./resources/js/components/users/UsersForm.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -3567,7 +3498,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+// Components
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "UserIndex",
@@ -3581,8 +3512,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     UsersForm: _UsersForm_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])("users", ["inProcessUsers", "users", "formUsers"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])("users", ["indexUsers", "editUsers", "updateUsers", "destroyUsers"]), {
+  methods: {
     userUpdate: function () {
       var _userUpdate = _asyncToGenerator(
       /*#__PURE__*/
@@ -3597,13 +3527,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
 
                 _context.next = 3;
-                return this.updateUsers({
-                  id: this.formUsers.id
+                return this.$store.dispatch("users/update", {
+                  id: this.$store.state.users.form.id
                 });
 
               case 3:
                 this.editUsersDialog = false;
-                this.indexUsers();
+                this.$store.dispatch("users/index");
 
               case 5:
               case "end":
@@ -3628,7 +3558,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return this.indexUsers();
+                return this.$store.dispatch("users/index");
 
               case 2:
                 this.$refs.userForm.reset();
@@ -3658,12 +3588,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return this.destroyUsers({
+                return this.$store.dispatch("users/destroy", {
                   id: this.userID
                 });
 
               case 2:
-                this.indexUsers();
+                this.$store.dispatch("users/index");
                 this.userID = null;
                 this.deleteUsersDialog = false;
 
@@ -3681,7 +3611,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return erase;
     }()
-  })
+  }
 });
 
 /***/ }),
@@ -3702,19 +3632,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_chats_ChatList_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/chats/ChatList.vue */ "./resources/js/components/chats/ChatList.vue");
 /* harmony import */ var _components_chats_ChatCreate_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/chats/ChatCreate.vue */ "./resources/js/components/chats/ChatCreate.vue");
 /* harmony import */ var _components_groups_GroupMessage_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/groups/GroupMessage.vue */ "./resources/js/components/groups/GroupMessage.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3815,8 +3748,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
- // Vuex
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Main",
@@ -3840,8 +3771,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     GroupMessage: _components_groups_GroupMessage_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     Preferences: _components_preferences_Preferences_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapState"])("auth", ["token", "rol"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapState"])("home", ["mode"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapState"])("preferences", ["appName"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapGetters"])("auth", ["account"])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapActions"])("auth", ["logout"]), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_6__["mapMutations"])("home", ["setMode"]), {
+  methods: {
     exit: function () {
       var _exit = _asyncToGenerator(
       /*#__PURE__*/
@@ -3851,7 +3781,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.logout();
+                return this.$store.dispatch("auth/logout");
 
               case 2:
                 this.$user.set({
@@ -3872,7 +3802,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return exit;
     }()
-  })
+  }
 });
 
 /***/ }),
@@ -4214,21 +4144,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_roles_RolesIndex_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/roles/RolesIndex.vue */ "./resources/js/components/roles/RolesIndex.vue");
-/* harmony import */ var _components_roles_RolesForm_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/roles/RolesForm.vue */ "./resources/js/components/roles/RolesForm.vue");
+/* harmony import */ var _components_roles_RolesIndex_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/roles/RolesIndex.vue */ "./resources/js/components/roles/RolesIndex.vue");
+/* harmony import */ var _components_roles_RolesForm_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/roles/RolesForm.vue */ "./resources/js/components/roles/RolesForm.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -4293,7 +4216,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+// Components
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4305,40 +4228,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   components: {
-    RolesIndex: _components_roles_RolesIndex_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    RolesForm: _components_roles_RolesForm_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    RolesIndex: _components_roles_RolesIndex_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    RolesForm: _components_roles_RolesForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("roles", ["inProcessRoles", "roles", "permissions", "formRoles"])),
   mounted: function mounted() {
     this.getRoles();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("roles", ["indexRoles", "indexPermissions", "saveRoles"]), {
+  methods: {
     getRoles: function () {
       var _getRoles = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 this.process = true;
 
-                if (!(this.roles == null)) {
-                  _context.next = 5;
+                if (!(this.$store.state.roles.roles == null)) {
+                  _context.next = 4;
                   break;
                 }
 
                 _context.next = 4;
-                return this.indexRoles();
+                return this.$store.dispatch("roles/index");
 
               case 4:
-                response = _context.sent;
-
-              case 5:
                 this.process = false;
 
-              case 6:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -4378,8 +4296,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 description = "";
 
                 _loop = function _loop(i) {
-                  var find = _this.permissions.find(function (permiso) {
-                    return permiso.id === _this.formRoles.scope[i];
+                  var find = _this.$store.state.roles.permissions.find(function (permiso) {
+                    return permiso.id === _this.$store.state.roles.form.scope[i];
                   });
 
                   if (find) {
@@ -4388,19 +4306,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   }
                 };
 
-                for (i = 0; i < this.formRoles.scope.length; i++) {
+                for (i = 0; i < this.$store.state.roles.form.scope.length; i++) {
                   _loop(i);
                 }
 
-                this.formRoles.permission = permission;
-                this.formRoles.description = description;
+                this.$store.state.roles.form.permission = permission;
+                this.$store.state.roles.form.description = description;
                 _context2.next = 9;
-                return this.saveRoles();
+                return this.$store.dispatch("roles/save");
 
               case 9:
                 this.createRolesDialog = false;
                 _context2.next = 12;
-                return this.indexRoles();
+                return this.$store.dispatch("roles/index");
 
               case 12:
               case "end":
@@ -4416,7 +4334,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return saveRole;
     }()
-  })
+  }
 });
 
 /***/ }),
@@ -4432,21 +4350,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var _components_users_UsersIndex_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/users/UsersIndex.vue */ "./resources/js/components/users/UsersIndex.vue");
-/* harmony import */ var _components_users_UsersForm_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/users/UsersForm.vue */ "./resources/js/components/users/UsersForm.vue");
+/* harmony import */ var _components_users_UsersIndex_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/users/UsersIndex.vue */ "./resources/js/components/users/UsersIndex.vue");
+/* harmony import */ var _components_users_UsersForm_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/users/UsersForm.vue */ "./resources/js/components/users/UsersForm.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { keys.push.apply(keys, Object.getOwnPropertySymbols(object)); } if (enumerableOnly) keys = keys.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -4511,7 +4422,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+// Components
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4523,14 +4434,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   components: {
-    UsersIndex: _components_users_UsersIndex_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    UsersForm: _components_users_UsersForm_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    UsersIndex: _components_users_UsersIndex_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    UsersForm: _components_users_UsersForm_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])("users", ["inProcessUsers"])),
   mounted: function mounted() {
     this.getUsers();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])("users", ["indexUsers", "saveUsers"]), {
+  methods: {
     getUsers: function () {
       var _getUsers = _asyncToGenerator(
       /*#__PURE__*/
@@ -4541,13 +4451,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 this.process = true;
 
-                if (!(this.users == null)) {
+                if (!(this.$store.state.users.users == null)) {
                   _context.next = 4;
                   break;
                 }
 
                 _context.next = 4;
-                return this.indexUsers();
+                return this.$store.dispatch("users/index");
 
               case 4:
                 this.process = false;
@@ -4585,11 +4495,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
 
                 _context2.next = 3;
-                return this.saveUsers();
+                return this.$store.dispatch("users/save");
 
               case 3:
                 this.createUsersDialog = false;
-                this.indexUsers();
+                this.$store.dispatch("users/index");
 
               case 5:
               case "end":
@@ -4605,7 +4515,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return userSave;
     }()
-  })
+  }
 });
 
 /***/ }),
@@ -9806,7 +9716,7 @@ var render = function() {
                   attrs: { icon: "" },
                   on: {
                     click: function($event) {
-                      return _vm.setMode("chat")
+                      return _vm.$store.commit("home/setMode", { mode: "chat" })
                     }
                   }
                 },
@@ -9868,7 +9778,7 @@ var render = function() {
                             key: user.id,
                             on: {
                               click: function($event) {
-                                return _vm.createChat(user)
+                                return _vm.create(user)
                               }
                             }
                           },
@@ -9988,8 +9898,9 @@ var render = function() {
                         key: chat.id,
                         on: {
                           click: function($event) {
-                            _vm.setChat(chat.id)
-                            _vm.setMode("chatGroup")
+                            return _vm.$store.commit("home/setMode", {
+                              mode: "chatGroup"
+                            })
                           }
                         }
                       },
@@ -10055,92 +9966,37 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.chatID
-        ? _c(
-            "v-card",
+      _c(
+        "v-card",
+        { attrs: { flat: "" } },
+        [
+          _c(
+            "v-toolbar",
             { attrs: { flat: "" } },
             [
               _c(
-                "v-toolbar",
-                { attrs: { flat: "" } },
+                "v-toolbar-title",
                 [
                   _c(
-                    "v-toolbar-title",
+                    "v-list-item",
+                    { staticClass: "hidden-sm-and-up" },
                     [
                       _c(
-                        "v-list-item",
-                        { staticClass: "hidden-sm-and-up" },
-                        [
-                          _c(
-                            "v-list-item-icon",
-                            {
-                              staticStyle: {
-                                "margin-left": "-10px",
-                                cursor: "pointer"
-                              },
-                              on: {
-                                click: function($event) {
-                                  return _vm.setMode("chat")
-                                }
-                              }
-                            },
-                            [_c("v-icon", [_vm._v("fas fa-arrow-left")])],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-item-avatar",
-                            {
-                              staticStyle: {
-                                "margin-left": "-25px",
-                                "margin-right": "15px"
-                              }
-                            },
-                            [
-                              _c("v-img", {
-                                attrs: { src: _vm.chats[_vm.chatID - 1].avatar }
+                        "v-list-item-icon",
+                        {
+                          staticStyle: {
+                            "margin-left": "-10px",
+                            cursor: "pointer"
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.$store.commit("home/setMode", {
+                                mode: "chat"
                               })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-item-content",
-                            [
-                              _c("v-list-item-title", [
-                                _vm._v(_vm._s(_vm.chats[_vm.chatID - 1].nombre))
-                              ])
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-list-item",
-                        { staticClass: "hidden-xs-only" },
-                        [
-                          _c(
-                            "v-list-item-avatar",
-                            [
-                              _c("v-img", {
-                                attrs: { src: _vm.chats[_vm.chatID - 1].avatar }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-list-item-content",
-                            [
-                              _c("v-list-item-title", [
-                                _vm._v(_vm._s(_vm.chats[_vm.chatID - 1].nombre))
-                              ])
-                            ],
-                            1
-                          )
-                        ],
+                            }
+                          }
+                        },
+                        [_c("v-icon", [_vm._v("fas fa-arrow-left")])],
                         1
                       )
                     ],
@@ -10148,13 +10004,15 @@ var render = function() {
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("v-divider")
+              )
             ],
             1
-          )
-        : _vm._e()
+          ),
+          _vm._v(" "),
+          _c("v-divider")
+        ],
+        1
+      )
     ],
     1
   )
@@ -10198,7 +10056,7 @@ var render = function() {
                   attrs: { icon: "" },
                   on: {
                     click: function($event) {
-                      return _vm.setMode("chat")
+                      return _vm.$store.commit("home/setMode", { mode: "chat" })
                     }
                   }
                 },
@@ -10322,11 +10180,11 @@ var render = function() {
                   outlined: ""
                 },
                 model: {
-                  value: _vm.formRoles.role,
+                  value: _vm.$store.state.roles.form.role,
                   callback: function($$v) {
-                    _vm.$set(_vm.formRoles, "role", $$v)
+                    _vm.$set(_vm.$store.state.roles.form, "role", $$v)
                   },
-                  expression: "formRoles.role"
+                  expression: "$store.state.roles.form.role"
                 }
               })
             ],
@@ -10339,7 +10197,7 @@ var render = function() {
             [
               _c("v-select", {
                 attrs: {
-                  items: _vm.permissions,
+                  items: _vm.$store.state.roles.permissions,
                   "item-text": "description",
                   "item-value": "id",
                   rules: [_vm.rules.required],
@@ -10348,11 +10206,11 @@ var render = function() {
                   outlined: ""
                 },
                 model: {
-                  value: _vm.formRoles.scope,
+                  value: _vm.$store.state.roles.form.scope,
                   callback: function($$v) {
-                    _vm.$set(_vm.formRoles, "scope", $$v)
+                    _vm.$set(_vm.$store.state.roles.form, "scope", $$v)
                   },
-                  expression: "formRoles.scope"
+                  expression: "$store.state.roles.form.scope"
                 }
               })
             ],
@@ -10425,7 +10283,9 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "tbody",
-                                _vm._l(_vm.roles, function(rol) {
+                                _vm._l(_vm.$store.state.roles.roles, function(
+                                  rol
+                                ) {
                                   return _c("tr", { key: rol.id }, [
                                     _c("td", [_vm._v(_vm._s(rol.role))]),
                                     _vm._v(" "),
@@ -10495,9 +10355,10 @@ var render = function() {
                                                   {
                                                     on: {
                                                       click: function($event) {
-                                                        _vm.editRoles({
-                                                          data: rol
-                                                        })
+                                                        _vm.$store.dispatch(
+                                                          "roles/edit",
+                                                          { data: rol }
+                                                        )
                                                         _vm.editRolesDialog = true
                                                       }
                                                     }
@@ -10626,7 +10487,7 @@ var render = function() {
                                 {
                                   staticClass: "mx-2",
                                   attrs: {
-                                    disabled: _vm.inProcessRoles,
+                                    disabled: _vm.$store.state.roles.inProcess,
                                     outlined: "",
                                     color: "primary"
                                   },
@@ -10644,8 +10505,8 @@ var render = function() {
                                 {
                                   staticClass: "elevation-0 mx-2",
                                   attrs: {
-                                    disabled: _vm.inProcessRoles,
-                                    loading: _vm.inProcessRoles,
+                                    disabled: _vm.$store.state.roles.inProcess,
+                                    loading: _vm.$store.state.roles.inProcess,
                                     type: "submit",
                                     color: "primary"
                                   }
@@ -10710,7 +10571,7 @@ var render = function() {
                             {
                               staticClass: "mx-2",
                               attrs: {
-                                disabled: _vm.inProcessRoles,
+                                disabled: _vm.$store.state.roles.inProcess,
                                 outlined: "",
                                 color: "error"
                               },
@@ -10728,8 +10589,8 @@ var render = function() {
                             {
                               staticClass: "elevation-0 mx-2",
                               attrs: {
-                                disabled: _vm.inProcessRoles,
-                                loading: _vm.inProcessRoles,
+                                disabled: _vm.$store.state.roles.inProcess,
+                                loading: _vm.$store.state.roles.inProcess,
                                 color: "error"
                               },
                               on: {
@@ -10877,11 +10738,11 @@ var render = function() {
                   outlined: ""
                 },
                 model: {
-                  value: _vm.formUsers.name,
+                  value: _vm.$store.state.users.form.name,
                   callback: function($$v) {
-                    _vm.$set(_vm.formUsers, "name", $$v)
+                    _vm.$set(_vm.$store.state.users.form, "name", $$v)
                   },
-                  expression: "formUsers.name"
+                  expression: "$store.state.users.form.name"
                 }
               })
             ],
@@ -10899,11 +10760,11 @@ var render = function() {
                   outlined: ""
                 },
                 model: {
-                  value: _vm.formUsers.email,
+                  value: _vm.$store.state.users.form.email,
                   callback: function($$v) {
-                    _vm.$set(_vm.formUsers, "email", $$v)
+                    _vm.$set(_vm.$store.state.users.form, "email", $$v)
                   },
-                  expression: "formUsers.email"
+                  expression: "$store.state.users.form.email"
                 }
               })
             ],
@@ -10932,11 +10793,11 @@ var render = function() {
                   }
                 },
                 model: {
-                  value: _vm.formUsers.password,
+                  value: _vm.$store.state.users.form.password,
                   callback: function($$v) {
-                    _vm.$set(_vm.formUsers, "password", $$v)
+                    _vm.$set(_vm.$store.state.users.form, "password", $$v)
                   },
-                  expression: "formUsers.password"
+                  expression: "$store.state.users.form.password"
                 }
               })
             ],
@@ -10965,11 +10826,15 @@ var render = function() {
                   }
                 },
                 model: {
-                  value: _vm.formUsers.password_confirm,
+                  value: _vm.$store.state.users.form.password_confirm,
                   callback: function($$v) {
-                    _vm.$set(_vm.formUsers, "password_confirm", $$v)
+                    _vm.$set(
+                      _vm.$store.state.users.form,
+                      "password_confirm",
+                      $$v
+                    )
                   },
-                  expression: "formUsers.password_confirm"
+                  expression: "$store.state.users.form.password_confirm"
                 }
               })
             ],
@@ -10982,18 +10847,18 @@ var render = function() {
             [
               _c("v-select", {
                 attrs: {
-                  items: _vm.roles,
+                  items: _vm.$store.state.roles.roles,
                   "item-text": "role",
                   "item-value": "id",
                   label: "Role",
                   outlined: ""
                 },
                 model: {
-                  value: _vm.formUsers.role_id,
+                  value: _vm.$store.state.users.form.role_id,
                   callback: function($$v) {
-                    _vm.$set(_vm.formUsers, "role_id", $$v)
+                    _vm.$set(_vm.$store.state.users.form, "role_id", $$v)
                   },
-                  expression: "formUsers.role_id"
+                  expression: "$store.state.users.form.role_id"
                 }
               })
             ],
@@ -11070,7 +10935,9 @@ var render = function() {
                               _vm._v(" "),
                               _c(
                                 "tbody",
-                                _vm._l(_vm.users, function(user) {
+                                _vm._l(_vm.$store.state.users.users, function(
+                                  user
+                                ) {
                                   return _c("tr", { key: user.id }, [
                                     _c("td", [_vm._v(_vm._s(user.name))]),
                                     _vm._v(" "),
@@ -11138,9 +11005,10 @@ var render = function() {
                                                   {
                                                     on: {
                                                       click: function($event) {
-                                                        _vm.editUsers({
-                                                          data: user
-                                                        })
+                                                        _vm.$store.dispatch(
+                                                          "users/edit",
+                                                          { data: user }
+                                                        )
                                                         _vm.editUsersDialog = true
                                                       }
                                                     }
@@ -11248,7 +11116,7 @@ var render = function() {
                                 {
                                   staticClass: "mx-2",
                                   attrs: {
-                                    disabled: _vm.inProcessUsers,
+                                    disabled: _vm.$store.state.users.inProcess,
                                     outlined: "",
                                     color: "primary"
                                   },
@@ -11266,8 +11134,8 @@ var render = function() {
                                 {
                                   staticClass: "elevation-0 mx-2",
                                   attrs: {
-                                    disabled: _vm.inProcessUsers,
-                                    loading: _vm.inProcessUsers,
+                                    disabled: _vm.$store.state.users.inProcess,
+                                    loading: _vm.$store.state.users.inProcess,
                                     type: "submit",
                                     color: "primary"
                                   }
@@ -11332,7 +11200,7 @@ var render = function() {
                             {
                               staticClass: "elevation-0 mx-2",
                               attrs: {
-                                disabled: _vm.inProcessUsers,
+                                disabled: _vm.$store.state.users.inProcess,
                                 outlined: "",
                                 color: "error"
                               },
@@ -11350,8 +11218,8 @@ var render = function() {
                             {
                               staticClass: "elevation-0 mx-2",
                               attrs: {
-                                disabled: _vm.inProcessUsers,
-                                loading: _vm.inProcessUsers,
+                                disabled: _vm.$store.state.users.inProcess,
+                                loading: _vm.$store.state.users.inProcess,
                                 color: "error"
                               },
                               on: {
@@ -11429,38 +11297,27 @@ var render = function() {
                           attrs: { color: "primary", size: "40" },
                           on: {
                             click: function($event) {
-                              return _vm.setMode("account")
+                              return _vm.$store.commit("home/setMode", {
+                                mode: "account"
+                              })
                             }
                           }
                         },
                         [
-                          _c("img", {
-                            directives: [
-                              {
-                                name: "show",
-                                rawName: "v-show",
-                                value: _vm.account.user.foto != null,
-                                expression: "account.user.foto != null"
-                              }
-                            ],
-                            attrs: { src: _vm.account.user.foto }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "span",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: _vm.account.user.foto == null,
-                                  expression: "account.user.foto == null"
+                          _vm.$store.getters["auth/account"].user.foto != null
+                            ? _c("img", {
+                                attrs: {
+                                  src:
+                                    _vm.$store.getters["auth/account"].user.foto
                                 }
-                              ],
-                              staticClass: "white--text"
-                            },
-                            [_vm._v(_vm._s(_vm.account.profile))]
-                          )
+                              })
+                            : _c("span", { staticClass: "white--text" }, [
+                                _vm._v(
+                                  _vm._s(
+                                    _vm.$store.getters["auth/account"].profile
+                                  )
+                                )
+                              ])
                         ]
                       ),
                       _vm._v(" "),
@@ -11472,7 +11329,9 @@ var render = function() {
                           attrs: { icon: "" },
                           on: {
                             click: function($event) {
-                              return _vm.setMode("chatCreate")
+                              return _vm.$store.commit("home/setMode", {
+                                mode: "chatCreate"
+                              })
                             }
                           }
                         },
@@ -11521,7 +11380,9 @@ var render = function() {
                                 {
                                   on: {
                                     click: function($event) {
-                                      return _vm.setMode("preferences")
+                                      return _vm.$store.commit("home/setMode", {
+                                        mode: "preferences"
+                                      })
                                     }
                                   }
                                 },
@@ -11543,10 +11404,13 @@ var render = function() {
                                         rawName: "v-show",
                                         value:
                                           route.access.find(function(element) {
-                                            return element === _vm.rol
+                                            return (
+                                              element ===
+                                              _vm.$store.state.auth.rol
+                                            )
                                           }) || route.access.length <= 0,
                                         expression:
-                                          "route.access.find(function(element) { return element === rol; }) || route.access.length <= 0"
+                                          "route.access.find(function(element) { return element === $store.state.auth.rol; }) || route.access.length <= 0"
                                       }
                                     ],
                                     key: route.title,
@@ -11607,8 +11471,8 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.mode == "chatCreate",
-                      expression: "mode == 'chatCreate'"
+                      value: _vm.$store.state.home.mode == "chatCreate",
+                      expression: "$store.state.home.mode == 'chatCreate'"
                     }
                   ],
                   staticClass: "sidenav",
@@ -11638,8 +11502,8 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.mode == "account",
-                      expression: "mode == 'account'"
+                      value: _vm.$store.state.home.mode == "account",
+                      expression: "$store.state.home.mode == 'account'"
                     }
                   ],
                   staticClass: "sidenav",
@@ -11669,8 +11533,8 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.mode == "preferences",
-                      expression: "mode == 'preferences'"
+                      value: _vm.$store.state.home.mode == "preferences",
+                      expression: "$store.state.home.mode == 'preferences'"
                     }
                   ],
                   staticClass: "sidenav",
@@ -11700,8 +11564,8 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.mode == "chatGroup",
-                      expression: "mode == 'chatGroup'"
+                      value: _vm.$store.state.home.mode == "chatGroup",
+                      expression: "$store.state.home.mode == 'chatGroup'"
                     }
                   ],
                   staticClass: "sidenav hidden-sm-and-up",
@@ -12337,7 +12201,7 @@ var render = function() {
                             {
                               staticClass: "mx-2",
                               attrs: {
-                                disabled: _vm.inProcessRoles,
+                                disabled: _vm.$store.state.roles.inProcess,
                                 color: "primary",
                                 outlined: ""
                               },
@@ -12355,8 +12219,8 @@ var render = function() {
                             {
                               staticClass: "elevation-0 mx-2",
                               attrs: {
-                                disabled: _vm.inProcessRoles,
-                                loading: _vm.inProcessRoles,
+                                disabled: _vm.$store.state.roles.inProcess,
+                                loading: _vm.$store.state.roles.inProcess,
                                 color: "primary",
                                 type: "submit"
                               }
@@ -12554,7 +12418,7 @@ var render = function() {
                             {
                               staticClass: "mx-2",
                               attrs: {
-                                disabled: _vm.inProcessUsers,
+                                disabled: _vm.$store.state.users.inProcess,
                                 outlined: "",
                                 color: "primary"
                               },
@@ -12572,8 +12436,8 @@ var render = function() {
                             {
                               staticClass: "elevation-0 mx-2",
                               attrs: {
-                                disabled: _vm.inProcessUsers,
-                                loading: _vm.inProcessUsers,
+                                disabled: _vm.$store.state.users.inProcess,
+                                loading: _vm.$store.state.users.inProcess,
                                 type: "submit",
                                 color: "primary"
                               }
@@ -66517,36 +66381,34 @@ __webpack_require__.r(__webpack_exports__);
 
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("accsess_token");
 var state = {
+  inProcess: false,
   chats: null,
-  errorsChat: null,
-  chatID: null
+  errors: null
 };
 var mutations = {
   fillChats: function fillChats(state, chats) {
     state.chats = chats;
   },
-  fillErrorsChats: function fillErrorsChats(state, errors) {
-    state.errorsChat = errors;
+  fillErrors: function fillErrors(state, errors) {
+    state.errors = errors;
   },
   resetChats: function resetChats(state) {
     state.chats = null;
   },
-  resetErrorsChats: function resetErrorsChats(state) {
-    state.errorsChat = null;
+  resetErrors: function resetErrors(state) {
+    state.errors = null;
   },
   resetAll: function resetAll(state) {
     state.chats = null;
-    state.errorsChat = null;
-  },
-  setChatID: function setChatID(state, id) {
-    state.chatID = id;
+    state.errors = null;
   }
 };
 var actions = {
-  indexChat: function indexChat(_ref, params) {
+  index: function index(_ref, params) {
     var state = _ref.state,
         commit = _ref.commit;
-    commit("resetErrorsChats");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/chats", {
         params: params
@@ -66555,25 +66417,25 @@ var actions = {
         state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsChats", error.response.data);
+        commit("fillErrors", error.response.data);
         state.inProcess = false;
         throw new Error(error);
       });
     });
   },
-  saveChat: function saveChat(_ref2, params) {
+  save: function save(_ref2, params) {
     var state = _ref2.state,
         commit = _ref2.commit;
-    commit("resetErrorsChats");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/chats", {
         users: params.users
       }).then(function (response) {
-        commit("resetForm");
         state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsChats", error.response.data);
+        commit("fillErrors", error.response.data);
         state.inProcess = false;
         throw new Error(error);
       });
@@ -66760,8 +66622,8 @@ var state = {
   mode: "chat"
 };
 var mutations = {
-  setMode: function setMode(state, mode) {
-    state.mode = mode;
+  setMode: function setMode(state, data) {
+    state.mode = data.mode;
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66785,9 +66647,9 @@ var state = {
   darkMode: JSON.parse(window.localStorage.getItem("darkMode")) || null
 };
 var mutations = {
-  modeControl: function modeControl(state, value) {
-    state.darkMode = value;
-    window.localStorage.setItem("darkMode", JSON.stringify(value));
+  modeControl: function modeControl(state, data) {
+    state.darkMode = data.value;
+    window.localStorage.setItem("darkMode", JSON.stringify(data.value));
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -66812,11 +66674,11 @@ __webpack_require__.r(__webpack_exports__);
 
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("accsess_token");
 var state = {
-  inProcessRoles: false,
+  inProcess: false,
   roles: null,
   permissions: null,
-  formRoles: {},
-  errorsRoles: null
+  form: {},
+  errors: null
 };
 var mutations = {
   fillRoles: function fillRoles(state, roles) {
@@ -66825,11 +66687,11 @@ var mutations = {
   fillPermissions: function fillPermissions(state, permissions) {
     state.permissions = permissions;
   },
-  fillFormRoles: function fillFormRoles(state, form) {
-    state.formRoles = form;
+  fillForm: function fillForm(state, form) {
+    state.form = form;
   },
-  fillErrorsRoles: function fillErrorsRoles(state, errors) {
-    state.errorsRoles = errors;
+  fillErrors: function fillErrors(state, errors) {
+    state.errors = errors;
   },
   resetRoles: function resetRoles() {
     state.roles = null;
@@ -66837,108 +66699,108 @@ var mutations = {
   resetPermissions: function resetPermissions() {
     state.permissions = null;
   },
-  resetFormRoles: function resetFormRoles(state) {
-    state.formRoles = {};
+  resetForm: function resetForm(state) {
+    state.form = {};
   },
-  resetErrorsRoles: function resetErrorsRoles(state) {
-    state.errorsRoles = null;
+  resetErrors: function resetErrors(state) {
+    state.errors = null;
   },
   resetAll: function resetAll() {
     state.roles = null;
     state.permissions = null;
-    state.formRoles = {};
-    state.errorsRoles = null;
+    state.form = {};
+    state.errors = null;
   }
 };
 var actions = {
-  indexRoles: function indexRoles(_ref, params) {
+  index: function index(_ref, params) {
     var state = _ref.state,
         commit = _ref.commit;
-    state.inProcessRoles = true;
-    commit("resetErrorsRoles");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/roles", {
         params: params
       }).then(function (response) {
         commit("fillRoles", response.data);
-        state.inProcessRoles = false;
+        state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsRoles", error.response.data);
-        state.inProcessRoles = false;
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
         throw new Error(error);
       });
     });
   },
-  indexPermissions: function indexPermissions(_ref2, params) {
+  show: function show(_ref2, params) {
     var state = _ref2.state,
         commit = _ref2.commit;
-    state.inProcessRoles = true;
-    commit("resetErrorsRoles");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/roles/show", {
         params: params
       }).then(function (response) {
         commit("fillPermissions", response.data);
-        state.inProcessRoles = false;
+        state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsRoles", error.response.data);
-        state.inProcessRoles = false;
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
         throw new Error(error);
       });
     });
   },
-  saveRoles: function saveRoles(_ref3) {
+  save: function save(_ref3) {
     var state = _ref3.state,
         commit = _ref3.commit;
-    state.inProcessRoles = true;
-    commit("resetErrorsRoles");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/roles", state.formRoles).then(function (response) {
-        commit("resetFormRoles");
-        state.inProcessRoles = false;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/roles", state.form).then(function (response) {
+        commit("resetForm");
+        state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsRoles", error.response.data);
-        state.inProcessRoles = false;
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
         throw new Error(error);
       });
     });
   },
-  editRoles: function editRoles(_ref4, params) {
+  edit: function edit(_ref4, params) {
     var commit = _ref4.commit;
-    commit("fillFormRoles", params.data);
+    commit("fillForm", params.data);
   },
-  updateRoles: function updateRoles(_ref5, params) {
+  update: function update(_ref5, params) {
     var state = _ref5.state,
         commit = _ref5.commit;
-    state.inProcessRoles = true;
-    commit("resetErrorsRoles");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/roles/" + params.id, state.formRoles).then(function (response) {
-        commit("resetFormRoles");
-        state.inProcessRoles = false;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/roles/" + params.id, state.form).then(function (response) {
+        commit("resetForm");
+        state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsRoles", error.response.data);
-        state.inProcessRoles = false;
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
         throw new Error(error);
       });
     });
   },
-  destroyRoles: function destroyRoles(_ref6, params) {
+  destroy: function destroy(_ref6, params) {
     var state = _ref6.state,
         commit = _ref6.commit;
-    state.inProcessRoles = true;
-    commit("resetErrorsRoles");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/roles/" + params.id).then(function (response) {
-        state.inProcessRoles = false;
+        state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsRoles", error.response.data);
-        state.inProcessRoles = false;
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
         throw new Error(error);
       });
     });
@@ -66967,11 +66829,11 @@ __webpack_require__.r(__webpack_exports__);
 
 axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Authorization"] = "Bearer " + localStorage.getItem("accsess_token");
 var state = {
-  inProcessUsers: false,
+  inProcess: false,
   users: null,
   user: null,
-  formUsers: {},
-  errorsUsers: null
+  form: {},
+  errors: null
 };
 var mutations = {
   fillUsers: function fillUsers(state, users) {
@@ -66980,11 +66842,11 @@ var mutations = {
   fillUser: function fillUser(state, user) {
     state.user = user;
   },
-  fillFormUsers: function fillFormUsers(state, form) {
-    state.formUsers = form;
+  fillForm: function fillForm(state, form) {
+    state.form = form;
   },
-  fillErrorsUsers: function fillErrorsUsers(state, errors) {
-    state.errorsUsers = errors;
+  fillErrors: function fillErrors(state, errors) {
+    state.errors = errors;
   },
   resetUsers: function resetUsers(state) {
     state.users = null;
@@ -66992,108 +66854,108 @@ var mutations = {
   resetUser: function resetUser(state) {
     state.user = null;
   },
-  resetFormUsers: function resetFormUsers(state) {
-    state.formUsers = {};
+  resetForm: function resetForm(state) {
+    state.form = {};
   },
-  resetErrorsUsers: function resetErrorsUsers(state) {
-    state.errorsUsers = null;
+  resetErrors: function resetErrors(state) {
+    state.errors = null;
   },
   resetAll: function resetAll(state) {
     state.users = null;
     state.user = null;
-    state.formUsers = {};
-    state.errorsUsers = null;
+    state.form = {};
+    state.errors = null;
   }
 };
 var actions = {
-  indexUsers: function indexUsers(_ref, params) {
+  index: function index(_ref, params) {
     var state = _ref.state,
         commit = _ref.commit;
-    state.inProcessUsers = true;
-    commit("resetErrorsUsers");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/users", {
         params: params
       }).then(function (response) {
         commit("fillUsers", response.data);
-        state.inProcessUsers = false;
+        state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsUsers", error.response.data);
-        state.inProcessUsers = false;
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
         throw new Error(error);
       });
     });
   },
-  showUsers: function showUsers(_ref2, params) {
+  show: function show(_ref2, params) {
     var state = _ref2.state,
         commit = _ref2.commit;
-    state.inProcessUsers = true;
-    commit("resetErrorsUsers");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/user/" + params.id, {
         params: params
       }).then(function (response) {
         commit("fillUser", response.data);
-        state.inProcessUsers = false;
+        state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsUsers", error.response.data);
-        state.inProcessUsers = false;
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
         throw new Error(error);
       });
     });
   },
-  saveUsers: function saveUsers(_ref3) {
+  save: function save(_ref3) {
     var state = _ref3.state,
         commit = _ref3.commit;
-    state.inProcessUsers = true;
-    commit("resetErrorsUsers");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/users", state.formUsers).then(function (response) {
-        commit("resetFormUsers");
-        state.inProcessUsers = false;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/users", state.form).then(function (response) {
+        commit("resetForm");
+        state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsUsers", error.response.data);
-        state.inProcessUsers = false;
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
         throw new Error(error);
       });
     });
   },
-  editUsers: function editUsers(_ref4, params) {
+  edit: function edit(_ref4, params) {
     var commit = _ref4.commit;
-    commit("fillFormUsers", params.data);
+    commit("fillForm", params.data);
   },
-  updateUsers: function updateUsers(_ref5, params) {
+  update: function update(_ref5, params) {
     var state = _ref5.state,
         commit = _ref5.commit;
-    state.inProcessUsers = true;
-    commit("resetErrorsUsers");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/users/" + params.id, state.formUsers).then(function (response) {
-        commit("resetFormUsers");
-        state.inProcessUsers = false;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put("/api/users/" + params.id, state.form).then(function (response) {
+        commit("resetForm");
+        state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsUsers", error.response.data);
-        state.inProcessUsers = false;
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
         throw new Error(error);
       });
     });
   },
-  destroyUsers: function destroyUsers(_ref6, params) {
+  destroy: function destroy(_ref6, params) {
     var state = _ref6.state,
         commit = _ref6.commit;
-    state.inProcessUsers = true;
-    commit("resetErrorsUsers");
+    state.inProcess = true;
+    commit("resetErrors");
     return new Promise(function (resolve) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]("/api/users/" + params.id).then(function (response) {
-        state.inProcessUsers = false;
+        state.inProcess = false;
         resolve(response.data);
       })["catch"](function (error) {
-        commit("fillErrorsUsers", error.response.data);
-        state.inProcessUsers = false;
+        commit("fillErrors", error.response.data);
+        state.inProcess = false;
         throw new Error(error);
       });
     });

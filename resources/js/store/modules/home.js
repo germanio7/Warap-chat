@@ -3,8 +3,8 @@ const state = {
 };
 
 const mutations = {
-    setMode(state, mode) {
-        state.mode = mode;
+    setMode(state, data) {
+        state.mode = data.mode;
     }
 };
 

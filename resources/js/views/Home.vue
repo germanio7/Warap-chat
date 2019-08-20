@@ -6,19 +6,22 @@
                 <v-card height="inherit">
                     <v-toolbar flat>
                         <v-avatar
-                            @click="setMode('account')"
+                            @click="$store.commit('home/setMode', { mode: 'account' })"
                             color="primary"
                             size="40"
                             style="cursor: pointer;"
                         >
-                            <img v-show="account.user.foto != null" :src="account.user.foto" />
+                            <img
+                                v-if="$store.getters['auth/account'].user.foto != null"
+                                :src="$store.getters['auth/account'].user.foto"
+                            />
                             <span
-                                v-show="account.user.foto == null"
+                                v-else
                                 class="white--text"
-                            >{{ account.profile }}</span>
+                            >{{ $store.getters["auth/account"].profile }}</span>
                         </v-avatar>
                         <v-spacer></v-spacer>
-                        <v-btn icon @click="setMode('chatCreate')">
+                        <v-btn icon @click="$store.commit('home/setMode', { mode: 'chatCreate' })">
                             <v-icon size="medium">fas fa-comments</v-icon>
                         </v-btn>
                         <v-menu offset-y>
@@ -28,7 +31,9 @@
                                 </v-btn>
                             </template>
                             <v-list>
-                                <v-list-item @click="setMode('preferences')">
+                                <v-list-item
+                                    @click="$store.commit('home/setMode', { mode: 'preferences' })"
+                                >
                                     <v-list-item-title>Configuración</v-list-item-title>
                                 </v-list-item>
                                 <v-list-item
@@ -36,7 +41,7 @@
                                     :key="route.title"
                                     link
                                     :to="route.url"
-                                    v-show="route.access.find(function(element) { return element === rol; }) || route.access.length <= 0"
+                                    v-show="route.access.find(function(element) { return element === $store.state.auth.rol; }) || route.access.length <= 0"
                                 >
                                     <v-list-item-title>{{ route.name }}</v-list-item-title>
                                 </v-list-item>
@@ -53,7 +58,7 @@
 
             <!-- Chat create -->
             <v-slide-x-transition>
-                <v-flex xs12 sm4 v-show="mode == 'chatCreate'" class="sidenav">
+                <v-flex xs12 sm4 v-show="$store.state.home.mode == 'chatCreate'" class="sidenav">
                     <v-card flat height="inherit">
                         <ChatCreate></ChatCreate>
                     </v-card>
@@ -62,7 +67,7 @@
 
             <!-- Account Settings -->
             <v-slide-x-transition>
-                <v-flex xs12 sm4 v-show="mode == 'account'" class="sidenav">
+                <v-flex xs12 sm4 v-show="$store.state.home.mode == 'account'" class="sidenav">
                     <v-card flat height="inherit">
                         <EditAccount></EditAccount>
                     </v-card>
@@ -71,7 +76,7 @@
 
             <!-- Preferences -->
             <v-slide-x-transition>
-                <v-flex xs12 sm4 v-show="mode == 'preferences'" class="sidenav">
+                <v-flex xs12 sm4 v-show="$store.state.home.mode == 'preferences'" class="sidenav">
                     <v-card flat height="inherit">
                         <Preferences></Preferences>
                     </v-card>
@@ -80,7 +85,12 @@
 
             <!-- Chat Message -->
             <v-slide-x-transition>
-                <v-flex xs12 sm4 v-show="mode == 'chatGroup'" class="sidenav hidden-sm-and-up">
+                <v-flex
+                    xs12
+                    sm4
+                    v-show="$store.state.home.mode == 'chatGroup'"
+                    class="sidenav hidden-sm-and-up"
+                >
                     <v-card flat height="inherit">
                         <GroupMessage></GroupMessage>
                     </v-card>
@@ -100,9 +110,6 @@ import Preferences from "../components/preferences/Preferences.vue";
 import ChatList from "../components/chats/ChatList.vue";
 import ChatCreate from "../components/chats/ChatCreate.vue";
 import GroupMessage from "../components/groups/GroupMessage.vue";
-
-// Vuex
-import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
 export default {
     name: "Main",
@@ -132,19 +139,9 @@ export default {
         Preferences
     },
 
-    computed: {
-        ...mapState("auth", ["token", "rol"]),
-        ...mapState("home", ["mode"]),
-        ...mapState("preferences", ["appName"]),
-        ...mapGetters("auth", ["account"])
-    },
-
     methods: {
-        ...mapActions("auth", ["logout"]),
-        ...mapMutations("home", ["setMode"]),
-
         exit: async function() {
-            await this.logout();
+            await this.$store.dispatch("auth/logout");
             this.$user.set({ role: "unregistered" });
         }
     }

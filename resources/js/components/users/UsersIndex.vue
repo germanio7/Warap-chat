@@ -17,7 +17,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="user in users" :key="user.id">
+                                        <tr v-for="user in $store.state.users.users" :key="user.id">
                                             <td>{{ user.name }}</td>
                                             <td>{{ user.email }}</td>
                                             <td>{{ user.rol }}</td>
@@ -30,7 +30,7 @@
                                                     </template>
                                                     <v-list>
                                                         <v-list-item
-                                                            @click="editUsers({data: user}); editUsersDialog = true"
+                                                            @click="$store.dispatch('users/edit', {data: user}); editUsersDialog = true"
                                                         >
                                                             <v-list-item-title>Editar</v-list-item-title>
                                                         </v-list-item>
@@ -63,14 +63,14 @@
                             <v-layout justify-end>
                                 <v-btn
                                     @click="closeEdit()"
-                                    :disabled="inProcessUsers"
+                                    :disabled="$store.state.users.inProcess"
                                     outlined
                                     color="primary"
                                     class="mx-2"
                                 >Cancelar</v-btn>
                                 <v-btn
-                                    :disabled="inProcessUsers"
-                                    :loading="inProcessUsers"
+                                    :disabled="$store.state.users.inProcess"
+                                    :loading="$store.state.users.inProcess"
                                     type="submit"
                                     color="primary"
                                     class="elevation-0 mx-2"
@@ -93,14 +93,14 @@
                         <v-layout justify-end wrap>
                             <v-btn
                                 @click="deleteUsersDialog = false;"
-                                :disabled="inProcessUsers"
+                                :disabled="$store.state.users.inProcess"
                                 outlined
                                 color="error"
                                 class="elevation-0 mx-2"
                             >Cancelar</v-btn>
                             <v-btn
-                                :disabled="inProcessUsers"
-                                :loading="inProcessUsers"
+                                :disabled="$store.state.users.inProcess"
+                                :loading="$store.state.users.inProcess"
                                 @click="erase()"
                                 color="error"
                                 class="elevation-0 mx-2"
@@ -114,8 +114,8 @@
 </template>
 
 <script>
+// Components
 import UsersForm from "./UsersForm.vue";
-import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
     name: "UserIndex",
@@ -132,36 +132,27 @@ export default {
         UsersForm
     },
 
-    computed: {
-        ...mapState("users", ["inProcessUsers", "users", "formUsers"])
-    },
-
     methods: {
-        ...mapActions("users", [
-            "indexUsers",
-            "editUsers",
-            "updateUsers",
-            "destroyUsers"
-        ]),
-
         userUpdate: async function() {
             if (this.$refs.userForm.validate()) {
-                await this.updateUsers({ id: this.formUsers.id });
+                await this.$store.dispatch("users/update", {
+                    id: this.$store.state.users.form.id
+                });
                 this.editUsersDialog = false;
-                this.indexUsers();
+                this.$store.dispatch("users/index");
             }
         },
 
         closeEdit: async function() {
-            await this.indexUsers();
+            await this.$store.dispatch("users/index");
             this.$refs.userForm.reset();
             this.$refs.userForm.resetValidation();
             this.editUsersDialog = false;
         },
 
         erase: async function() {
-            await this.destroyUsers({ id: this.userID });
-            this.indexUsers();
+            await this.$store.dispatch("users/destroy", { id: this.userID });
+            this.$store.dispatch("users/index");
             this.userID = null;
             this.deleteUsersDialog = false;
         }

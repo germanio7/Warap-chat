@@ -3,7 +3,7 @@
         <v-layout justify-center wrap>
             <v-flex xs10>
                 <v-text-field
-                    v-model="formRoles.role"
+                    v-model="$store.state.roles.form.role"
                     :rules="[rules.required]"
                     label="Rol"
                     outlined
@@ -11,8 +11,8 @@
             </v-flex>
             <v-flex xs10>
                 <v-select
-                    v-model="formRoles.scope"
-                    :items="permissions"
+                    v-model="$store.state.roles.form.scope"
+                    :items="$store.state.roles.permissions"
                     item-text="description"
                     item-value="id"
                     :rules="[rules.required]"
@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
-
 export default {
     name: "RolesForm",
 
@@ -40,16 +38,8 @@ export default {
         };
     },
 
-    computed: {
-        ...mapState("roles", ["formRoles", "permissions"])
-    },
-
     mounted() {
-        this.indexPermissions();
-    },
-
-    methods: {
-        ...mapActions("roles", ["indexPermissions"])
+        this.$store.dispatch("roles/show");
     }
 };
 </script>

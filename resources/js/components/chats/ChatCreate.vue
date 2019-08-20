@@ -2,7 +2,11 @@
     <div>
         <v-toolbar color="primary" dark prominent flat>
             <v-toolbar-title>
-                <v-btn @click="setMode('chat')" icon style="margin: 0px 15px 4px 0px;">
+                <v-btn
+                    @click="$store.commit('home/setMode', { mode: 'chat' })"
+                    icon
+                    style="margin: 0px 15px 4px 0px;"
+                >
                     <v-icon>fas fa-arrow-left</v-icon>
                 </v-btn>Nuevo chat
             </v-toolbar-title>
@@ -18,7 +22,7 @@
                             <v-list-item
                                 v-for="user in usersFind"
                                 :key="user.id"
-                                @click="createChat(user)"
+                                @click="create(user)"
                             >
                                 <v-list-item-avatar color="primary">
                                     <img v-show="user.foto != null" :src="user.foto" />
@@ -40,8 +44,6 @@
 </template>
 
 <script>
-// Vuex
-import { mapActions, mapState, mapMutations } from "vuex";
 export default {
     name: "ChatCreate",
 
@@ -52,17 +54,15 @@ export default {
     },
 
     computed: {
-        ...mapState("users", ["users"]),
-
         usersFind() {
-            if (this.users != null) {
+            if (this.$store.state.users.users != null) {
                 let usersArray = [];
-                for (let i = 0; i < this.users.length; i++) {
-                    let userName = this.users[i].name
+                for (let i = 0; i < this.$store.state.users.users.length; i++) {
+                    let userName = this.$store.state.users.users[i].name
                         .toLowerCase()
                         .substring(0, this.name.length);
                     if (userName == this.name.toLowerCase()) {
-                        usersArray.push(this.users[i]);
+                        usersArray.push(this.$store.state.users.users[i]);
                     }
                 }
 
@@ -74,20 +74,19 @@ export default {
     },
 
     mounted() {
-        if (this.users == null) {
-            this.indexUsers();
+        if (this.$store.state.users.users == null) {
+            this.$store.dispatch("users/index");
         }
     },
 
     methods: {
-        ...mapActions("users", ["indexUsers"]),
-        ...mapActions("chat", ["saveChat"]),
-        ...mapMutations("home", ["setMode"]),
-
-        createChat(user) {
-            let dataArray = [];
-            usersArray.push(user);
-            this.saveChat({ users: dataArray });
+        create: async function(user) {
+            let arrayChats = [];
+            arrayChats.push(user);
+            await this.$store.dispatch("chat/save", {
+                users: arrayChats
+            });
+            this.$store.commit("home/setMode", { mode: "chat" });
         }
     }
 };

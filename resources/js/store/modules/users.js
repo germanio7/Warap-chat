@@ -3,11 +3,11 @@ axios.defaults.headers.common["Authorization"] =
     "Bearer " + localStorage.getItem("accsess_token");
 
 const state = {
-    inProcessUsers: false,
+    inProcess: false,
     users: null,
     user: null,
-    formUsers: {},
-    errorsUsers: null
+    form: {},
+    errors: null
 };
 
 const mutations = {
@@ -19,12 +19,12 @@ const mutations = {
         state.user = user;
     },
 
-    fillFormUsers(state, form) {
-        state.formUsers = form;
+    fillForm(state, form) {
+        state.form = form;
     },
 
-    fillErrorsUsers(state, errors) {
-        state.errorsUsers = errors;
+    fillErrors(state, errors) {
+        state.errors = errors;
     },
 
     resetUsers(state) {
@@ -35,116 +35,116 @@ const mutations = {
         state.user = null;
     },
 
-    resetFormUsers(state) {
-        state.formUsers = {};
+    resetForm(state) {
+        state.form = {};
     },
 
-    resetErrorsUsers(state) {
-        state.errorsUsers = null;
+    resetErrors(state) {
+        state.errors = null;
     },
 
     resetAll(state) {
         state.users = null;
         state.user = null;
-        state.formUsers = {};
-        state.errorsUsers = null;
+        state.form = {};
+        state.errors = null;
     }
 };
 
 const actions = {
-    indexUsers: function({ state, commit }, params) {
-        state.inProcessUsers = true;
-        commit("resetErrorsUsers");
+    index: function({ state, commit }, params) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
                 .get("/api/users", { params: params })
                 .then(response => {
                     commit("fillUsers", response.data);
-                    state.inProcessUsers = false;
+                    state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsUsers", error.response.data);
-                    state.inProcessUsers = false;
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });
     },
 
-    showUsers: function({ state, commit }, params) {
-        state.inProcessUsers = true;
-        commit("resetErrorsUsers");
+    show: function({ state, commit }, params) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
                 .get("/api/user/" + params.id, { params: params })
                 .then(response => {
                     commit("fillUser", response.data);
-                    state.inProcessUsers = false;
+                    state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsUsers", error.response.data);
-                    state.inProcessUsers = false;
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });
     },
 
-    saveUsers: function({ state, commit }) {
-        state.inProcessUsers = true;
-        commit("resetErrorsUsers");
+    save: function({ state, commit }) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
-                .post("/api/users", state.formUsers)
+                .post("/api/users", state.form)
                 .then(response => {
-                    commit("resetFormUsers");
-                    state.inProcessUsers = false;
+                    commit("resetForm");
+                    state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsUsers", error.response.data);
-                    state.inProcessUsers = false;
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });
     },
 
-    editUsers: function({ commit }, params) {
-        commit("fillFormUsers", params.data);
+    edit: function({ commit }, params) {
+        commit("fillForm", params.data);
     },
 
-    updateUsers: function({ state, commit }, params) {
-        state.inProcessUsers = true;
-        commit("resetErrorsUsers");
+    update: function({ state, commit }, params) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
-                .put("/api/users/" + params.id, state.formUsers)
+                .put("/api/users/" + params.id, state.form)
                 .then(response => {
-                    commit("resetFormUsers");
-                    state.inProcessUsers = false;
+                    commit("resetForm");
+                    state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsUsers", error.response.data);
-                    state.inProcessUsers = false;
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });
     },
 
-    destroyUsers: function({ state, commit }, params) {
-        state.inProcessUsers = true;
-        commit("resetErrorsUsers");
+    destroy: function({ state, commit }, params) {
+        state.inProcess = true;
+        commit("resetErrors");
         return new Promise(resolve => {
             axios
                 .delete("/api/users/" + params.id)
                 .then(response => {
-                    state.inProcessUsers = false;
+                    state.inProcess = false;
                     resolve(response.data);
                 })
                 .catch(error => {
-                    commit("fillErrorsUsers", error.response.data);
-                    state.inProcessUsers = false;
+                    commit("fillErrors", error.response.data);
+                    state.inProcess = false;
                     throw new Error(error);
                 });
         });

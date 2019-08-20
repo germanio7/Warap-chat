@@ -7,7 +7,7 @@
                         <v-list-item
                             v-for="chat in chats"
                             :key="chat.id"
-                            @click="setChat(chat.id); setMode('chatGroup')"
+                            @click="$store.commit('home/setMode', { mode: 'chatGroup' })"
                         >
                             <v-list-item-avatar>
                                 <v-img :src="chat.avatar"></v-img>
@@ -67,15 +67,6 @@ export default {
                 }
             ]
         };
-    },
-
-    methods: {
-        ...mapMutations("chat", ["setChatID"]),
-        ...mapMutations("home", ["setMode"]),
-
-        setChat(id) {
-            this.setChatID(id);
-        }
     }
 };
 </script>
