@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Chat extends Model
 {
-    protected $fillable = ['user_id','grupo_id'];
+    protected $fillable = ['user_id', 'grupo_id'];
 
-    public function grupos()
+    public function grupo()
     {
         return $this->belongsTo(Grupo::class);
     }

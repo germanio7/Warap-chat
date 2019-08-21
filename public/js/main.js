@@ -2787,13 +2787,15 @@ __webpack_require__.r(__webpack_exports__);
   name: "GroupMessage",
   data: function data() {
     return {
-      messages: []
+      messages: [],
+      conversaciones: []
     };
   },
   created: function created() {
     var _this = this;
 
-    this.get();
+    this.chats(); // this.get();
+
     Echo.join("chat").listen("MessageSent", function (event) {
       _this.messages.push(event.message);
     });
@@ -2807,6 +2809,14 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/getMessage").then(function (response) {
         _this2.messages = response.data;
+      });
+    },
+    chats: function chats() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/chats").then(function (response) {
+        _this3.conversaciones = response.data;
+        console.log(_this3.conversaciones);
       });
     }
   }
@@ -77854,7 +77864,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel-projects\Warap-chat\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\chat\Warap-chat\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })

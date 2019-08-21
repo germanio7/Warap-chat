@@ -41,12 +41,14 @@ export default {
 
     data() {
         return {
-            messages: []
+            messages: [],
+            conversaciones: []
         };
     },
 
     created() {
-        this.get();
+        this.chats();
+        // this.get();
         Echo.join("chat").listen("MessageSent", event => {
             this.messages.push(event.message);
         });
@@ -60,6 +62,13 @@ export default {
         get() {
             axios.get("/api/getMessage").then(response => {
                 this.messages = response.data;
+            });
+        },
+
+        chats() {
+            axios.get("/api/chats").then(response => {
+                this.conversaciones = response.data;
+                console.log(this.conversaciones);
             });
         }
     }
