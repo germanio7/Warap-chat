@@ -24,6 +24,9 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('chats', 'API\ChatsController', ['only' => ['index', 'store']]);
     Route::get('getMessage', 'API\ChatsController@fetchMessages');
     Route::post('send', 'API\ChatsController@sendMessages');
+
+    /*Grupos*/
+    Route::apiResource('groups', 'API\GruposController', ['only' => ['show']]);
 });
 
 
