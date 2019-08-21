@@ -86,6 +86,7 @@ export default {
             await this.$store.dispatch("chat/save", {
                 users: arrayChats
             });
+            this.$store.dispatch("chat/index");
             this.$store.commit("home/setMode", { mode: "chat" });
         }
     }

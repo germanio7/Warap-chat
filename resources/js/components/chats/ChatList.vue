@@ -2,10 +2,10 @@
     <div>
         <v-list two-line>
             <template>
-                <v-list>
+                <v-list v-if="$store.state.chat.chats">
                     <v-list-item-group color="primary">
                         <v-list-item
-                            v-for="chat in chatsList"
+                            v-for="chat in $store.state.chat.chats"
                             :key="chat.id"
                             @click="$store.commit('home/setMode', { mode: 'chatGroup' })"
                         >
@@ -15,7 +15,7 @@
                             </v-list-item-avatar>
                             <v-list-item-content>
                                 <v-list-item-title>{{ chat.user.name }}</v-list-item-title>
-                                <v-list-item-subtitle>ultimo mensaje</v-list-item-subtitle>
+                                <v-list-item-subtitle v-if="chat.ultimo">{{ chat.ultimo.mensaje }}</v-list-item-subtitle>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list-item-group>
@@ -31,47 +31,6 @@ import { mapMutations } from "vuex";
 
 export default {
     name: "ChatList",
-
-    computed: {
-        chatsList() {
-            const chats = this.$store.state.chat.chats;
-            if (chats != null) {
-                let arrayData = [];
-                for (let i = 0; i < chats.chats.length; i++) {
-                    let findUser;
-                    let find = null;
-                    if (chats.chats[i].grupo.chats.length <= 2) {
-                        find = chats.chats[i].grupo.chats.find(chat => {
-                            return (
-                                chat.user_id != this.$store.state.auth.user.id
-                            );
-                        });
-                    }
-
-                    if (find) {
-                        findUser = find.user;
-                    } else {
-                        findUser = {
-                            foto: null,
-                            name: "Grupo"
-                        };
-                    }
-
-                    let data = {
-                        id: chats.chats[i].id,
-                        grupo_id: chats.chats[i].grupo_id,
-                        user: findUser
-                    };
-
-                    arrayData.push(data);
-                }
-
-                return arrayData;
-            } else {
-                return [];
-            }
-        }
-    },
 
     mounted() {
         this.$store.dispatch("chat/index");

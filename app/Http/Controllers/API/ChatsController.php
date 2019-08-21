@@ -18,21 +18,20 @@ class ChatsController extends Controller
 
     public function index()
     {
-        $user = auth()->user();
-        $chats[] = $user->load('chats.grupo.chats.user');
-        if ($chats != null) {
+
+        $user = auth()->user()->load('chats.grupo.chats.user');
+        if ($user != null) {
 
             $arrayData = [];
 
-            for ($i = 0; $i < count($chats); $i++) {
-
+            for ($i = 0; $i < count($user['chats']); $i++) {
                 $findUser = null;
                 $find = null;
 
-                if (count($chats[$i]['chats'][$i]['grupo']['chats']) <= 2) {
-                    for ($j = 0; $j < count($chats[$i]['chats'][$i]['grupo']['chats']); $j++) {
-                        if ($chats[$i]['chats'][$i]['grupo']['chats'][$j]['user_id'] != auth()->user()->id) {
-                            $find = $chats[$i]['chats'][$i]['grupo']['chats'][$j]['user'];
+                if (count($user['chats'][$i]['grupo']['chats']) <= 2) {
+                    for ($j = 0; $j < count($user['chats'][$i]['grupo']['chats']); $j++) {
+                        if ($user['chats'][$i]['grupo']['chats'][$j]['user_id'] != auth()->user()->id) {
+                            $find = $user['chats'][$i]['grupo']['chats'][$j]['user'];
                         }
                     }
                 }
@@ -47,10 +46,10 @@ class ChatsController extends Controller
                 }
 
                 $data = [
-                    'chat_id' => $chats[$i]['chats'][$i]['id'],
-                    'grupo_id' => $chats[$i]['chats'][$i]['grupo_id'],
+                    'chat_id' => $user['chats'][$i]['id'],
+                    'grupo_id' => $user['chats'][$i]['grupo_id'],
                     'user' => $findUser,
-                    'ultimo' => $chats[$i]['chats'][$i]['mensajes']->last()
+                    'ultimo' => $user['chats'][$i]['mensajes']->last()
                 ];
 
                 array_push($arrayData, $data);

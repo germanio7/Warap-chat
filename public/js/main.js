@@ -2638,11 +2638,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 4:
+                this.$store.dispatch("chat/index");
                 this.$store.commit("home/setMode", {
                   mode: "chat"
                 });
 
-              case 5:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -2702,48 +2703,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ChatList",
-  computed: {
-    chatsList: function chatsList() {
-      var _this = this;
-
-      var chats = this.$store.state.chat.chats;
-
-      if (chats != null) {
-        var arrayData = [];
-
-        for (var i = 0; i < chats.chats.length; i++) {
-          var findUser = void 0;
-          var find = null;
-
-          if (chats.chats[i].grupo.chats.length <= 2) {
-            find = chats.chats[i].grupo.chats.find(function (chat) {
-              return chat.user_id != _this.$store.state.auth.user.id;
-            });
-          }
-
-          if (find) {
-            findUser = find.user;
-          } else {
-            findUser = {
-              foto: null,
-              name: "Grupo"
-            };
-          }
-
-          var data = {
-            id: chats.chats[i].id,
-            grupo_id: chats.chats[i].grupo_id,
-            user: findUser
-          };
-          arrayData.push(data);
-        }
-
-        return arrayData;
-      } else {
-        return [];
-      }
-    }
-  },
   mounted: function mounted() {
     this.$store.dispatch("chat/index");
   }
@@ -20179,61 +20138,67 @@ var render = function() {
         { attrs: { "two-line": "" } },
         [
           [
-            _c(
-              "v-list",
-              [
-                _c(
-                  "v-list-item-group",
-                  { attrs: { color: "primary" } },
-                  _vm._l(_vm.chatsList, function(chat) {
-                    return _c(
-                      "v-list-item",
-                      {
-                        key: chat.id,
-                        on: {
-                          click: function($event) {
-                            return _vm.$store.commit("home/setMode", {
-                              mode: "chatGroup"
-                            })
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "v-list-item-avatar",
-                          { attrs: { color: "primary" } },
+            _vm.$store.state.chat.chats
+              ? _c(
+                  "v-list",
+                  [
+                    _c(
+                      "v-list-item-group",
+                      { attrs: { color: "primary" } },
+                      _vm._l(_vm.$store.state.chat.chats, function(chat) {
+                        return _c(
+                          "v-list-item",
+                          {
+                            key: chat.id,
+                            on: {
+                              click: function($event) {
+                                return _vm.$store.commit("home/setMode", {
+                                  mode: "chatGroup"
+                                })
+                              }
+                            }
+                          },
                           [
-                            chat.user.foto != null
-                              ? _c("v-img", { attrs: { src: chat.user.foto } })
-                              : _c("span", { staticClass: "white--text" }, [
-                                  _vm._v(_vm._s(chat.user.name[0]))
-                                ])
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "v-list-item-content",
-                          [
-                            _c("v-list-item-title", [
-                              _vm._v(_vm._s(chat.user.name))
-                            ]),
+                            _c(
+                              "v-list-item-avatar",
+                              { attrs: { color: "primary" } },
+                              [
+                                chat.user.foto != null
+                                  ? _c("v-img", {
+                                      attrs: { src: chat.user.foto }
+                                    })
+                                  : _c("span", { staticClass: "white--text" }, [
+                                      _vm._v(_vm._s(chat.user.name[0]))
+                                    ])
+                              ],
+                              1
+                            ),
                             _vm._v(" "),
-                            _c("v-list-item-subtitle", [
-                              _vm._v("ultimo mensaje")
-                            ])
+                            _c(
+                              "v-list-item-content",
+                              [
+                                _c("v-list-item-title", [
+                                  _vm._v(_vm._s(chat.user.name))
+                                ]),
+                                _vm._v(" "),
+                                chat.ultimo
+                                  ? _c("v-list-item-subtitle", [
+                                      _vm._v(_vm._s(chat.ultimo.mensaje))
+                                    ])
+                                  : _vm._e()
+                              ],
+                              1
+                            )
                           ],
                           1
                         )
-                      ],
+                      }),
                       1
                     )
-                  }),
+                  ],
                   1
                 )
-              ],
-              1
-            )
+              : _vm._e()
           ]
         ],
         2
@@ -77767,7 +77732,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\chat\Warap-chat\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel-projects\Warap-chat\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })
