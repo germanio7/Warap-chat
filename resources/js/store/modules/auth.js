@@ -180,16 +180,7 @@ const actions = {
     },
 
     profile: function({ commit }, name) {
-        let arrayname = name.split(" ");
-        let profile = "";
-
-        for (let i = 0; i < arrayname.length; i++) {
-            for (let e = 0; e < 1; e++) {
-                profile = profile + arrayname[i][e];
-            }
-        }
-
-        commit("fillProfile", profile);
+        commit("fillProfile", name[0]);
     },
 
     logout: function({ state, commit }) {

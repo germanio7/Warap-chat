@@ -104,7 +104,7 @@ class ChatsController extends Controller
 
     public function fetchMessages()
     {
-        $grupo = Grupo::find(3);
+        $grupo = Grupo::find(1);
         $arreglo = $grupo->with('chats.mensajes.chat.user')->get();
         $arrg = $arreglo[0]->chats;
         $mens = collect();
@@ -119,7 +119,7 @@ class ChatsController extends Controller
     public function sendMessages()
     {
         // $id;
-        $chat = Chat::where('user_id', auth()->user()->id)->where('grupo_id', 3)->get();
+        $chat = Chat::where('user_id', auth()->user()->id)->where('grupo_id', 1)->get();
         $id = $chat[0]->id;
         $message = Mensaje::create([
             'chat_id' => $id,

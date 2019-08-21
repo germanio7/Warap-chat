@@ -30,9 +30,9 @@ class UsersController extends Controller
             $data = collect();
 
             foreach ($users as $usuario) {
-                
-                if($usuario->role_id != null) {
-                    $aux = $usuario->role->role;    
+
+                if ($usuario->role_id != null) {
+                    $aux = $usuario->role->role;
                 } else {
                     $aux = null;
                 }
@@ -48,9 +48,9 @@ class UsersController extends Controller
             $data = collect();
 
             foreach ($users as $usuario) {
-                
-                if($usuario->role_id != null) {
-                    $aux = $usuario->role->role;    
+
+                if ($usuario->role_id != null) {
+                    $aux = $usuario->role->role;
                 } else {
                     $aux = null;
                 }
@@ -74,6 +74,7 @@ class UsersController extends Controller
             ]);
 
             $attributes['password'] = bcrypt($attributes['password']);
+            $attributes['role_id'] = $request->get('role_id', 3);
 
             User::create($attributes);
         }
@@ -87,7 +88,7 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        
+
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|max:255|unique:users,email,' . $user->id,
@@ -97,14 +98,13 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->role_id = $request->role_id;
 
-        if($request->password) {
+        if ($request->password) {
             if ($request->password == $request->password_confirm) {
                 $user->password =  bcrypt($request->password);
             }
         }
 
         $user->save();
-        
     }
 
     public function updateFoto(Request $request)
