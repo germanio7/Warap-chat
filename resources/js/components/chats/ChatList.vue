@@ -2,7 +2,6 @@
     <div>
         <v-list two-line>
             <template>
-                <v-btn @click="log()">log</v-btn>
                 <v-list>
                     <v-list-item-group color="primary">
                         <v-list-item
@@ -76,12 +75,6 @@ export default {
 
     mounted() {
         this.$store.dispatch("chat/index");
-    },
-
-    methods: {
-        log() {
-            console.log(this.chatsList);
-        }
     }
 };
 </script>

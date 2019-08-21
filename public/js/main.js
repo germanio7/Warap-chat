@@ -2698,7 +2698,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 // Vuex
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2747,11 +2746,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.$store.dispatch("chat/index");
-  },
-  methods: {
-    log: function log() {
-      console.log(this.chatsList);
-    }
   }
 });
 
@@ -20185,18 +20179,6 @@ var render = function() {
         { attrs: { "two-line": "" } },
         [
           [
-            _c(
-              "v-btn",
-              {
-                on: {
-                  click: function($event) {
-                    return _vm.log()
-                  }
-                }
-              },
-              [_vm._v("log")]
-            ),
-            _vm._v(" "),
             _c(
               "v-list",
               [
