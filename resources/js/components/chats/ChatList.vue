@@ -15,7 +15,9 @@
                             </v-list-item-avatar>
                             <v-list-item-content>
                                 <v-list-item-title>{{ chat.user.name }}</v-list-item-title>
-                                <v-list-item-subtitle v-if="chat.ultimo">{{ chat.ultimo.mensaje }}</v-list-item-subtitle>
+                                <v-list-item-subtitle
+                                    v-if="chat.ultimo.length > 0"
+                                >{{ chat.ultimo[0].mensaje }}</v-list-item-subtitle>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list-item-group>

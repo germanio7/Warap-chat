@@ -21,38 +21,45 @@ class ChatsController extends Controller
 
         $user = auth()->user()->load('chats.grupo.chats.user');
         if ($user != null) {
-
             $arrayData = [];
-
+            $grupoChats = [];
             for ($i = 0; $i < count($user['chats']); $i++) {
-                $findUser = null;
-                $find = null;
-
-                if (count($user['chats'][$i]['grupo']['chats']) <= 2) {
-                    for ($j = 0; $j < count($user['chats'][$i]['grupo']['chats']); $j++) {
-                        if ($user['chats'][$i]['grupo']['chats'][$j]['user_id'] != auth()->user()->id) {
-                            $find = $user['chats'][$i]['grupo']['chats'][$j]['user'];
+                array_push($grupoChats, $user['chats'][$i]['grupo']['chats']);
+            }
+            foreach ($grupoChats as $a) {
+                if (count($a) <= 2) {
+                    $mens = collect();
+                    $user = null;
+                    foreach ($a as $b) {
+                        if ($b->user_id != auth()->user()->id) {
+                            $user = $b->user;
                         }
+                        $mens->push($b->mensajes);
                     }
-                }
-
-                if ($find) {
-                    $findUser = $find;
+                    $ultimo = $mens->last();
+                    $data = [
+                        'grupo_id' => $a[0]->grupo_id,
+                        'user' => $user,
+                        'ultimo' => $ultimo
+                    ];
+                    array_push($arrayData, $data);
                 } else {
-                    $findUser = [
+                    $mens = collect();
+                    $user = [
                         'foto' => null,
                         'name' => "Grupo"
                     ];
+                    foreach ($a as $b) {
+                        $mens->push($b->mensajes);
+                    }
+                    $ultimo = $mens->last();
+                    $data = [
+                        'grupo_id' => $a[0]->grupo_id,
+                        'user' => $user,
+                        'ultimo' => $ultimo
+                    ];
+                    array_push($arrayData, $data);
                 }
-
-                $data = [
-                    'chat_id' => $user['chats'][$i]['id'],
-                    'grupo_id' => $user['chats'][$i]['grupo_id'],
-                    'user' => $findUser,
-                    'ultimo' => $user['chats'][$i]['mensajes']->last()
-                ];
-
-                array_push($arrayData, $data);
             }
         }
         return $arrayData;

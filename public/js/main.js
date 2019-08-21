@@ -2699,6 +2699,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 // Vuex
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -20181,9 +20183,9 @@ var render = function() {
                                   _vm._v(_vm._s(chat.user.name))
                                 ]),
                                 _vm._v(" "),
-                                chat.ultimo
+                                chat.ultimo.length > 0
                                   ? _c("v-list-item-subtitle", [
-                                      _vm._v(_vm._s(chat.ultimo.mensaje))
+                                      _vm._v(_vm._s(chat.ultimo[0].mensaje))
                                     ])
                                   : _vm._e()
                               ],
@@ -77732,7 +77734,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel-projects\Warap-chat\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\chat\Warap-chat\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })
