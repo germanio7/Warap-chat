@@ -77767,7 +77767,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravel-projects\Warap-chat\resources\js\main.js */"./resources/js/main.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\chat\Warap-chat\resources\js\main.js */"./resources/js/main.js");
 
 
 /***/ })
